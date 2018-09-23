@@ -8,6 +8,7 @@ function write_log( $msg ) {
   error_log( print_r( $msg, true ) . "\n", 3, 'error.log' );
 }
 
+// Base path to the site
 function get_base_path() {
   return __DIR__;
 }

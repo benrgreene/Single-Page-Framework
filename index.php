@@ -10,5 +10,11 @@ include 'loader.php';
 // run the setup process
 setup_site( get_base_path() );
 
-// Base template includes
-include 'templates/base.php';
+// Check if this is an API request, or a user hitting the page
+if( isset( $_GET['request'] ) ) {
+  include 'api/api.php';
+  proccess_api_request( $_GET['request'] );
+} else {
+  // Base template includes
+  include 'templates/base.php';
+}

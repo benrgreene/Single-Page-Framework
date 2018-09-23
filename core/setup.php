@@ -10,9 +10,9 @@ function setup_site( $base_path ) {
   if( $ht_installer->should_istalll() ) {
     $ht_installer->install();
   }
-
+  // ensure DB exists
   $db_installer = new Database_Installer();
-
+  // Load the current theme.
   load_theme( $base_path );
 }
 
@@ -25,7 +25,7 @@ function get_current_theme() {
   return 'theme-default';
 }
 
-// get the current theme base path
+// return the current theme base path
 function get_theme_path() {
   $theme_name = get_current_theme();
   $base_path  = get_base_path();
