@@ -40,7 +40,7 @@ function should_ignore_file( $file ) {
   }
   // any other files/directories to ignore
   if( in_array( $file, array( 
-    'error.log', 'helpers.php', 'index.php', 'loader.php', 'templates'
+    'error.log', 'helpers.php', 'index.php', 'loader.php', 'templates', 'scripts', 'themes'
   ) ) ) {
     $should_ignore = true; 
   }
