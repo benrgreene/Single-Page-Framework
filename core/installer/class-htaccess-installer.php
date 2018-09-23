@@ -10,7 +10,8 @@ RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule (.*) base_urlindex.php?request=$1 [L]
-</IfModule>";
+</IfModule>
+Options All -Indexes";
 
   public function __construct( $base_dir ) {
     $this->base_url      = $_SERVER['REQUEST_URI'];
