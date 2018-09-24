@@ -1,3 +1,6 @@
 .htaccess
 .DS_STORE
 error.log
+node_modules
+node_modules/*
+npm-debug.log

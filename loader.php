@@ -42,7 +42,7 @@ function should_ignore_file( $file ) {
   //    exclude themes because we only want to load the current theme
   //    exclude API because we only want to load it if the current request is an API request
   if( in_array( $file, array( 
-    'error.log', 'helpers.php', 'index.php', 'loader.php', 'templates', 'scripts', 'themes', 'api'
+    'error.log', 'helpers.php', 'index.php', 'loader.php', 'templates', 'scripts', 'themes', 'api', 'admin'
   ) ) ) {
     $should_ignore = true; 
   }

@@ -1,5 +1,8 @@
 <?php
 
+// Secret key for the API. YOU SHOULD CHANGE THIS!!!!!
+define( 'SECRET_KEY', 'NFENCSUA(C9dNCW-@992>M' );
+
 // Database server
 define( 'DB_SERVER', 'localhost' );
 
