@@ -22,4 +22,23 @@ class DB_Query_Builder {
     }
     return $query;
   } 
+
+  // Build an insertion query
+  public static function insert_query( $table, $insertions ) {
+    $query   = sprintf( 'INSERT INTO %s ', $table );
+    $columns = '(';
+    $values  = '(';
+    foreach( $insertions as $column => $value ) {
+      $columns .= sprintf('%s, ', $column);
+      $values  .= sprintf("'%s', ", $value);
+    }
+    // remove trailing ',' for columns, values
+    $last_comma = strrpos( $columns, ',' );
+    $columns    = substr_replace( $columns, '', $last_comma );
+    $last_comma = strrpos( $values, ',' );
+    $values     = substr_replace( $values, '', $last_comma );
+    // add the columns and values to the query
+    $query .= sprintf('%s) VALUES %s)', $columns, $values);
+    return $query;
+  }
 }

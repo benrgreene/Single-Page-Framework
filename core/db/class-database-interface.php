@@ -9,7 +9,6 @@ class Database_Interface {
 
   // perform a query on the database and return results
   public function query( $query ) {
-    write_log($query);
     $con     = $this->connect();
     $query   = $this->clean_query( $query );
     $results = $con->query( $query );
@@ -26,7 +25,6 @@ class Database_Interface {
       $to_return[] = $row;
     }
     $this->close( $con );
-    write_log($to_return);
     // if there is one row in the results, just return the one row
     if( 1 == count( $to_return ) ) {
       return $to_return[0];
@@ -40,8 +38,12 @@ class Database_Interface {
   }
 
   // perform instertion on the DB
-  public function insert() {
-
+  public function insert( $query ) {
+    $con     = $this->connect();
+    $query   = $this->clean_query( $query );
+    $results = $con->query( $query );
+    $this->close( $con );
+    return $results;
   }
 
   // connect to the DB

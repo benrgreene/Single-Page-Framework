@@ -20,7 +20,7 @@ function api_login( $data ) {
   // check there are results, if none return a not allowed response
   if(!$results ) {
     return API_Responses::send_response( array(
-      'content' => 'Bad Login'
+      'content' => 'Sad Login'
     ), 400 );
   }
   // let's check the password!
@@ -35,7 +35,12 @@ function api_login( $data ) {
   $token = md5( $email . SECRET_KEY );
 
   // need to save token for checking / tracking expiration
-
+  $tomorrow  = time() + (12 * 60 * 60);
+  $insertion = DB_Query_Builder::insert_query( 'tokens', array(
+    'token'      => $token,
+    'expiration' => date( "Y-m-d H:i:s", $tomorrow )
+  ));
+  $inserted = (new Database_Interface)->insert( $insertion );
   // Send token back
   API_Responses::send_response( array(
     'content' => $token,
