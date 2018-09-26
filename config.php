@@ -38,5 +38,9 @@ define( 'DB_SCHEMA', array(
   'options' => array(
     'name'  => 'varchar(20)',
     'value' => 'varchar(60)',
+  ),
+  'tokens'  => array(
+    'token'      => 'varchar(60)',
+    'expiration' => 'datetime',
   )
 ) );

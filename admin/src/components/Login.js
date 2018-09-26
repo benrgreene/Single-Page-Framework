@@ -14,7 +14,7 @@ export default class Login extends React.Component {
   // If successfull, we'll update the state with the auth token we get back
   attemptLogin() {
     let baseUrl  = getBaseURL()
-    let username = this.userRef.value
+    let email    = this.userRef.value
     let password = this.passRef.value
     fetch( baseUrl + "api/login", {
       'method': 'POST',
@@ -22,7 +22,7 @@ export default class Login extends React.Component {
         'Content-Type': 'application/json'
       },
       'body': JSON.stringify({
-        'username': username,
+        'email': email,
         'password': password
       })
     })
@@ -37,7 +37,7 @@ export default class Login extends React.Component {
   render() {
     return (
       <div className="login form">
-        <input type="text" ref={(input) => this.userRef = input} />
+        <input type="email" ref={(input) => this.userRef = input} />
         <input type="password" ref={(input) => this.passRef = input} />
         <button onClick={() => this.attemptLogin()}>Login</button>
       </div>

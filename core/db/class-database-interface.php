@@ -9,19 +9,24 @@ class Database_Interface {
 
   // perform a query on the database and return results
   public function query( $query ) {
+    write_log($query);
     $con     = $this->connect();
     $query   = $this->clean_query( $query );
     $results = $con->query( $query );
+
+    if( !$results ) { return false; }
+
     // check if there was a query error, if so we return false
     if( 0 == $results->num_rows ) {
       return false;
     }
     // want to return the results purely as an array
     $to_return = array();
-    while( $row = $results->fetch_assoc() ) {
+    while( $row = $results->fetch_array() ) {
       $to_return[] = $row;
     }
     $this->close( $con );
+    write_log($to_return);
     // if there is one row in the results, just return the one row
     if( 1 == count( $to_return ) ) {
       return $to_return[0];

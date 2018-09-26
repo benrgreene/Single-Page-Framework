@@ -8,9 +8,12 @@ include 'api-authentication.php';
 function proccess_api_request( $request ) {
   // get the different API request pieces.
   $api_request = explode( '/', $request );
+  
   // check if this is an API request, or something else entirely
   if( 0 === count( $api_request ) || $api_request[0] != 'api' ) {
-    die('{ "content": "bad request" }');
+    API_Responses::send_response( array(
+      'content' => 'bad request'
+    ), 400 );
   }
   
   // build the callback from the pieces of the request
