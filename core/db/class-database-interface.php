@@ -46,6 +46,12 @@ class Database_Interface {
     return $results;
   }
 
+  // insert/delete is the same code, just want to add an alias 
+  // for easier reading elsewhere
+  public function delete( $query ) {
+    return $this->insert( $query );
+  }
+
   // connect to the DB
   private function connect() {
     $con = new mysqli( DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME );

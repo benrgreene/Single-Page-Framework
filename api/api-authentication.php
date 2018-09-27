@@ -7,6 +7,9 @@ API_Register::get_instance()->add_endpoint( 'login', 'api_login' );
 // This will check that the sent user/password are in the database. If they are, send back an auth token for their use. 
 // Tokens should be given an expiration date and added to the tokens table.
 function api_login( $data ) {
+  // Clean out the old tokens. THIS SHOULD END UP AS A CRON JOB
+  DB_Cleanup::clean_tokens();
+
   // check if the login info is correct
   $email           = $data['email'];
   $password        = $data['password'];

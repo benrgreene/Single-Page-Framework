@@ -13,7 +13,6 @@ function setup_site( $base_path ) {
   // ensure DB exists
   $db_installer = new Database_Installer();
   if( $db_installer->should_install() ) {
-    write_log('here');
     $db_installer->create_database();
   }
   // Load the current theme.

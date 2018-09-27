@@ -36,9 +36,15 @@ export default class Login extends React.Component {
   
   render() {
     return (
-      <div className="login form">
-        <input type="email" ref={(input) => this.userRef = input} />
-        <input type="password" ref={(input) => this.passRef = input} />
+      <div className="form form--login">
+        <div>
+          <label for="name">email</label>
+          <input name="email" type="email" ref={(input) => this.userRef = input} />
+        </div>
+        <div>
+          <label for="password">email</label>
+          <input name="password" type="password" ref={(input) => this.passRef = input} />
+        </div>
         <button onClick={() => this.attemptLogin()}>Login</button>
       </div>
     )
