@@ -10,7 +10,6 @@ class DB_Cleanup {
         'condition' => '<'
       )
     ));
-    write_log( $query );
     $results = (new Database_Interface)->delete( $query );
   }
 }

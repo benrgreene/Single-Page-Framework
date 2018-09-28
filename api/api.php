@@ -1,8 +1,13 @@
 <?php
 
+// API helper classes
 include 'class-api-register.php';
 include 'class-api-responses.php';
+
+// API endpoint registration
 include 'api-authentication.php';
+include 'api-admin-getters.php';
+include 'api-admin-setters.php';
 
 // generic proccessing of the API request.
 function proccess_api_request( $request ) {

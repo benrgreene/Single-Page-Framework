@@ -5,16 +5,22 @@ import { connect } from 'react-redux';
 
 import { getBaseURL } from '../helpers/info'
 
-// Connection functions to the component
+// ------------------------------------
+// ------ REDUX STATE MANAGEMENT ------
+// ------------------------------------
 const mapDispatcherToProps = dispatch => {
   return {
-    sendLogin: ( token ) => dispatch({
+    sendLogin: ( token, email ) => dispatch({
       type: 'LOGIN',
-      payload: token
+      token: token,
+      user: email
     })
   }
 }
 
+// ------------------------------------
+// --------- COMPONENT CLASS ----------
+// ------------------------------------
 class Login extends React.Component {
   constructor(props) {
     super(props)
@@ -45,7 +51,7 @@ class Login extends React.Component {
     })
     .then((data) => {
       let token = data.content;
-      this.props.sendLogin(token)
+      this.props.sendLogin(token, email)
     })    
   }
   

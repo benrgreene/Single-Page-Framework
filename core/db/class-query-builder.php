@@ -9,8 +9,8 @@ class DB_Query_Builder {
   // build a select query:
   //    $table: name of the table
   //    $where: array of table where keys are column names, and values are variables they should equal/
-  public static function select_query( $table, $conditions ) {
-    $query = sprintf( 'SELECT * FROM %s', $table );
+  public static function select_query( $table, $conditions, $selection='*' ) {
+    $query = sprintf( 'SELECT %s FROM %s', $selection, $table );
     // if there are conditions, add them to the query
     if( 0 < count( $conditions ) ) {
       $query .= ' WHERE ';

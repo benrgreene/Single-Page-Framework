@@ -13,12 +13,11 @@ class Database_Interface {
     $query   = $this->clean_query( $query );
     $results = $con->query( $query );
 
-    if( !$results ) { return false; }
-
     // check if there was a query error, if so we return false
-    if( 0 == $results->num_rows ) {
+    if( !$results || 0 == $results->num_rows ) {
       return false;
     }
+    
     // want to return the results purely as an array
     $to_return = array();
     while( $row = $results->fetch_array() ) {

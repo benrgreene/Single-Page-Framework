@@ -1,7 +1,6 @@
 // Base imports
 const React    = require('react')
 const ReactDom = require('react-dom')
-
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { reducer } from './reducer.js'
@@ -10,7 +9,9 @@ import Login from './components/Login'
 import App from './components/App'
 
 const store = createStore(reducer, {
-  authToken: false
+  authToken: false,
+  user: false,
+  postTypes: []
 });
 
 ReactDom.render(
