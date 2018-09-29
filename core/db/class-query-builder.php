@@ -43,8 +43,26 @@ class DB_Query_Builder {
     return $query;
   }
 
-  public static function update_query() {
+  public static function update_query( $table, $insertions, $conditions=false ) {
+    $query   = sprintf( 'UPDATE %s SET ', $table );
+    foreach( $insertions as $column => $value ) {
+      $query .= sprintf( '%s="%s", ', $column, $value );
+    }
+    // remove trailing ',' for columns, values
+    $last_comma = strrpos( $query, ',' );
+    $query      = substr_replace( $query, '', $last_comma );
 
+    if( is_array( $conditions ) ) {
+      $query .= ' WHERE ';
+      foreach( $conditions as $column => $value ) {
+        $query .= sprintf( '%s="%s" AND ', $column, $value );
+      }
+      // remove trailing ',' for columns, values
+      $last_and = strrpos( $query, 'AND' );
+      $query    = substr_replace( $query, '', $last_and );
+    }
+    // add the columns and values to the query
+    return $query;
   }
 
   // build a deletion query

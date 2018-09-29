@@ -14,6 +14,22 @@ function setup_site( $base_path ) {
   $db_installer = new Database_Installer();
   if( $db_installer->should_install() ) {
     $db_installer->create_database();
+    // set the DB version
+    $query = DB_Query_Builder::insert_query( 'options', array(
+      'name'  => 'table_version',
+      'value' => DB_VERSION
+    ) );
+    $response = (new Database_Interface)->insert( $query );
+  } else if( $db_installer->should_update() ) {
+    $db_installer->update_database();
+    // Update the DB
+    $query = DB_Query_Builder::update_query( 'options', array(
+      'name'  => 'table_version',
+      'value' => DB_VERSION
+    ), array(
+      'name'  => 'table_version'
+    ) );
+    $response = (new Database_Interface)->update( $query );
   }
   // Load the current theme.
   load_theme( $base_path );

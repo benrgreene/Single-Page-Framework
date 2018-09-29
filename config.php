@@ -16,7 +16,7 @@ define( 'DB_USERNAME', 'root' );
 define( 'DB_PASSWORD', 'root' );
 
 // Database version
-define( 'DB_VERSION', '1' );
+define( 'DB_VERSION', '2' );
 
 define( 'DB_SCHEMA', array(
   'users' => array(
@@ -26,11 +26,12 @@ define( 'DB_SCHEMA', array(
     'level'    => 'varchar(20)'
   ),
   'posts' => array(
-    'type'    => 'varchar(60)',
-    'title'   => 'varchar(60)',
-    'author'  => 'varchar(60)',
-    'content' => 'longtext',
-    'date'    => 'datetime',
+    'type'      => 'varchar(60)',
+    'title'     => 'varchar(60)',
+    'author'    => 'varchar(60)',
+    'content'   => 'longtext',
+    'published' => 'varchar(20)',
+    'date'      => 'datetime',
   ),
   'post_meta' => array(
     'post_id'    => 'bigint(20)',

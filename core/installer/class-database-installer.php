@@ -19,7 +19,7 @@ class Database_Installer {
   public function should_update() {
     $query   = "SELECT * FROM options WHERE options.name='table_version'";
     $results = $this->db_interface->query( $query );
-    if( isset( $results['value'] ) && $results['value'] == DB_VERSION ) {
+    if( isset( $results['value'] ) && $results['value'] < DB_VERSION ) {
       return true;
     }
     return false;
@@ -33,6 +33,8 @@ class Database_Installer {
   }
 
   public function update_database() {
-
+    foreach( DB_SCHEMA as $name => $columns ) {
+      $this->table_interface->update_table( $name, $columns );
+    }
   }
 }
