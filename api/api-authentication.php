@@ -35,7 +35,8 @@ function api_login( $data ) {
     ), 400 );
   }
   // They have proper access! Let's give them a token.
-  $token = md5( $email . SECRET_KEY );
+  $date  = new DateTime();
+  $token = md5( $email . SECRET_KEY . $date->format( 'YmdHis' ) );
 
   // need to save token for checking / tracking expiration
   $tomorrow  = time() + (12 * 60 * 60);

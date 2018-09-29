@@ -1,5 +1,6 @@
 const React = require('react')
 
+import { getBaseURL } from '../helpers/info'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -26,6 +27,7 @@ class AddPostForm extends React.Component {
     this.typeRef
     this.contentRef 
     this.shouldBeNew
+    this.titleRef
     // other
     this.state = { isNew: false }
   }
@@ -36,12 +38,31 @@ class AddPostForm extends React.Component {
     })
   }
 
-  // Should post to the admin API 
+  // Post to the admin API the new post object
   postPost() {
-    let token    = this.props.token
-    let email    = this.props.email
-    let content  = this.contentRef.value
     let baseUrl  = getBaseURL()
+    // info to pass
+    const body   = {
+      token: this.props.token,
+      author: this.props.email,
+      title: this.titleRef.value,
+      content: this.contentRef.value,
+      type: this.state.isNew ? this.newTypeRef : this.typeRef.value
+    }
+    // make the POST request
+    fetch(baseUrl + 'api/post/newPost', {
+      'method': 'POST',
+      'headers': {
+        'Content-Type': 'application/json'
+      },
+      'body': JSON.stringify(body),
+    })
+    .then((response) => {
+      return response.json()
+    })
+    .then((data) => {
+      console.log(data)
+    })
   }
 
   render() {
@@ -58,10 +79,17 @@ class AddPostForm extends React.Component {
             <input name="new-name" type="input" ref={(input) => this.newTypeRef = input} />
           </div>
         ) : (
-          <select name="post-type" ref={(input) => this.typeRef = input}>
-            {this.props.postTypes.map((postType) => <option value={postType} key={postType}>{postType}</option>)}
-          </select>
+          <div>
+            <span>Select Post Type</span>
+            <select name="post-type" ref={(input) => this.typeRef = input}>
+              {this.props.postTypes.map((postType) => <option value={postType} key={postType}>{postType}</option>)}
+            </select>
+          </div>
         )}
+        <div>
+          <label htmlFor="title">Title</label>
+          <input name="title" ref={(input) => this.titleRef = input} />
+        </div>
         <div>
           <label htmlFor="name">Content</label>
           <textarea name="content" ref={(input) => this.contentRef = input}></textarea>
