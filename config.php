@@ -27,13 +27,15 @@ define( 'DB_SCHEMA', array(
   ),
   'posts' => array(
     'type'    => 'varchar(60)',
+    'title'   => 'varchar(60)',
     'author'  => 'varchar(60)',
     'content' => 'longtext',
     'date'    => 'datetime',
   ),
   'post_meta' => array(
-    'post_id' => 'bigint(20)',
-    'content' => 'longtext',
+    'post_id'    => 'bigint(20)',
+    'meta_title' => 'varchar(60)',
+    'content'    => 'longtext',
   ),
   'options' => array(
     'name'  => 'varchar(20)',
