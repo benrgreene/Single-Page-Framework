@@ -8,8 +8,10 @@ import { reducer } from './reducer.js'
 import Login from './components/Login'
 import App from './components/App'
 
+let savedToken = sessionStorage.getItem('adminToken')
+
 const store = createStore(reducer, {
-  authToken: false,
+  authToken: savedToken,
   user: false,
   postTypes: []
 });

@@ -52,6 +52,8 @@ class Login extends React.Component {
     .then((data) => {
       let token = data.content;
       this.props.sendLogin(token, email)
+      // Save to the session storage for potential reload
+      sessionStorage.setItem('adminToken', token);
     })    
   }
   
