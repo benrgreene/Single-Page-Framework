@@ -13,16 +13,21 @@ load_directory( '.', false );
 // given a directory, load that directory into the project.
 // folders will always be loaded, but files are loaded if the 
 //    'load_files' parameter is true
-function load_directory( $directory, $load_files=true ) {
+function load_directory( $directory, $skip_ignores=false ) {
   $current_directory = scandir( $directory );
   foreach( $current_directory as $file ) {
+    // skip the default system files
+    if( 0 === strpos( $file, '.' ) ) {
+      continue;
+    }
+
     // skip current and parent directory references
-    if( should_ignore_file( $file ) ) {
+    if( should_ignore_file( $file ) && !$skip_ignores ) {
       continue;
     }
     // if it's a directory, recursivley load it in
     if( is_dir( "{$directory}/{$file}" ) ) {
-      load_directory( "{$directory}/{$file}" );
+      load_directory( "{$directory}/{$file}", $skip_ignores );
     } else {
       // want to skip the './' at the beginning (needed for reading through directories)
       $include_path = substr( "{$directory}/{$file}", 2);
@@ -34,10 +39,6 @@ function load_directory( $directory, $load_files=true ) {
 // returns if the current file should be ignored in inclusion
 function should_ignore_file( $file ) {
   $should_ignore = false;
-  // exclude all files starting with a '.' (hidden files)
-  if( 0 === strpos( $file, '.' ) ) {
-    $should_ignore = true;
-  }
   // any other files/directories to ignore
   //    exclude themes because we only want to load the current theme
   //    exclude API because we only want to load it if the current request is an API request

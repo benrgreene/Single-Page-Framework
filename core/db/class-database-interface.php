@@ -33,7 +33,6 @@ class Database_Interface {
 
   // perform an update on the DB
   public function update( $query ) {
-    write_log($query);
     return $this->insert( $query );
   }
 

@@ -11,7 +11,7 @@ function api_get_post_types( $data ) {
   // get all unique post types and add to the returning post types
   if( false !== $results ) {
     foreach( $results as $row ) {
-      if( !in_array( $row['type'], $post_types ) ) {
+      if( isset( $row['type'] ) && !in_array( $row['type'], $post_types ) ) {
         $post_types[] = $row['type'];
       }
     }

@@ -11,6 +11,7 @@ const mapStateToProps = state => ({
   token: state.authToken,
   email: state.user,
   postTypes: state.postTypes
+  postID: state.currentPostID ? state.currentPostID : 0
 })
 
 // ------------------------------------
@@ -41,6 +42,7 @@ class AddPostForm extends React.Component {
   // Post to the admin API the new post object
   postPost() {
     let baseUrl  = getBaseURL()
+    let postUrl  = baseUrl + 'api/post/'
     // info to pass
     const body   = {
       token: this.props.token,
@@ -49,8 +51,15 @@ class AddPostForm extends React.Component {
       content: this.contentRef.value,
       type: this.state.isNew ? this.newTypeRef : this.typeRef.value
     }
+    if (0 != this.props.postID) {
+      body.postID = this.props.postID
+      postUrl += 'editPost'
+    }
+    else {
+      postUrl += 'newPost'
+    }
     // make the POST request
-    fetch(baseUrl + 'api/post/newPost', {
+    fetch(postUrl, {
       'method': 'POST',
       'headers': {
         'Content-Type': 'application/json'

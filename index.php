@@ -12,7 +12,9 @@ setup_site( get_base_path() );
 
 // Check if this is an API request, or a user hitting the page
 if( isset( $_GET['request'] ) ) {
-  include 'api/api.php';
+  // Load the API files/endpoints
+  load_directory( './api', true);
+  // proccess the API request
   proccess_api_request( $_GET['request'] );
 } else {
   // Base template includes
