@@ -11,3 +11,12 @@ function write_log( $msg ) {
 function get_base_path() {
   return __DIR__;
 }
+
+function ends_with( $haystack, $needle ) {
+    $length = strlen( $needle );
+    if( $length == 0 ) {
+        return true;
+    }
+
+    return ( substr( $haystack, -$length ) === $needle );
+}

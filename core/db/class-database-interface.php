@@ -8,7 +8,7 @@ class Database_Interface {
   }
 
   // perform a query on the database and return results
-  public function query( $query ) {
+  public function query( $query, $collapse=true ) {
     $con     = $this->connect();
     $query   = $this->clean_query( $query );
     $results = $con->query( $query );
@@ -25,7 +25,7 @@ class Database_Interface {
     }
     $this->close( $con );
     // if there is one row in the results, just return the one row
-    if( 1 == count( $to_return ) ) {
+    if( $collapse && 1 == count( $to_return ) ) {
       return $to_return[0];
     }
     return $to_return;

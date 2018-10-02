@@ -14,7 +14,7 @@ function proccess_api_request( $request ) {
   
   // build the callback from the pieces of the request
   unset( $api_request[0] );
-  $endpoint = implode( '/', $api_request );
+  $endpoint = implode( '/', $api_request ) . '/';
 
   // Get the client data passed to the endpoint
   $raw_input = file_get_contents('php://input');
