@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 // Child Components
 import Login from './Login'
 import AddPostForm from './AddPostForm'
+import PostSelector from './PostSelector'
 
 // ------------------------------------
 // ------ REDUX STATE MANAGEMENT ------
@@ -49,7 +50,10 @@ class App extends React.Component {
   render() {
     if(this.props.auth) {
       return (
-        <AddPostForm/>
+        <div className="wrapper">
+          <PostSelector/>
+          <AddPostForm/>
+        </div>
       )
     } else {
       return (

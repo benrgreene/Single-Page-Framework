@@ -9,6 +9,10 @@ export function reducer (state, action) {
       return Object.assign({}, state, {
         postTypes: action.postTypes
       })
+    case 'SETCURRENTPOST':
+      return Object.assign({}, state, {
+        currentPost: action.post
+      })
     default: 
       return state
   }
