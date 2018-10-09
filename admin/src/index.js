@@ -8,7 +8,12 @@ import { reducer } from './reducer.js'
 import Login from './components/Login'
 import App from './components/App'
 
-let savedToken = sessionStorage.getItem('adminToken')
+let savedTokenInfo = JSON.parse(sessionStorage.getItem('adminToken'))
+let savedToken     = false
+let now            = Date.now() / 1000
+if (savedTokenInfo && savedTokenInfo.expiration > now) {
+  savedToken = savedTokenInfo.token
+}
 
 const store = createStore(reducer, {
   authToken: savedToken,

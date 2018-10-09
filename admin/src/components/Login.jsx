@@ -51,9 +51,13 @@ class Login extends React.Component {
     })
     .then((data) => {
       let token = data.content;
+      let saveTokenData = JSON.stringify({
+        token: token,
+        expiration: data.expiration
+      })
       this.props.sendLogin(token, email)
       // Save to the session storage for potential reload
-      sessionStorage.setItem('adminToken', token);
+      sessionStorage.setItem('adminToken', saveTokenData);
     })    
   }
   

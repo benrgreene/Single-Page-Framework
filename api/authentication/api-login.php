@@ -47,6 +47,7 @@ function api_login( $data ) {
   $inserted = (new Database_Interface)->insert( $insertion );
   // Send token back
   API_Responses::send_response( array(
-    'content' => $token,
+    'content'    => $token,
+    'expiration' => $tomorrow
   ) );
 }
