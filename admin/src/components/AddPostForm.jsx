@@ -26,9 +26,9 @@ class AddPostForm extends React.Component {
     this.setType      = this.setType.bind(this)
     this.setTitle     = this.setTitle.bind(this)
     this.setContent   = this.setContent.bind(this)
-    // other
+    // set initial states
     this.state = { 
-      isNew: '',
+      isNew: false,
       type: '',
       title: '',
       content: ''
@@ -121,7 +121,7 @@ class AddPostForm extends React.Component {
       <div className="form form--new-post">
         <div>
           <label htmlFor="title">Title</label>
-          <input name="title" onChange={this.setTitle} value={this.state.title} />
+          <input name="title" onChange={this.setTitle} value={this.state.title || ''} />
         </div>
         <div>
           <label htmlFor="should-be-new">Create New Post Type?</label>
