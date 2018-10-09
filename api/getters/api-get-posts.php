@@ -10,12 +10,7 @@ function api_get_posts( $data ) {
   $results = (new Database_Interface)->query( $query, false );
   $posts   = array();
   // loop through the results and add all posts to the return array
-  if( false !== $results ) {
-    API_Responses::send_response( array(
-      'content' => $results,
-    ) );  
-  }
   API_Responses::send_response( array(
-    'content' => 'could not find any posts',
-  ), '400' );
+    'content' => $results ? $results : array(),
+  ) );  
 }

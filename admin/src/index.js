@@ -18,7 +18,8 @@ if (savedTokenInfo && savedTokenInfo.expiration > now) {
 const store = createStore(reducer, {
   authToken: savedToken,
   user: false,
-  postTypes: []
+  postTypes: [],
+  postsOfCurrentType: []
 });
 
 ReactDom.render(

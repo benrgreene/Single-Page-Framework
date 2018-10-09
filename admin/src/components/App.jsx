@@ -43,7 +43,7 @@ class App extends React.Component {
       return blob.json()
     })
     .then((data) => {
-      this.props.savePostTypes(data.content)
+      self.props.savePostTypes(data.content)
     })
   }
 

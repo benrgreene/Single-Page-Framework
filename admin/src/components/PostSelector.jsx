@@ -10,15 +10,22 @@ import { getBaseURL } from '../helpers/info'
 // ------------------------------------
 const mapDispatcherToProps = dispatch => {
   return {
+    // Currently selected post
     sendPost: (post) => dispatch({
       type: 'SETCURRENTPOST',
       post: post
+    }),
+    // All posts of selected post type
+    setPosts: (posts) => dispatch({
+      type: 'SETCURRENTPOSTS',
+      posts: posts
     })
   }
 }
 
 const mapStateToProps = state => ({
-  postTypes: state.postTypes
+  postTypes: state.postTypes,
+  posts: state.postsOfCurrentType
 })
 
 // ------------------------------------
@@ -34,19 +41,17 @@ class PostSelector extends React.Component {
     this.setPostType = this.setPostType.bind(this)
     // other
     this.selectedPostType = 'post'
-    // state
-    this.state = { 'posts': [] }
     // setup
-    this.getPostTypes()
+    this.getPostsOfType()
   }
 
   // Set the post type to display
   setPostType () {
     this.selectedPostType = this.postTypeRef.value
-    this.getPostTypes()
+    this.getPostsOfType()
   }
 
-  getPostTypes () {
+  getPostsOfType () {
     let baseUrl = getBaseURL()
     let self    = this
     fetch(baseUrl + 'api/get/posts/' + this.selectedPostType, {
@@ -58,16 +63,14 @@ class PostSelector extends React.Component {
       return blob.json()
     })
     .then((data) => {
-      self.setState({
-        'posts': data.content
-      })
+      this.props.setPosts(data.content)
     })
   }
 
   // Select the current post to edit
   setPost (event) {
     let postData = {
-      'id': event.target.dataset.id,
+      'ID': event.target.dataset.id,
       'type': event.target.dataset.type,
       'content': event.target.dataset.content,
       'title': event.target.dataset.title,
@@ -86,7 +89,7 @@ class PostSelector extends React.Component {
           </select>
         </div>
         <div className="all-posts">
-          {this.state.posts.map((post) => {
+          {this.props.posts.map((post) => {
             return (
               <div key={post.ID} data-id={post.ID} 
                 data-content={post.content} data-type={post.type} 

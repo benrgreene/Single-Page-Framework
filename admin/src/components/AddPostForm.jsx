@@ -11,14 +11,30 @@ const mapStateToProps = state => ({
   token: state.authToken,
   email: state.user,
   postTypes: state.postTypes,
-  postObject: state.currentPost ? state.currentPost : {}
+  postObject: state.currentPost ? state.currentPost : {},
+  posts: state.postsOfCurrentType
 })
+
+const mapDispatcherToProps = dispatch => {
+  return {
+    // Currently selected post
+    setPost: (post) => dispatch({
+      type: 'SETCURRENTPOST',
+      post: post
+    }),
+    // All posts of selected post type
+    setPosts: (posts) => dispatch({
+      type: 'SETCURRENTPOSTS',
+      posts: posts
+    })
+  }
+}
 
 // ------------------------------------
 // --------- COMPONENT CLASS ----------
 // ------------------------------------
 class AddPostForm extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     // callbacks
     this.postPost     = this.postPost.bind(this)
@@ -26,6 +42,7 @@ class AddPostForm extends React.Component {
     this.setType      = this.setType.bind(this)
     this.setTitle     = this.setTitle.bind(this)
     this.setContent   = this.setContent.bind(this)
+    this.deletePost   = this.deletePost.bind(this)
     // set initial states
     this.state = { 
       isNew: false,
@@ -70,18 +87,15 @@ class AddPostForm extends React.Component {
   // update component props/state
   componentWillUpdate (nextProps, nextState) {
     if (nextProps.postObject.title != this.state.title) {
+      console.log(nextProps);
       this.setTitle({ target: { value: nextProps.postObject.title } })
-    }
-    if (nextProps.postObject.content != this.state.content) {
       this.setContent({ target: { value: nextProps.postObject.content } })
-    }
-    if (nextProps.postObject.type != this.state.type) {
       this.setType({ target: { value: nextProps.postObject.type } })
     }
   }
 
   // Post to the admin API the new post object
-  postPost() {
+  postPost () {
     let baseUrl  = getBaseURL()
     let postUrl  = baseUrl + 'api/post/'
     // info to pass
@@ -90,10 +104,11 @@ class AddPostForm extends React.Component {
       author: this.props.email,
       title: this.state.title,
       content: this.state.content,
-      type: this.state.isNew ? this.newTypeRef : this.typeRef.dataset.type
+      type: this.state.type ? this.state.type : 'post'
     }
-    if (0 != this.props.postID) {
-      body.postID = this.props.postID
+    // Need to check if this is a new post, or if we are updating
+    if (this.props.postObject.ID && 0 < this.props.postObject.ID) {
+      body.postID = this.props.postObject.ID
       postUrl += 'editPost'
     }
     else {
@@ -115,7 +130,39 @@ class AddPostForm extends React.Component {
     })
   }
 
-  render() {
+  deletePost () {
+    const self    = this
+    const baseUrl = getBaseURL()
+    const postUrl = baseUrl + 'api/delete/post'
+    const body    = {
+      token: this.props.token,
+      id: this.props.postObject.ID ? this.props.postObject.ID : 0
+    }
+    fetch( postUrl, {
+      'method': 'POST',
+      'headers': {
+        'Content-Type': 'application/json'
+      },
+      'body': JSON.stringify(body)
+    })
+    .then((response) => {
+      return response.json()
+    })
+    .then((data) => {
+      console.log(self.props.postObject.ID)
+      let newPosts = self.props.posts.filter((el) => {
+        console.log(el.ID)
+        return el.ID != self.props.postObject.ID
+      })
+      // remove the post from the list of all posts
+      console.log(newPosts)
+      self.props.setPosts(newPosts)
+      // set current post to an empty post
+      self.props.setPost({})
+    })
+  }
+
+  render () {
     return (
       <div className="main-content">
       <div className="form form--new-post">
@@ -146,13 +193,14 @@ class AddPostForm extends React.Component {
         )}
         <div>
           <label htmlFor="name">Content</label>
-          <textarea name="content" onChange={this.setContent} value={this.state.content}></textarea>
+          <textarea name="content" onChange={this.setContent} value={this.state.content || ''}></textarea>
         </div>
         <button onClick={this.postPost}>Submit Post</button>
+        <button onClick={this.deletePost}>Delete Post</button>
       </div>
       </div>
     )
   }
 }
 
-export default connect(mapStateToProps, null)(AddPostForm)
+export default connect(mapStateToProps, mapDispatcherToProps)(AddPostForm)

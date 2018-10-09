@@ -19,7 +19,6 @@ function proccess_api_request( $request ) {
   // Get the client data passed to the endpoint
   $raw_input = file_get_contents('php://input');
   $input     = json_decode( $raw_input, true );
-
   // Consume the endpoint
   API_Register::get_instance()->consume_endpoint( $endpoint, $input );
 }
