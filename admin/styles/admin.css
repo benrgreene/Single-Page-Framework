@@ -21,6 +21,14 @@ button:hover {
   color: #000;
 }
 
+.button__delete {
+  background-color: #A33;
+}
+
+.button__delete:hover {
+  background-color: #FAA;
+}
+
 label,
 .label {
   display: inline-block;

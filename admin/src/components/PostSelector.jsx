@@ -89,6 +89,7 @@ class PostSelector extends React.Component {
           </select>
         </div>
         <div className="all-posts">
+          <div key="0" data-id="0" onClick={this.setPost}>+ Create New Post</div>
           {this.props.posts.map((post) => {
             return (
               <div key={post.ID} data-id={post.ID} 

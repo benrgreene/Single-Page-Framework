@@ -37,18 +37,20 @@ class AddPostForm extends React.Component {
   constructor (props) {
     super(props)
     // callbacks
-    this.postPost     = this.postPost.bind(this)
-    this.toggleIsNew  = this.toggleIsNew.bind(this)
-    this.setType      = this.setType.bind(this)
-    this.setTitle     = this.setTitle.bind(this)
-    this.setContent   = this.setContent.bind(this)
-    this.deletePost   = this.deletePost.bind(this)
+    this.postPost      = this.postPost.bind(this)
+    this.toggleIsNew   = this.toggleIsNew.bind(this)
+    this.setType       = this.setType.bind(this)
+    this.setTitle      = this.setTitle.bind(this)
+    this.setContent    = this.setContent.bind(this)
+    this.deletePost    = this.deletePost.bind(this)
+    this.confirmDelete = this.confirmDelete.bind(this)
     // set initial states
     this.state = { 
       isNew: false,
       type: '',
       title: '',
-      content: ''
+      content: '',
+      confirmDelete: false
     }
   }
   
@@ -87,10 +89,13 @@ class AddPostForm extends React.Component {
   // update component props/state
   componentWillUpdate (nextProps, nextState) {
     if (nextProps.postObject.title != this.state.title) {
-      console.log(nextProps);
       this.setTitle({ target: { value: nextProps.postObject.title } })
       this.setContent({ target: { value: nextProps.postObject.content } })
       this.setType({ target: { value: nextProps.postObject.type } })
+      // also, make sure that the delete isn't set to confirm mode
+      this.setState({
+        'confirmDelete': false
+      })
     }
   }
 
@@ -130,6 +135,13 @@ class AddPostForm extends React.Component {
     })
   }
 
+  // Allow for double checking the admin really does want to delete the post
+  confirmDelete () {
+    this.setState({
+      'confirmDelete': true
+    })
+  }
+
   deletePost () {
     const self    = this
     const baseUrl = getBaseURL()
@@ -149,13 +161,9 @@ class AddPostForm extends React.Component {
       return response.json()
     })
     .then((data) => {
-      console.log(self.props.postObject.ID)
       let newPosts = self.props.posts.filter((el) => {
-        console.log(el.ID)
         return el.ID != self.props.postObject.ID
       })
-      // remove the post from the list of all posts
-      console.log(newPosts)
       self.props.setPosts(newPosts)
       // set current post to an empty post
       self.props.setPost({})
@@ -196,7 +204,11 @@ class AddPostForm extends React.Component {
           <textarea name="content" onChange={this.setContent} value={this.state.content || ''}></textarea>
         </div>
         <button onClick={this.postPost}>Submit Post</button>
-        <button onClick={this.deletePost}>Delete Post</button>
+        { this.state.confirmDelete ? (
+          <button className="button button__delete" onClick={this.deletePost}>Are you sure?</button>
+        ) : (
+          <button className="button button__delete" onClick={this.confirmDelete}>Delete Post</button>
+        )}
       </div>
       </div>
     )
