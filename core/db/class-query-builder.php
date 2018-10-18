@@ -7,8 +7,10 @@
 class DB_Query_Builder {
 
   // build a select query:
-  //    $table: name of the table
-  //    $where: array of table where keys are column names, and values are variables they should equal/
+  //    PARAMETERS 
+  //      $table: name of the table
+  //      $conditions: array of table where keys are column names, and values are variables they should equal/
+  //      $selection: a string of the values to be returned
   public static function select_query( $table, $conditions, $selection='*' ) {
     $query = sprintf( 'SELECT %s FROM %s', $selection, $table );
     // if there are conditions, add them to the query
@@ -25,6 +27,9 @@ class DB_Query_Builder {
   } 
 
   // Build an insertion query
+  //    PARAMETERS 
+  //      $table: name of the table
+  //      $insertions: array of values to insert, where keys are column names, and values are variables to be added
   public static function insert_query( $table, $insertions ) {
     $query   = sprintf( 'INSERT INTO %s ', $table );
     $columns = '(';
@@ -43,6 +48,11 @@ class DB_Query_Builder {
     return $query;
   }
 
+  // Update a row in the table
+  //    PARAMETERS 
+  //      $table: name of the table
+  //      $insertions: array of values to insert, where keys are column names, and values are variables to be added
+  //      $conditions: array of table where keys are column names, and values are variables they should equal
   public static function update_query( $table, $insertions, $conditions=false ) {
     $query   = sprintf( 'UPDATE %s SET ', $table );
     foreach( $insertions as $column => $value ) {
@@ -52,6 +62,7 @@ class DB_Query_Builder {
     $last_comma = strrpos( $query, ',' );
     $query      = substr_replace( $query, '', $last_comma );
 
+    // Need to check if there are any conditions to add
     if( is_array( $conditions ) ) {
       $query .= ' WHERE ';
       foreach( $conditions as $column => $value ) {
@@ -66,6 +77,9 @@ class DB_Query_Builder {
   }
 
   // build a deletion query
+  //    PARAMETERS 
+  //      $table: name of the table
+  //      $conditions: array of table where keys are column names, and values are variables they should equal/
   public static function delete_query( $table, $conditions ) {
     $query = sprintf( 'DELETE FROM %s WHERE ', $table );
     foreach( $conditions as $column => $variable ) {

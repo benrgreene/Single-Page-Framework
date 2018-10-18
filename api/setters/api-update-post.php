@@ -1,35 +1,37 @@
-<?php
+<?php 
 
-// This will take in new post data, and if the auth token is valid, save the post data
-API_Register::get_instance()->add_endpoint( 'post/newPost', 'api_save_post' );
-function api_save_post( $data ) {
+// Endpoint for updating a post
+// Requires token and a post ID
+API_Register::get_instance()->add_endpoint( 'post/editPost', 'api_update_post' );
+function api_update_post( $data ) {
   // Ensure that the poster has a valid token
   if( !isset( $data['token'] ) || !is_valid_token( $data['token'] ) ) {
     API_Responses::send_response( array(
       'content' => 'Invalid Credentials',
     ), 400);
   }
-
+  // Need a post ID to update a post...
+  if( !isset( $data['postID'] ) ) {
+    API_Responses::send_response( array(
+      'content' => 'No post ID passed',
+    ), 400); 
+  }
+  // build data array for query
   $post_data = array(
     'title'   => isset( $data['title'] ) ? $data['title'] : '',
     'content' => isset( $data['content'] ) ? $data['content'] : '',
     'author'  => isset( $data['author'] ) ? $data['author'] : '',
     'type'    => isset( $data['type'] ) ? $data['type'] : '',
   );
-
-  // This should be a default in the DB
-  if( !isset( $data['date'] ) ) {
-    $post_data['date'] = date( "Y-m-d H:i:s", time() );
-  }
-
-  // Attempt to insert the post in the DB
-  $query    = DB_Query_Builder::insert_query( 'posts', $post_data );  
+  // Build the query (use the post ID as the conditional)
+  $query = DB_Query_Builder::update_query( 'posts', $post_data, array(
+    'ID'  => $data['postID'],
+  ));  
   $response = (new Database_Interface)->insert( $query );
 
-  // Let the client know if the post was successful
   if( $response ) {
     API_Responses::send_response( array(
-      'content' => 'Post added',
+      'content' => 'Post Updated',
     ) );
   } else {
     API_Responses::send_response( array(
