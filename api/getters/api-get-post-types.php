@@ -14,6 +14,9 @@ function api_get_post_types( $data ) {
     foreach( $results as $row ) {
       if( 'string' == gettype( $row ) && !in_array( $row, $post_types ) ) {
         $post_types[] = $row;
+      } 
+      else if( is_array( $row ) && isset( $row['type'] ) && !in_array( $row['type'], $post_types ) ) {
+        $post_types[] = $row['type'];
       }
     }
   }
