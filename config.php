@@ -34,9 +34,8 @@ define( 'DB_SCHEMA', array(
     'date'      => 'datetime',
   ),
   'post_meta' => array(
-    'post_id'    => 'bigint(20)',
-    'meta_title' => 'varchar(60)',
-    'content'    => 'longtext',
+    'post_id' => 'bigint(20)',
+    'content' => 'longtext',
   ),
   'options' => array(
     'name'  => 'varchar(20)',
