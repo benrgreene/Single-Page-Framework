@@ -23,11 +23,14 @@ class Actions {
   }
 
   // Add a action to be displayed
-  public function add_action( $action, $callback ) {
+  public function add_action( $action, $callback, $priority=10 ) {
     if( !isset( $this->actions[$action] ) ) {
       $this->actions[$action] = array();
     }
-    $this->actions[$action][] = $callback;
+    $this->actions[$action][] = array(
+      'callback' => $callback,
+      'priority' => $priority
+    );
   }
 
   // perform action callbacks
@@ -37,9 +40,15 @@ class Actions {
       return;
     }
     $callbacks = $this->actions[$action];
+    usort( $callbacks, array( $this, 'sort_callbacks' ) );
     foreach( $callbacks as $callback ) {
-      $callback();
+      $callback['callback']();
     }
+  }
+
+  // callback for sorting callbacks
+  public function sort_callbacks( $a, $b ) {
+    return $a['priority'] - $b['priority'];
   }
 }
 
@@ -50,7 +59,7 @@ function get_action_parts( $action ) {
 }
 
 // shortcut helper for adding a action part
-function add_action( $action, $callback ) {
+function add_action( $action, $callback, $priority=10 ) {
   $helper = Actions::get_instance();
-  $helper->add_action( $action, $callback );
+  $helper->add_action( $action, $callback, $priority );
 }

@@ -9,3 +9,4 @@ function load_base_scripts() {
     <?php echo ob_get_clean();
   });
 }
+

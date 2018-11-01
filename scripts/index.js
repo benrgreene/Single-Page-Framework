@@ -7,8 +7,3 @@
 
 import 'babel-polyfill';
 import { getPosts } from './helpers.js'
-
-let promise = getPosts()
-promise.then((data) => {
-  console.log(data)
-})

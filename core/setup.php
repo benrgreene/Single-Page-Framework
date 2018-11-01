@@ -31,7 +31,7 @@ function setup_site( $base_path ) {
     ) );
     $response = (new Database_Interface)->update( $query );
   }
-  // Load base scripts
+  // Add action for loading base scripts
   load_base_scripts();
   // Load the current theme.
   load_theme( $base_path );
