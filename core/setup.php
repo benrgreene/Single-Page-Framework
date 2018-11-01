@@ -44,3 +44,8 @@ function get_theme_path() {
   $base_path  = get_base_path();
   return "{$base_path}/themes/{$theme_name}/";
 }
+
+function get_theme_url() {
+  $theme_name = THEME_NAME;
+  return get_site_base_url() . "themes/{$theme_name}";
+}

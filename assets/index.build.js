@@ -4042,7 +4042,7 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\n__webpack_require__(/*! babel-polyfill */ \"./node_modules/babel-polyfill/lib/index.js\");\n\nvar _helpers = __webpack_require__(/*! ./helpers.js */ \"./scripts/helpers.js\");\n\n/**\n * This is the main script for the front end of the framework. \n * \n * Since most of the actually scripting should be in the themes,\n * this script is for support / helping themes \n */\n\nvar promise = (0, _helpers.getPosts)();\npromise.then(function (data) {\n  console.log(data);\n});\n\n//# sourceURL=webpack:///./scripts/index.js?");
+eval("\n\n__webpack_require__(/*! babel-polyfill */ \"./node_modules/babel-polyfill/lib/index.js\");\n\nvar _helpers = __webpack_require__(/*! ./helpers.js */ \"./scripts/helpers.js\");\n\n//# sourceURL=webpack:///./scripts/index.js?");
 
 /***/ })
 
