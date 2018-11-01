@@ -31,24 +31,16 @@ function setup_site( $base_path ) {
     ) );
     $response = (new Database_Interface)->update( $query );
   }
-  // Add action for loading base scripts
-  load_base_scripts();
-  // Load the current theme.
-  load_theme( $base_path );
 }
 
 // load the theme for setting up custom actions/scripts/css
 function load_theme( $base_path ) {
-  include get_theme_path() . "index.php";
-}
-
-function get_current_theme() {
-  return 'theme-default';
+  include get_theme_path() . 'index.php';
 }
 
 // return the current theme base path
 function get_theme_path() {
-  $theme_name = get_current_theme();
+  $theme_name = THEME_NAME;
   $base_path  = get_base_path();
   return "{$base_path}/themes/{$theme_name}/";
 }

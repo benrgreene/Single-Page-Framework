@@ -1,12 +1,12 @@
 <?php
 
 // Load all the base scripts into the page
-function load_base_scripts() {
-  add_action( 'scripts', function() {
-    $url = get_site_base_url();
-    ob_start(); ?>
-      <script type="text/javascript" src="<?php echo $url; ?>assets/index.build.js"></script>
-    <?php echo ob_get_clean();
-  });
-}
+add_action( 'scripts', function() {
+  $url = get_site_base_url();
+  echo sprintf( '<script type="text/javascript" src="%sassets/index.build.js"></script>', $url );
+}, 1);
 
+// Set base site header info (title)
+add_action( 'head', function() {
+  echo sprintf( '<title>%s</title>', SITE_TITLE );
+});

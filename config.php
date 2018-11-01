@@ -1,23 +1,33 @@
 <?php
 
+/**
+ * ------------------------------------------------
+ * Base site info (should be updated per site)
+ * ------------------------------------------------
+ */
+// Base site info
+define( 'SITE_TITLE', 'My Personal Site');
+define( 'THEME_NAME', 'theme-default' );
+
 // Secret key for the API. YOU SHOULD CHANGE THIS!!!!!
 define( 'SECRET_KEY', 'NFENCSUA(C9dNCW-@992>M' );
 
+/**
+ * ------------------------------------------------
+ * Database info (DON'T EDIT)
+ * ------------------------------------------------
+ */
 // Database server
 define( 'DB_SERVER', 'localhost' );
-
 // Database name
 define( 'DB_NAME', 'spa_db' );
-
 // Database user name
 define( 'DB_USERNAME', 'root' );
-
 // Database user password
 define( 'DB_PASSWORD', 'root' );
-
 // Database version
 define( 'DB_VERSION', '2' );
-
+// Schema
 define( 'DB_SCHEMA', array(
   'users' => array(
     'email'    => 'varchar(60)',

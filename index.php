@@ -3,12 +3,16 @@
 // Set the error log for the framework
 ini_set('error_log', __DIR__ . '/error.log');
 
-// include all the library stuffs
+// include all the critical library stuffs
+include 'core/actions-loader.php';
 include 'helpers.php';
+// all non-critical files to load
 include 'loader.php';
 
 // run the setup process
 setup_site( get_base_path() );
+// Load the current theme.
+load_theme( $base_path );
 
 // Check if this is an API request, or a user hitting the page
 if( isset( $_GET['request'] ) ) {
