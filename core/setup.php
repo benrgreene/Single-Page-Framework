@@ -21,7 +21,6 @@ function setup_site( $base_path ) {
     ) );
     $response = (new Database_Interface)->insert( $query );
   } else if( $db_installer->should_update() ) {
-    write_log('SHOULD UPDATE');
     $db_installer->update_database();
     // Update the DB
     $query = DB_Query_Builder::update_query( 'options', array(
@@ -32,6 +31,8 @@ function setup_site( $base_path ) {
     ) );
     $response = (new Database_Interface)->update( $query );
   }
+  // Load base scripts
+  load_base_scripts();
   // Load the current theme.
   load_theme( $base_path );
 }

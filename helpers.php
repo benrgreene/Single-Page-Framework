@@ -8,15 +8,28 @@ function write_log( $msg ) {
   error_log( print_r( $msg, true ) . "\n", 3, 'error.log' );
 }
 
+// want the base path to the site direectory
 function get_base_path() {
   return __DIR__;
 }
 
+// Check if a string ends with a specific needle
 function ends_with( $haystack, $needle ) {
-    $length = strlen( $needle );
-    if( $length == 0 ) {
-        return true;
-    }
+  $length = strlen( $needle );
+  if( $length == 0 ) {
+      return true;
+  }
+  return ( substr( $haystack, -$length ) === $needle );
+}
 
-    return ( substr( $haystack, -$length ) === $needle );
+// Base URL for the site
+function get_site_base_url() {
+  $port   = $_SERVER['SERVER_PORT'];
+  $prefix = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http'; 
+  return sprintf( '%s://%s%s%s',
+    $prefix,
+    $_SERVER['SERVER_NAME'],
+    (443 !== $port && 80 !== $port) ? ':' . $port : '',
+    $_SERVER['REQUEST_URI']
+  );
 }
