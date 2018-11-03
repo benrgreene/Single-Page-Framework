@@ -11,8 +11,14 @@ class DB_Query_Builder {
   //      $table: name of the table
   //      $conditions: array of table where keys are column names, and values are variables they should equal/
   //      $selection: a string of the values to be returned
-  public static function select_query( $table, $conditions, $selection='*' ) {
-    $query = sprintf( 'SELECT %s FROM %s', $selection, $table );
+  public static function select_query( $table, $conditions, $options=array() ) {
+    // set the default options
+    $options = array_merge( array(
+      'selection' => '*',
+      'limit'     => '',
+    ), $options );
+    // now build our query
+    $query = sprintf( 'SELECT %s FROM %s', $options['selection'], $table );
     // if there are conditions, add them to the query
     if( 0 < count( $conditions ) ) {
       $query .= ' WHERE ';
@@ -22,6 +28,10 @@ class DB_Query_Builder {
       // We need to remove the last AND (since there's nothing after it)
       $last_and = strrpos( $query, 'AND' );
       $query    = substr_replace( $query, '', $last_and );
+    }
+    // If there is a limit, add it to the query
+    if( $options['limit'] ) {
+      $query .= sprintf( 'LIMIT %s', $options['limit'] );
     }
     return $query;
   } 

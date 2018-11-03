@@ -4,7 +4,9 @@
 API_Register::get_instance()->add_endpoint( 'get/postTypes', 'api_get_post_types' );
 function api_get_post_types( $data ) {
   // Select the distinct post types
-  $query = DB_Query_Builder::select_query( 'posts', array(), 'DISTINCT type' );
+  $query = DB_Query_Builder::select_query( 'posts', array(), array(
+    'selection' => 'DISTINCT type'
+  ) );
   $results = (new Database_Interface)->query( $query );
   // set the default post types
   $post_types = array( 'post' );

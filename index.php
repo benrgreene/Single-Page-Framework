@@ -12,6 +12,7 @@ include 'loader.php';
 // run the setup process
 setup_site( get_base_path() );
 // Load the current theme.
+$base_path = get_base_path();
 load_theme( $base_path );
 
 // Check if this is an API request, or a user hitting the page
