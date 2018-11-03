@@ -62,7 +62,7 @@ class AddPostForm extends React.Component {
   // There's been an update in the redux state, 
   // update component state
   componentWillUpdate (nextProps, nextState) {
-    if (nextProps.postObject.title != nextState.title) {
+    if (this.props.postObject.ID != nextProps.postObject.ID) {
       this.setState({
         'type': nextProps.postObject.type,
         'title': nextProps.postObject.title,
