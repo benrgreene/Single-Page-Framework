@@ -73,3 +73,7 @@ label,
 .selectors li + li {
   margin-left: 30px;
 }
+
+.children {
+  margin-left: 30px;
+}

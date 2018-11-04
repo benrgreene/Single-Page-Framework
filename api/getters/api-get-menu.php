@@ -7,11 +7,7 @@ API_Register::get_instance()->add_endpoint(
 );
 
 function api_get_menu( $data ) {
-  $query = DB_Query_Builder::select_query( 'options', array(
-    'name' => 'site_menu'
-  ) );
-
-  $results = (new Database_Interface)->query( $query );
+  $menu = get_site_menu();  
 
   if( false !== $results ) {
     API_Responses::send_response( array(
@@ -22,4 +18,13 @@ function api_get_menu( $data ) {
       'content' => 'No menu found.'
     ), 400 );
   }
+}
+
+// return the menu
+function get_site_menu() {
+  $query = DB_Query_Builder::select_query( 'options', array(
+    'name' => 'site_menu'
+  ) );
+  $results = (new Database_Interface)->query( $query );
+  return $results;
 }

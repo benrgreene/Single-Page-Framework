@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import Login from './Login'
 import AddPostForm from './AddPostForm'
 import PostSelector from './PostSelector'
+import MenuForm from './AddMenu'
 
 // ------------------------------------
 // ------ REDUX STATE MANAGEMENT ------
@@ -69,7 +70,7 @@ class App extends React.Component {
           }
           {this.state.displayPane === 'menu' &&
             <div className="wrapper">
-              displaying menu
+              <MenuForm/>
             </div>
           }
         </div>
