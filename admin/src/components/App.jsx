@@ -30,6 +30,12 @@ const mapStateToProps = state => ({
 // --------- COMPONENT CLASS ----------
 // ------------------------------------
 class App extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = { 
+      displayPane: 'posts'
+    }
+  }
 
   componentDidMount() {
     let self    = this
@@ -50,9 +56,22 @@ class App extends React.Component {
   render() {
     if(this.props.auth) {
       return (
-        <div className="wrapper">
-          <PostSelector/>
-          <AddPostForm/>
+        <div className="site-wrapper">
+          <ul className="selectors">
+            <li onClick={(event) => {this.setState({'displayPane': 'posts'})}}>Post Form</li>
+            <li onClick={(event) => {this.setState({'displayPane': 'menu'})}}>Menu Form</li>
+          </ul>
+          {this.state.displayPane === 'posts' &&
+            <div className="wrapper">
+              <PostSelector/>
+              <AddPostForm/>
+            </div>
+          }
+          {this.state.displayPane === 'menu' &&
+            <div className="wrapper">
+              displaying menu
+            </div>
+          }
         </div>
       )
     } else {

@@ -57,3 +57,19 @@ label,
   flex-grow: 0;
   flex-shrink: 0;
 }
+
+.selectors {
+  margin-bottom: 20px;
+  display: flex;
+  background-color: #333;
+  color: #fff;
+}
+
+.selectors li {
+  padding: 10px;
+  list-style-type: none;
+}
+
+.selectors li + li {
+  margin-left: 30px;
+}
