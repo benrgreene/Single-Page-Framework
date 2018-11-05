@@ -51,7 +51,7 @@ define( 'DB_SCHEMA', array(
   ),
   'options' => array(
     'name'  => 'varchar(20)',
-    'value' => 'varchar(60)',
+    'value' => 'longtext',
   ),
   'tokens'  => array(
     'token'      => 'varchar(60)',
