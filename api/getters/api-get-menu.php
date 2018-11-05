@@ -9,9 +9,9 @@ API_Register::get_instance()->add_endpoint(
 function api_get_menu( $data ) {
   $menu = get_site_menu();  
 
-  if( false !== $results ) {
+  if( false !== $menu ) {
     API_Responses::send_response( array(
-      'content' => $results
+      'content' => $menu
     ) );
   } else {
     API_Responses::send_response( array(

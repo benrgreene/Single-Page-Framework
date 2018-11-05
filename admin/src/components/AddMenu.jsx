@@ -48,7 +48,7 @@ class MenuForm extends React.Component {
   addSubItem (event) {
     let menu  = this.state.menu
     // index of the parent menu item in the menu array
-    let index = event.target.parentNode.dataset.index
+    let index = event.target.dataset.parent
     menu[index].children.push({
       'name': '',
       'link': ''
@@ -66,8 +66,8 @@ class MenuForm extends React.Component {
 
   updateValue (event, type) {
     let menu   = this.state.menu
-    let index  = event.target.parentNode.dataset.index
-    let parent = event.target.parentNode.dataset.parent || false
+    let index  = event.target.parentNode.parentNode.dataset.index
+    let parent = event.target.parentNode.parentNode.dataset.parent || false
     if (parent) {
       menu[parent].children[index][type] = event.target.value
     } else {
@@ -91,9 +91,9 @@ class MenuForm extends React.Component {
       return blob.json()
     })
     .then((data) => { 
-      console.log(data)
-      if ('array' == typeof data.content) {
-        this.setState({'menu': data.content})
+      let menu = JSON.parse(data.content.value)
+      if (menu) {
+        this.setState({'menu': menu})
       }
     })
   }
@@ -124,33 +124,38 @@ class MenuForm extends React.Component {
     return (
       <div>
         {this.state.menu.map((menuItem, index) => { return (
-          <div key={index} data-index={index}>
-            <span>Name</span>
-            <input className="name" 
-                    value={menuItem.name}
-                    onChange={this.updateName} />
-            <br/>
-            <span>Link</span>
-            <input className="link" 
-                    value={menuItem.link} 
-                    onChange={this.updateLink} />
-            <br/>
+          <div key={index} data-index={index} className="form">
+            <div> 
+              <label>Name</label>
+              <input className="name" 
+                      value={menuItem.name}
+                      onChange={this.updateName} />
+            </div>
+            <div>
+              <label>Link</label>
+              <input className="link" 
+                      value={menuItem.link} 
+                      onChange={this.updateLink} />
+            </div>
             <div className="children">
               {menuItem.children.map((subItem, subIndex) => { return (
-                <div key={'sub' + subIndex} data-index={subIndex} data-parent={index}>
-                  <span>Name</span>
-                  <input className="name" 
-                    value={subItem.name}
-                    onChange={this.updateName} />
-                  <br/>
-                  <span>Link</span>
-                  <input className="link" 
-                          value={subItem.link} 
-                          onChange={this.updateLink} />
+                <div key={'sub' + subIndex} data-index={subIndex} data-parent={index} className="form">
+                  <div> 
+                    <label>Name</label>
+                    <input className="name" 
+                      value={subItem.name}
+                      onChange={this.updateName} />
+                  </div>
+                  <div>
+                    <label>Link</label>
+                    <input className="link" 
+                            value={subItem.link} 
+                            onChange={this.updateLink} />
+                  </div>
                 </div>
               )})}
+              <button onClick={this.addSubItem} data-parent={index}>+ Menu Sub Item</button>
             </div>
-            <button onClick={this.addSubItem}>+ Menu Sub Item</button>
           </div>
         )})}
         <button onClick={this.addNewItem}>+ Menu Item</button>

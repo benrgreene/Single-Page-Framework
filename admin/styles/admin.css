@@ -75,5 +75,22 @@ label,
 }
 
 .children {
-  margin-left: 30px;
+  position: relative;
+  margin: 15px 0;
+  border: 1px solid #CCC;
+  padding: 15px 7px;
+}
+
+.children::before {
+  content: 'Children';
+  display: inline-block;
+  position: absolute;
+  left: 10px;
+  padding: 0 10px;
+  transform: translateY(-135%);
+  background-color: #fff;
+}
+
+.children div + div {
+  margin-top: 15px;
 }
