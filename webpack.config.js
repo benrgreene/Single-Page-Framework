@@ -6,7 +6,8 @@ module.exports = {
     },
     output: {
         filename: '[name].build.js',
-        path: path.resolve(__dirname, 'assets')
+        path: path.resolve(__dirname, 'assets'),
+        library: 'theme'
     },
     resolve: {
         extensions: ['.js', '.jsx']
