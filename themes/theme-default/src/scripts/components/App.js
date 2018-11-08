@@ -12,12 +12,14 @@ class App extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className="app-body">
         <header className="site-header">
-          <div className="site-title">
-            <a href="">Title</a>
+          <div className="site-header__content l-contain">
+            <div className="site-title">
+              <a href="">Title</a>
+            </div>
+            <Menu/>
           </div>
-          <Menu/>
         </header>
         <section id="js-content" className="site-content"></section>
         <footer className="site-footer">

@@ -1,0 +1,86 @@
+/**
+ *  This should allow us to easily add media queries to our scss
+ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+ul,
+ol {
+  list-style-type: none;
+  padding-left: 0; }
+
+.app-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; }
+  .app-body .site-content {
+    flex-grow: 1; }
+
+.l-contain {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  max-width: 1200px;
+  width: 100%; }
+
+.button {
+  -webkit-appearance: none; }
+
+.site-header__content {
+  display: flex;
+  justify-content: space-between; }
+
+@media (min-width: 800px) {
+  .menu {
+    display: flex; } }
+
+.menu a {
+  white-space: nowrap; }
+
+.menu li {
+  line-height: 1.2em; }
+
+.menu > li {
+  position: relative;
+  margin-left: 60px; }
+  @media (min-width: 800px) {
+    .menu > li:hover .sub-menu,
+    .menu > li .sub-menu:hover {
+      display: block; } }
+
+.menu .sub-menu {
+  padding-left: 30px; }
+  .menu .sub-menu li {
+    line-height: 0em;
+    overflow: hidden;
+    transition: line-height .4s; }
+  @media (min-width: 800px) {
+    .menu .sub-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      left: auto !important;
+      display: none;
+      padding-left: 0; }
+      .menu .sub-menu li {
+        line-height: 1.2em; } }
+  .menu .sub-menu.sub-menu--open li {
+    line-height: 1.2em;
+    transition: line-height .4s; }
+
+.menu .sub-menu__toggle {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  border: 0;
+  padding: 10px 15px; }
+  @media (min-width: 800px) {
+    .menu .sub-menu__toggle {
+      display: none; } }
+
+@media (min-width: 800px) {
+  .menu-toggle {
+    display: none; } }

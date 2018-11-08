@@ -1,0 +1,20 @@
+/**
+ *  This should allow us to easily add media queries to our scss
+ */
+@mixin media-to($width) {
+  @media(max-width: $width) {
+    @content;
+  }
+}
+
+@mixin media-from($width) {
+  @media(min-width: $width) {
+    @content;
+  }
+}
+
+@mixin mobile-only() {
+  @include media-from($break-menu) {
+    display: none;
+  }
+}
