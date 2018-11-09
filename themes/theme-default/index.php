@@ -2,7 +2,7 @@
 
 // want to set the meta data + load the styles
 add_action('head', function() {
-  echo sprintf( '<link rel="stylesheet" href="%s/build/main.css" />', get_theme_url() );
+  echo sprintf( '<meta charset="utf-8" /><link rel="stylesheet" href="%s/build/main.css" />', get_theme_url() );
 });
 
 // add our base template containers

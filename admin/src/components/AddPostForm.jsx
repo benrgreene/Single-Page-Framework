@@ -3,6 +3,7 @@ const React = require('react')
 import { getBaseURL } from '../helpers/info'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import ReactQuill from 'react-quill'; 
 
 import PostMetaForm from './PostMeta'
 
@@ -187,10 +188,9 @@ class AddPostForm extends React.Component {
           )}
           <div>
             <label htmlFor="name">Content</label>
-            <textarea name="content" 
-                      onChange={(event) => {this.setState({'content': event.target.value})}} 
-                      value={this.state.content || ''} >
-            </textarea>
+            <ReactQuill name="content" 
+                      onChange={(value) => {this.setState({'content': value})}} 
+                      value={this.state.content || ''} />
           </div>
           <PostMetaForm ref={comp => this.metaRef = comp} />
           <button onClick={this.postPost}>Submit Post</button>
