@@ -67,9 +67,10 @@ ol {
       padding-left: 0; }
       .menu .sub-menu li {
         line-height: 1.2em; } }
-  .menu .sub-menu.sub-menu--open li {
-    line-height: 1.2em;
-    transition: line-height .4s; }
+
+.menu .sub-menu--open .sub-menu li {
+  line-height: 1.2em;
+  transition: line-height .4s; }
 
 .menu .sub-menu__toggle {
   position: absolute;

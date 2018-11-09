@@ -23,13 +23,17 @@ class App extends React.Component {
         </header>
         <section id="js-content" className="site-content"></section>
         <footer className="site-footer">
-          <div id="js-widgets" className="widgets"></div>
+          <div id="js-widgets" className="widgets l-contain">
+
+          </div>
           <div className="site-info">
-            <div className="site-info__copyright">
-              
-            </div>
-            <div className="site-info__design-by">
-              Site design by Ben Greene
+            <div className="l-contain">
+              <div className="site-info__copyright">
+                
+              </div>
+              <div className="site-info__design-by">
+                Site design by Ben Greene
+              </div>
             </div>
           </div>
         </footer>
