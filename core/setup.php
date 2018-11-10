@@ -13,7 +13,7 @@ function setup_site( $base_path ) {
   // ensure DB exists
   $db_installer = new Database_Installer();
   if( $db_installer->should_install() ) {
-    $db_installer->create_database();
+    $db_installer->update_database();
     // set the DB version
     $query = DB_Query_Builder::insert_query( 'options', array(
       'name'  => 'table_version',

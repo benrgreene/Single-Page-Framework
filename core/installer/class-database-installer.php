@@ -9,7 +9,14 @@ class Database_Installer {
 
   // checks if the database is installed OR if it needs to be added
   public function should_install() {
-    $query        = "SHOW TABLES LIKE 'options'";
+    $have_results = $this->table_exists( 'options' );
+    // if there are no results return true to indicate we need to install the DB
+    return (false === $have_results);
+  }
+
+  // check if the tables exist
+  public function table_exists( $table ) {
+    $query        = "SHOW TABLES LIKE '" . $table . "'";
     $have_results = $this->db_interface->query( $query );
     // if there are no results return true to indicate we need to install the DB
     return (false === $have_results);
@@ -25,16 +32,13 @@ class Database_Installer {
     return false;
   }
 
-  // loop through the schema and build each table
-  public function create_database() {
-    foreach( DB_SCHEMA as $name => $columns ) {
-      $this->table_interface->create_table( $name, $columns );
-    }
-  }
-
   public function update_database() {
     foreach( DB_SCHEMA as $name => $columns ) {
-      $this->table_interface->update_table( $name, $columns );
+      if( $this->table_exists( 'options' ) ) {
+        $this->table_interface->update_table( $name, $columns );  
+      } else {
+        $this->table_interface->create_table( $name, $columns );
+      }
     }
   }
 }
