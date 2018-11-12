@@ -1,3 +1,17 @@
+<?php
+  include '../core/actions-loader.php';
+  include '../helpers.php';
+  include '../loader.php';
+
+  // load the currennt directory (don't want to load the files in the base directory)
+  load_directory( '..', false );
+  // load our theme admin settings
+  $theme_path = get_theme_path();
+  include $theme_path . 'admin.php';
+  // fire action for any pre admin page settings
+  get_action_parts( 'admin_set_defaults' );
+?>
+
 <!DOCTYPE html>
 <html>
   <head>

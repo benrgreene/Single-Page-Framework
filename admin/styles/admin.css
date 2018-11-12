@@ -68,6 +68,7 @@ label,
 .selectors li {
   padding: 10px;
   list-style-type: none;
+  cursor: pointer;
 }
 
 .selectors li + li {

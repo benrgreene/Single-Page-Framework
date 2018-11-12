@@ -7,13 +7,10 @@
  * To declare a PHP file a template file, it should be placed under the 'template' directory.
  */
 
-// load the currennt directory (don't want to load the files in the base directory)
-load_directory( '.', false );
-
 // given a directory, load that directory into the project.
 // folders will always be loaded, but files are loaded if the 
 //    'load_files' parameter is true
-function load_directory( $directory, $skip_ignores=false ) {
+function load_directory( $directory, $skip_ignores=false ) { 
   $current_directory = scandir( $directory );
   foreach( $current_directory as $file ) {
     // skip the default system files
@@ -29,8 +26,7 @@ function load_directory( $directory, $skip_ignores=false ) {
     if( is_dir( "{$directory}/{$file}" ) ) {
       load_directory( "{$directory}/{$file}", $skip_ignores );
     } else {
-      // want to skip the './' at the beginning (needed for reading through directories)
-      $include_path = substr( "{$directory}/{$file}", 2);
+      $include_path = "{$directory}/{$file}";
       include $include_path;
     }
   }

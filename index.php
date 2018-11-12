@@ -9,6 +9,9 @@ include 'helpers.php';
 // all non-critical files to load
 include 'loader.php';
 
+// load the currennt directory
+load_directory( '.', false );
+
 // run the setup process
 setup_site( get_base_path() );
 // Load the current theme.
