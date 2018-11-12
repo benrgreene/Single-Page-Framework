@@ -8,8 +8,6 @@ function api_get_posts( $data ) {
     'type' => $post_type,
   ));
   $results = (new Database_Interface)->query( $query, false );
-  $posts   = array();
-  // loop through the results and add all posts to the return array
   API_Responses::send_response( array(
     'content' => $results ? $results : array(),
   ) );  

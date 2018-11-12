@@ -16,6 +16,7 @@ class DB_Query_Builder {
     $options = array_merge( array(
       'selection' => '*',
       'limit'     => '',
+      'order'     => false,
     ), $options );
     // now build our query
     $query = sprintf( 'SELECT %s FROM %s ', $options['selection'], $table );

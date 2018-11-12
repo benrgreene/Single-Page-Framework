@@ -9,6 +9,7 @@ import Login from './Login'
 import AddPostForm from './AddPostForm'
 import PostSelector from './PostSelector'
 import MenuForm from './AddMenu'
+import OptionsForm from './OptionsForm'
 
 // ------------------------------------
 // ------ REDUX STATE MANAGEMENT ------
@@ -61,6 +62,7 @@ class App extends React.Component {
           <ul className="selectors">
             <li onClick={(event) => {this.setState({'displayPane': 'posts'})}}>Post Form</li>
             <li onClick={(event) => {this.setState({'displayPane': 'menu'})}}>Menu Form</li>
+            <li onClick={(event) => {this.setState({'displayPane': 'options'})}}>Theme Options</li>
           </ul>
           {this.state.displayPane === 'posts' &&
             <div className="wrapper">
@@ -71,6 +73,11 @@ class App extends React.Component {
           {this.state.displayPane === 'menu' &&
             <div className="wrapper">
               <MenuForm/>
+            </div>
+          }
+          {this.state.displayPane === 'options' &&
+            <div className="wrapper">
+              <OptionsForm/>
             </div>
           }
         </div>
