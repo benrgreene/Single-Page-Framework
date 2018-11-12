@@ -18,7 +18,7 @@ class DB_Query_Builder {
       'limit'     => '',
     ), $options );
     // now build our query
-    $query = sprintf( 'SELECT %s FROM %s', $options['selection'], $table );
+    $query = sprintf( 'SELECT %s FROM %s ', $options['selection'], $table );
     // if there are conditions, add them to the query
     if( 0 < count( $conditions ) ) {
       $query .= ' WHERE ';
@@ -29,10 +29,16 @@ class DB_Query_Builder {
       $last_and = strrpos( $query, 'AND' );
       $query    = substr_replace( $query, '', $last_and );
     }
+    // Add any order command present
+    if( $options['order'] ) {
+      $direction = isset( $options['direction'] ) ? $options['direction'] : 'ASC';
+      $query .= sprintf( ' ORDER BY %s %s', $options['limit'] , $direction );
+    }
     // If there is a limit, add it to the query
     if( $options['limit'] ) {
-      $query .= sprintf( 'LIMIT %s', $options['limit'] );
+      $query .= sprintf( ' LIMIT %s', $options['limit'] );
     }
+
     return $query;
   } 
 
