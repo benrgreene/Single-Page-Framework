@@ -47,11 +47,23 @@ class Footer extends React.Component {
 
   render () {
     return (
-      <div className={'footer-widgets footer-widgets--' + this.state.numberLoadedWidgets}>
-        {this.displayWidget('footer_widget_one')}
-        {this.displayWidget('footer_widget_two')}
-        {this.displayWidget('footer_widget_three')}
-      </div>
+      <footer className="site-footer">
+        <div className={'footer-widgets footer-widgets--' + this.state.numberLoadedWidgets}>
+          {this.displayWidget('footer_widget_one')}
+          {this.displayWidget('footer_widget_two')}
+          {this.displayWidget('footer_widget_three')}
+        </div>
+        <div className="site-info">
+          <div className="l-contain">
+            <div className="site-info__copyright">
+              
+            </div>
+            <div className="site-info__design-by">
+              Site design by Ben Greene
+            </div>
+          </div>
+        </div>
+      </footer>
     )
   }
 }

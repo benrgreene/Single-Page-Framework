@@ -96,6 +96,7 @@ label,
   background-color: #fff;
 }
 
+.save-menu,
 .children div + div {
   margin-top: 15px;
 }

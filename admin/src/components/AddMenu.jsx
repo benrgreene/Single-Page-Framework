@@ -159,7 +159,7 @@ class MenuForm extends React.Component {
           </div>
         )})}
         <button onClick={this.addNewItem}>+ Menu Item</button>
-        <div>
+        <div className="save-menu">
           <button onClick={this.saveMenu}>Save Menu</button>
         </div>
       </div>
