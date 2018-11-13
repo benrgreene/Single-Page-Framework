@@ -21,6 +21,7 @@ class OptionsForm extends React.Component {
     super(props)
     this.state = { 
       'confirmDelete': false,
+      'optionType': 'wysiwyg',
       'options': [],
       'selectedOption': {
         'index': 0,
@@ -30,13 +31,16 @@ class OptionsForm extends React.Component {
     }
     // refs
     this.optionSelectRef
+    this.valueTypeRef
     // callbacks
-    this.setSelectedOption = this.setSelectedOption.bind(this)
-    this.setOptionName     = this.setOptionName.bind(this)
-    this.setOptionValue    = this.setOptionValue.bind(this)
-    this.saveOptions       = this.saveOptions.bind(this)
-    this.deleteOption      = this.deleteOption.bind(this)
-    this.confirmDelete     = this.confirmDelete.bind(this)
+    this.setSelectedOption     = this.setSelectedOption.bind(this)
+    this.setOptionName         = this.setOptionName.bind(this)
+    this.setOptionValue        = this.setOptionValue.bind(this)
+    this.setWYSIWYGOptionValue = this.setWYSIWYGOptionValue.bind(this)
+    this.saveOptions           = this.saveOptions.bind(this)
+    this.deleteOption          = this.deleteOption.bind(this)
+    this.confirmDelete         = this.confirmDelete.bind(this)
+    this.setOptionValueType    = this.setOptionValueType.bind(this)
     // setup
     this.getOptions()
   }
@@ -103,8 +107,8 @@ class OptionsForm extends React.Component {
       'value': ''
     }
     if (0 < selectedIndex) {
-      let selected   = this.optionSelectRef.options[selectedIndex];
-      selectedOption = this.state.options[selected.dataset.index]  
+      let selected   = this.optionSelectRef.options[selectedIndex]
+      selectedOption = this.state.options[selected.dataset.index]
     }
     this.setState({ 
       'selectedOption': selectedOption,
@@ -117,6 +121,9 @@ class OptionsForm extends React.Component {
     this.setOption(event, 'name', event.target.value)
   }
   setOptionValue (event) {
+    this.setOption(event, 'value', event.target.value)
+  }
+  setWYSIWYGOptionValue (event) {
     this.setOption(event, 'value', event)
   }
   setOption (event, option, value) {
@@ -129,6 +136,15 @@ class OptionsForm extends React.Component {
   confirmDelete (event) {
     this.setState({
       'confirmDelete': true
+    })
+  }
+
+  // switch the type of input used for the option value
+  setOptionValueType (event) {
+    let selectedIndex = this.valueTypeRef.selectedIndex
+    let selected      = this.valueTypeRef.options[selectedIndex]
+    this.setState({
+      'optionType': selected.value
     })
   }
 
@@ -203,11 +219,31 @@ class OptionsForm extends React.Component {
                    value={this.state.selectedOption.name} />
           </div>
           <div>
-            <label htmlFor="value">Option Value</label>
-            <ReactQuill name="value" 
-                        onChange={this.setOptionValue} 
-                        value={this.state.selectedOption.value} />
+            <label>Option Input Type</label>
+            <select ref={(input) => this.valueTypeRef = input}
+                    onChange={this.setOptionValueType}
+                    value={this.state.optionType} >
+              <option value="wysiwyg" key="wysiwyg">WYSIWYG Editor</option>
+              <option value="text" key="text">Text Input</option>
+            </select>
           </div>
+          {'wysiwyg' == this.state.optionType ? (
+            <div>
+              <label htmlFor="value">Option Value</label>
+              <ReactQuill name="value" 
+                          onChange={this.setWYSIWYGOptionValue} 
+                          value={this.state.selectedOption.value} />
+            </div>  
+          ) : (
+            <div>
+              <label htmlFor="value">Option Value</label>
+              <input type="text" 
+                     name="value" 
+                     onChange={this.setOptionValue} 
+                     value={this.state.selectedOption.value} />
+            </div>
+          )}
+          
           <button onClick={this.saveOptions}>Save Option</button>
           {this.state.confirmDelete ? (
             <button className="button button__delete" onClick={this.deleteOption}>Are you sure?</button>
