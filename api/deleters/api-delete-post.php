@@ -8,7 +8,7 @@ function api_delete_post( $data ) {
       'content' => 'Invalid Credentials',
     ), 400);
   }
-  write_log($data);
+  
   $query = DB_Query_Builder::delete_query( 'posts', array(
     'ID' => $data['id']
   ) );

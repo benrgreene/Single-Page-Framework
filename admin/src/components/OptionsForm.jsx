@@ -20,6 +20,7 @@ class OptionsForm extends React.Component {
   constructor (props) {
     super(props)
     this.state = { 
+      'confirmDelete': false,
       'options': [],
       'selectedOption': {
         'index': 0,
@@ -34,6 +35,8 @@ class OptionsForm extends React.Component {
     this.setOptionName     = this.setOptionName.bind(this)
     this.setOptionValue    = this.setOptionValue.bind(this)
     this.saveOptions       = this.saveOptions.bind(this)
+    this.deleteOption      = this.deleteOption.bind(this)
+    this.confirmDelete     = this.confirmDelete.bind(this)
     // setup
     this.getOptions()
   }
@@ -99,7 +102,10 @@ class OptionsForm extends React.Component {
       let selected   = this.optionSelectRef.options[selectedIndex];
       selectedOption = this.state.options[selected.dataset.index]  
     }
-    this.setState({ 'selectedOption': selectedOption })
+    this.setState({ 
+      'selectedOption': selectedOption,
+      'confirmDelete': false
+    })
   }
 
   setOptionName (event) {
@@ -112,6 +118,57 @@ class OptionsForm extends React.Component {
     let selectedOption     = this.state.selectedOption
     selectedOption[option] = value
     this.setState({ 'selectedOption': selectedOption })
+  }
+
+  // Switch delete button to the confirm delete button
+  confirmDelete (event) {
+    this.setState({
+      'confirmDelete': true
+    })
+  }
+
+  // Actually delete the option   
+  deleteOption (event) {
+    const self    = this
+    const baseUrl = getBaseURL()
+    const postUrl = baseUrl + 'api/delete/themeOption'
+    const body    = {
+      token: this.props.token,
+      id: this.state.selectedOption.ID ? this.state.selectedOption.ID : 0
+    }
+    fetch( postUrl, {
+      'method': 'POST',
+      'headers': {
+        'Content-Type': 'application/json'
+      },
+      'body': JSON.stringify(body)
+    })
+    .then((response) => {
+      if (200 == response.status) {
+        return response.json()  
+      }
+      else {
+        return false
+      }
+    })
+    .then((data) => {
+      if (data) {
+        let oldSelection   = this.state.selectedOption.name
+        let newOptions     = this.state.options
+        newOptions = newOptions.filter((option) => {
+          return option.name != oldSelection
+        })
+        self.setState({
+          'options': newOptions,
+          'selectedOption': {
+            'index': 0,
+            'name': '',
+            'value': ''
+          },
+          'confirmDelete': false
+        })
+      }
+    })
   }
 
   //rendering the options
@@ -144,6 +201,11 @@ class OptionsForm extends React.Component {
                         value={this.state.selectedOption.value} />
           </div>
           <button onClick={this.saveOptions}>Save Option</button>
+          {this.state.confirmDelete ? (
+            <button className="button button__delete" onClick={this.deleteOption}>Are you sure?</button>
+          ) : (
+            <button className="button button__delete" onClick={this.confirmDelete}>Delete Option</button>
+          )}
         </div>
       </div>
     )
