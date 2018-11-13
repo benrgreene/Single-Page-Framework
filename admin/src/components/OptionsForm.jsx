@@ -90,7 +90,11 @@ class OptionsForm extends React.Component {
     })
   }
 
+  // --------------------
   // Calbacks
+  // --------------------
+
+  // Option selected in the dropdown, so display it in the form fields
   setSelectedOption (event) {
     let selectedIndex  = this.optionSelectRef.selectedIndex
     let selectedOption = {
@@ -108,6 +112,7 @@ class OptionsForm extends React.Component {
     })
   }
 
+  // Update the name/value fields with the newly entered values
   setOptionName (event) {
     this.setOption(event, 'name', event.target.value)
   }
@@ -127,7 +132,7 @@ class OptionsForm extends React.Component {
     })
   }
 
-  // Actually delete the option   
+  // Actually delete the option
   deleteOption (event) {
     const self    = this
     const baseUrl = getBaseURL()
@@ -152,6 +157,7 @@ class OptionsForm extends React.Component {
       }
     })
     .then((data) => {
+      // Remove from the displayed array of options
       if (data) {
         let oldSelection   = this.state.selectedOption.name
         let newOptions     = this.state.options
@@ -171,7 +177,9 @@ class OptionsForm extends React.Component {
     })
   }
 
-  //rendering the options
+  // --------------------
+  // Rendering
+  // --------------------
   render () {
     return (
       <div>
@@ -186,7 +194,7 @@ class OptionsForm extends React.Component {
                     name={option.name}>{option.name}</option>
           )})}
         </select>
-        <div className="form">
+        <div className="form form--options">
           <div>
             <label htmlFor="name">Option Name</label>
             <input name="name" 

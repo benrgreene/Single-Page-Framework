@@ -1,0 +1,21 @@
+.footer-widgets {
+  display: flex;
+  flex-direction: column;
+
+  @include media-from($break-menu) {
+    flex-direction: row;    
+  }
+
+  & .widget {
+    flex-grow: 0;
+    flex-shrink: 0;
+    padding: 10px 20px;
+  }
+
+  &--2 .widget {
+    flex-basis: 50%;
+  }
+  &--3 .widget {
+    flex-basis: 33.33%;
+  }
+}

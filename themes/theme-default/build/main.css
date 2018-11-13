@@ -29,6 +29,21 @@ ol {
 .button {
   -webkit-appearance: none; }
 
+.footer-widgets {
+  display: flex;
+  flex-direction: column; }
+  @media (min-width: 800px) {
+    .footer-widgets {
+      flex-direction: row; } }
+  .footer-widgets .widget {
+    flex-grow: 0;
+    flex-shrink: 0;
+    padding: 10px 20px; }
+  .footer-widgets--2 .widget {
+    flex-basis: 50%; }
+  .footer-widgets--3 .widget {
+    flex-basis: 33.33%; }
+
 .site-header__content {
   display: flex;
   justify-content: space-between; }
