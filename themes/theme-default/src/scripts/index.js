@@ -7,7 +7,11 @@ import { reducer } from './reducer.js'
 
 import App from './components/App'
 
-const store = createStore(reducer)
+const store = createStore(reducer, {
+  archiveType: 'post',
+  postsPageOn: 1,
+  loadedPosts: []
+})
 
 ReactDom.render(
   <Provider store={store}>

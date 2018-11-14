@@ -1,6 +1,7 @@
 const React = require('react')
 
 import { connect } from 'react-redux';
+import DOMPurify from 'dompurify'
 
 class Footer extends React.Component {
   constructor (props) {
@@ -40,7 +41,7 @@ class Footer extends React.Component {
   displayWidget (name) {
     if (this.state[name]) {
       return (
-        <div className="widget" dangerouslySetInnerHTML={{ __html: this.state[name]['value'] }}></div>
+        <div className="widget" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(this.state[name]['value'] )}}></div>
       )
     }
   }
@@ -55,12 +56,7 @@ class Footer extends React.Component {
         </div>
         <div className="site-info">
           <div className="l-contain">
-            <div className="site-info__copyright">
-              
-            </div>
-            <div className="site-info__design-by">
-              Site design by Ben Greene
-            </div>
+            ©{(new Date()).getFullYear()} | Site design by Ben Greene
           </div>
         </div>
       </footer>

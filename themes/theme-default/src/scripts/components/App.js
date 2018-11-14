@@ -3,6 +3,7 @@ const React = require('react')
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import Archive from './Archive'
 import Menu from './Menu'
 import Footer from './Footer'
 
@@ -22,7 +23,9 @@ class App extends React.Component {
             <Menu/>
           </div>
         </header>
-        <section id="js-content" className="site-content"></section>
+        <section id="js-content" className="site-content">
+          <Archive/>
+        </section>
         <Footer/>
       </div>
     )
