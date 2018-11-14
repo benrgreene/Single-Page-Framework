@@ -16,18 +16,35 @@ function api_get_page_of_results( $data ) {
     ), 400 );
   }
   
+  $page_on = max((($page_number - 1) * PAGE_SIZE), 0);
   $query = DB_Query_Builder::select_query( 'posts', array(
     'type' => $post_type
   ), array(
-    'limit'  => PAGE_SIZE,
-    'offset' => ($page_number - 1) * PAGE_SIZE,
+    'order'     => 'ID',
+    'direction' => 'DESC',
+    'limit'     => $page_on . ',' . PAGE_SIZE,
   ) );
   
   $results = (new Database_Interface)->query( $query );
   
+  // Want to get the first post's ID, and check if that is in
+  // the returning results.
+  $first          = db_get_first_entry( 'posts', array(
+    'type'   => $post_type
+  ) );
+  $contains_first = false;
+  if( $results ) {
+    foreach( $results as $post ) {
+      if( $post['ID'] == $first['ID'] ) {
+        $contains_first = true;
+      }
+    }  
+  } 
+  
   if( false !== $results ) {
     API_Responses::send_response( array(
-      'content' => $results
+      'content'  => $results,
+      'haveMore' => !$contains_first
     ) );
   } else {
     API_Responses::send_response( array(

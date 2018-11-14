@@ -9,7 +9,7 @@
 define( 'SITE_TITLE', 'My Personal Site');
 define( 'THEME_NAME', 'theme-default' );
 // This is the number of posts per page
-define( 'PAGE_SIZE', 10 );
+define( 'PAGE_SIZE', 3 );
 
 // Secret key for the API. YOU SHOULD CHANGE THIS!!!!!
 define( 'SECRET_KEY', 'NFENCSUA(C9dNCW-@992>M' );

@@ -30,8 +30,12 @@ class Archive extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      loadedPosts: []
+      loadedPosts: [],
+      lastID: false,
+      moreAvailable: true,
     }
+    // callbacks
+    this.loadNextPage = this.loadNextPage.bind(this)
     // setup
     this.fetchPage()
   }
@@ -49,21 +53,35 @@ class Archive extends React.Component {
         posts.push(... response.content)
         // Dispatch to redux AND set in state for auto re-rendering
         self.props.setPosts(posts, this.props.postsPageOn + 1)
-        self.setState({ 'loadedPosts': posts })
+        self.setState({ 
+          'loadedPosts': posts,
+          'moreAvailable': response.haveMore
+        })
       }
     })
   }
 
+  loadNextPage (event) {
+    this.fetchPage()
+  }
+
   render () {
     return (
-      <div className={'archive archive--' + this.props.archiveType}>
-        {this.state.loadedPosts.map((post) => { return (
-          <article key={post.title} className="post">
-            <div className="post__title">{post.title}</div>
-            <div className="post__content"
-                 dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(post.content)}}></div>
-          </article>
-        )})}
+      <div className="l-contain">
+        <div className={'archive archive--' + this.props.archiveType}>
+          {this.state.loadedPosts.map((post) => { return (
+            <article key={post.title} className="post">
+              <div className="post__title">{post.title}</div>
+              <div className="post__content"
+                   dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(post.content)}}></div>
+            </article>
+          )})}
+        </div>
+        {this.state.moreAvailable ? (
+          <button onClick={this.loadNextPage}>Load More</button>
+        ) : (
+          <button disabled="disabled">No More Posts</button>
+        )}
       </div>
     )
   }

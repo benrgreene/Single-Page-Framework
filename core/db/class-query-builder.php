@@ -17,6 +17,7 @@ class DB_Query_Builder {
       'selection' => '*',
       'limit'     => '',
       'order'     => false,
+      'offset'    => false,
     ), $options );
     // now build our query
     $query = sprintf( 'SELECT %s FROM %s ', $options['selection'], $table );
@@ -33,7 +34,7 @@ class DB_Query_Builder {
     // Add any order command present
     if( $options['order'] ) {
       $direction = isset( $options['direction'] ) ? $options['direction'] : 'ASC';
-      $query .= sprintf( ' ORDER BY %s %s', $options['limit'] , $direction );
+      $query .= sprintf( ' ORDER BY %s %s', $options['order'] , $direction );
     }
     // If there is a limit, add it to the query
     if( $options['limit'] ) {
