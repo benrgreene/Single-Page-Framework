@@ -11,6 +11,7 @@ add_action('body', function() {
 });
 
 // add our theme scripts
-add_action('scripts', function() {
-  echo sprintf( '<script type="text/javascript" src="%s/build/index.build.js"></script>', get_theme_url() );
-});
+add_action('scripts', function() { ?>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
+  <script type="text/javascript" src="<?php echo  get_theme_url(); ?>/build/index.build.js"></script>
+<?php });

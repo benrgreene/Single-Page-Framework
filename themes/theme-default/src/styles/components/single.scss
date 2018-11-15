@@ -1,0 +1,22 @@
+.post-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  @include media-from($break-menu) {
+    flex-direction: row;
+  }
+
+  .post,
+  .sidebar {
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+
+  .post {
+    flex-basis: 65%;
+  }
+
+  .sidebar {
+    flex-basis: 30%;
+  }
+}

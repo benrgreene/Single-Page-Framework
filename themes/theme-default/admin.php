@@ -1,7 +1,7 @@
 <?php
 
 define( 'BRG_THEME_OPTIONS', array(
-  'footer_widget_one', 'footer_widget_two', 'footer_widget_three'
+  'theme_sidebar', 'footer_widget_one', 'footer_widget_two', 'footer_widget_three'
 ));
 
 // Add our theme defaults
