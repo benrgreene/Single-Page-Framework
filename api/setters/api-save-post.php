@@ -16,7 +16,8 @@ function api_save_post( $data ) {
     'author'  => isset( $data['author'] ) ? $data['author'] : '',
     'type'    => isset( $data['type'] ) ? $data['type'] : '',
   );
-
+  $post_data['slug'] = slugify( $post_data['title'] );
+  
   // This should be a default in the DB
   if( !isset( $data['date'] ) ) {
     $post_data['date'] = date( "Y-m-d H:i:s", time() );
