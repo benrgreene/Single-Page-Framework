@@ -21,3 +21,10 @@ function db_get_first_entry( $table, $conditions=array() ) {
   $results = (new Database_Interface)->query( $query );
   return $results;
 }
+
+function slugify( $text ) {
+  $text = strtolower( $text );
+  $text = preg_replace("/\pP+/", "", $text );
+  $text = str_replace( ' ', '-', $text);
+  return $text;
+}
