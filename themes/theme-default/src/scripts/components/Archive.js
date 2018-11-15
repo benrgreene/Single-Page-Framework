@@ -40,6 +40,7 @@ class Archive extends React.Component {
       loadedPosts: this.props.loadedPosts || [],
       moreAvailable: true,
     }
+    document.title = `${siteTitle} - Post Archive`
     // callbacks
     this.loadNextPage  = this.loadNextPage.bind(this)
     this.setPostToView = this.setPostToView.bind(this)

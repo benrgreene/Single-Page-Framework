@@ -1,9 +1,11 @@
 <?php
 
 // want to set the meta data + load the styles
-add_action('head', function() {
-  echo sprintf( '<meta charset="utf-8" /><link rel="stylesheet" href="%s/build/main.css" />', get_theme_url() );
-});
+add_action('head', function() { ?>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="<?php echo get_theme_url(); ?>/build/main.css" />
+  <script type="text/javascript">const siteTitle = "<?php echo SITE_TITLE; ?>";</script>
+<?php });
 
 // add our base template containers
 add_action('body', function() {

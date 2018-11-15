@@ -32,6 +32,7 @@ class Single extends React.Component {
     this.state = {
       postObject: this.props.postObject
     }
+    document.title = `${siteTitle} - ${this.props.postObject.title}`
     // callbacks
     this.backToArchive = this.backToArchive.bind(this)
   }
