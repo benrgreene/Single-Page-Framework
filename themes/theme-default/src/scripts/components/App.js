@@ -4,12 +4,41 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Archive from './Archive'
-import Menu from './Menu'
 import Footer from './Footer'
+import Menu from './Menu'
+import Single from './Single'
 
+// ------------------------------------
+// ------ REDUX STATE MANAGEMENT ------
+// ------------------------------------
+const mapStateToProps = state => ({
+  viewType: state.viewType,
+  postObject: state.postObject
+})
+
+const mapDispatcherToProps = dispatch => {
+  return {
+    setviewType: (viewType) => dispatch({
+      viewType: viewType
+    })
+  }
+}
+
+// ------------------------------------
+// --------- COMPONENT CLASS ----------
+// ------------------------------------
 class App extends React.Component {
   constructor (props) {
     super(props)
+    this.state = {
+      viewType: this.props.viewType
+    }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (this.props.viewType != nextProps.viewType) {
+      this.setState({ viewType: nextProps.viewType })
+    }
   }
 
   render() {
@@ -24,7 +53,12 @@ class App extends React.Component {
           </div>
         </header>
         <section id="js-content" className="site-content">
-          <Archive/>
+          {'archive' == this.state.viewType && 
+            <Archive/>
+          }
+          {'single' == this.state.viewType && 
+            <Single/>
+          }
         </section>
         <Footer/>
       </div>
@@ -32,4 +66,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(null, null)(App)
+export default connect(mapStateToProps, mapDispatcherToProps)(App)

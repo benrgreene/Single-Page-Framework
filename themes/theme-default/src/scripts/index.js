@@ -10,7 +10,9 @@ import App from './components/App'
 const store = createStore(reducer, {
   archiveType: 'post',
   postsPageOn: 1,
-  loadedPosts: []
+  loadedPosts: [],
+  viewType: 'archive',
+  postObject: false
 })
 
 ReactDom.render(

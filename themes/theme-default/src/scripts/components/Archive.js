@@ -19,6 +19,11 @@ const mapDispatcherToProps = dispatch => {
       type: 'POSTS',
       loadedPosts: posts,
       postsPageOn: pageOn
+    }),
+    setPostForSingle: (postObject) => dispatch({
+      type: 'POST_TO_VIEW',
+      postObject: postObject,
+      viewType: 'single'
     })
   }
 }
@@ -30,14 +35,19 @@ class Archive extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      loadedPosts: [],
-      lastID: false,
+      // Allows us to track posts that have been loaded if the user 
+      // was on the archive screen before
+      loadedPosts: this.props.loadedPosts || [],
       moreAvailable: true,
     }
     // callbacks
-    this.loadNextPage = this.loadNextPage.bind(this)
-    // setup
-    this.fetchPage()
+    this.loadNextPage  = this.loadNextPage.bind(this)
+    this.setPostToView = this.setPostToView.bind(this)
+    // prevent archive loading another page of posts when it is 
+    // brought back into the view IF it has post to display already
+    if (0 == this.state.loadedPosts.length) {
+      this.fetchPage()  
+    }
   }
 
   // Make an API request to fetch the next page of the given post type
@@ -65,12 +75,18 @@ class Archive extends React.Component {
     this.fetchPage()
   }
 
+  setPostToView (index) {
+    if (false !== index) {
+      this.props.setPostForSingle(this.state.loadedPosts[index])
+    }
+  }
+
   render () {
     return (
       <div className="l-contain">
         <div className={'archive archive--' + this.props.archiveType}>
-          {this.state.loadedPosts.map((post) => { return (
-            <article key={post.title} className="post">
+          {this.state.loadedPosts.map((post, index) => { return (
+            <article key={post.title} className="post" data-index={index} onClick={(event) => {this.setPostToView(index)}}>
               <div className="post__title">{post.title}</div>
               <div className="post__content"
                    dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(post.content)}}></div>
