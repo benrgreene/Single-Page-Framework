@@ -22,6 +22,14 @@ function db_get_first_entry( $table, $conditions=array() ) {
   return $results;
 }
 
+function does_row_exist( $table, $column, $value ) {
+  $query = DB_Query_Builder::select_query( $table, array(
+    $column => $value
+  ));
+  $results = (new Database_Interface)->query( $query );
+  return $results;
+}
+
 function slugify( $text ) {
   $text = strtolower( $text );
   $text = preg_replace("/\pP+/", "", $text );

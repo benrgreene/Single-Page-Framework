@@ -31,4 +31,12 @@ function setup_site( $base_path ) {
     ) );
     $response = (new Database_Interface)->update( $query );
   }
+  // Ensure we have a site menu
+  if( !does_row_exist( 'options', 'name', 'site_menu' ) ) {
+    $query = DB_Query_Builder::insert_query( 'options', array(
+      'name'  => 'site_menu',
+      'value' => '[]'
+    ));
+    (new Database_Interface)->insert( $query );
+  }
 }
