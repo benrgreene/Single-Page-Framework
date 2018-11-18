@@ -1,4 +1,9 @@
+footer {
+  background-color: $c-uber-light-grey;
+}
+
 .footer-widgets {
+  padding: 15px 0;
   display: flex;
   flex-direction: column;
 
@@ -18,4 +23,11 @@
   &--3 .widget {
     flex-basis: 33.33%;
   }
+}
+
+.site-info {
+  padding: 20px 0;
+  background-color: $c-dark-grey;
+  color: $c-white;
+  -webkit-font-smoothing: antialiased;
 }

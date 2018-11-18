@@ -1,6 +1,15 @@
 .site-header {
+  padding: 10px 0;
+  background-color: $c-dark-grey;
+  color: $c-white;
+  -webkit-font-smoothing: antialiased;
+
   &__content {
     display: flex;
     justify-content: space-between;
+  }
+
+  a {
+    color: inherit;
   }
 }

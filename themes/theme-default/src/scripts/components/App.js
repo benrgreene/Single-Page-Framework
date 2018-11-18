@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import Archive from './Archive'
 import Footer from './Footer'
 import Menu from './Menu'
+import Page from './Page'
 import Single from './Single'
 
 // ------------------------------------
@@ -58,6 +59,9 @@ class App extends React.Component {
           }
           {'single' == this.state.viewType && 
             <Single/>
+          }
+          {'page' == this.state.viewType && 
+            <Page/>
           }
         </section>
         <Footer/>

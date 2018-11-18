@@ -49,7 +49,7 @@ class Footer extends React.Component {
   render () {
     return (
       <footer className="site-footer">
-        <div className={'footer-widgets footer-widgets--' + this.state.numberLoadedWidgets}>
+        <div className={'footer-widgets footer-widgets--' + this.state.numberLoadedWidgets + ' l-contain'}>
           {this.displayWidget('footer_widget_one')}
           {this.displayWidget('footer_widget_two')}
           {this.displayWidget('footer_widget_three')}
