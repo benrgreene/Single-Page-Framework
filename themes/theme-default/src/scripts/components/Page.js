@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 // ------ REDUX STATE MANAGEMENT ------
 // ------------------------------------
 const mapStateToProps = state => ({
-  pageObject: state.pageObject
+  postObject: state.postObject
 })
 
 // ------------------------------------
@@ -16,14 +16,25 @@ class Page extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      pageObject: this.props.pageObject
+      postObject: this.props.postObject
     }
+    var newurl = siteUrl + '?page=' + this.props.postObject.slug;
+    window.history.pushState({ path: newurl }, '', newurl)
   }
 
   render () {
-    <article className="page">
-
-    </article>
+    return (
+      <div className="l-contain">
+        <article className="page">
+          <h1 className="page__title">{this.state.postObject.title}</h1>
+          <div className="page__info">
+            <div className="page__author">Written By: {this.state.postObject.author}</div>
+          </div>
+          <div className="page__content"
+               dangerouslySetInnerHTML={{ __html: this.state.postObject.content}}></div>
+        </article>
+      </div>
+    )
   }
 }
-export default connect(null, null)(Page)
+export default connect(mapStateToProps, null)(Page)

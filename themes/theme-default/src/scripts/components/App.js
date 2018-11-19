@@ -21,10 +21,14 @@ const mapStateToProps = state => ({
 
 const mapDispatcherToProps = dispatch => {
   return {
-    viewPostType: (postObject) => dispatch({
+    viewPostType: (postObject, postType) => dispatch({
       type: 'POST_TO_VIEW',
       postObject: postObject,
-      viewType: 'single'
+      viewType: postType
+    }),
+    viewArchive: () => dispatch({
+      type: 'ARCHIVE_VIEW',
+      viewType: 'archive'
     })
   }
 }
@@ -39,20 +43,24 @@ class App extends React.Component {
     this.state = {
       viewType: this.props.viewType
     }
+
+    this.goToArchive = this.goToArchive.bind(this)
   }
 
   /**
    *  Need to check page defaults and set state accordingly
    */
   componentDidMount () {
+    let self = this
     if (pageDefaults.post) {
-      let self = this
       fetchPostBySlug(pageDefaults.post).then((postObject) => {
-        self.props.viewPostType(postObject)
+        self.props.viewPostType(postObject, 'single')
       })
     } 
     else if (pageDefaults.page) {
-      
+      fetchPostBySlug(pageDefaults.page).then((postObject) => {
+        self.props.viewPostType(postObject, 'page')
+      })
     }
   }
 
@@ -62,13 +70,20 @@ class App extends React.Component {
     }
   }
 
+  goToArchive (event) {
+    event.preventDefault()
+    if ('archive' != this.state.viewType) {
+      this.props.viewArchive()  
+    }
+  }
+
   render () {
     return(
       <div className="app-body">
         <header className="site-header">
           <div className="site-header__content l-contain">
             <div className="site-title">
-              <a href="">Title</a>
+              <a href={siteUrl} onClick={this.goToArchive}>Title</a>
             </div>
             <Menu/>
           </div>

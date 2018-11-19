@@ -19,5 +19,6 @@ add_action('body', function() {
 // This all gets loaded at the bottom of the page body
 add_action('scripts', function() { ?>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,900|Raleway:400" rel="stylesheet">
   <script type="text/javascript" src="<?php echo get_theme_url(); ?>/build/index.build.js"></script>
 <?php });
