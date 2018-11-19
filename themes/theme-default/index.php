@@ -6,6 +6,7 @@ add_action('head', function() { ?>
   <link rel="stylesheet" href="<?php echo get_theme_url(); ?>/build/main.css" />
   <script type="text/javascript">
     const siteTitle = "<?php echo SITE_TITLE; ?>";
+    const siteUrl   = "<?php echo get_site_base_url(); ?>";
     const pageDefaults = <?php echo json_encode( $_GET ); ?>;
   </script>
 <?php });

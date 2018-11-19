@@ -44,6 +44,8 @@ class Archive extends React.Component {
     // callbacks
     this.loadNextPage  = this.loadNextPage.bind(this)
     this.setPostToView = this.setPostToView.bind(this)
+    // Let's set the query param for sharing purposes
+    window.history.pushState({ path: siteUrl }, '', siteUrl)
   }
 
   componentDidMount () {

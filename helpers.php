@@ -28,7 +28,7 @@ function get_site_base_url() {
   $prefix      = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http';
   // Want to cut out any parameters (anything after the ?)
   $raw_request = $_SERVER['REQUEST_URI'];
-  $end_pos     = strpos( $raw_request, '?' ) ? strpos( $raw_request, '?' ) : count( $raw_request );
+  $end_pos     = strpos( $raw_request, '?' ) ? strpos( $raw_request, '?' ) : strlen( $raw_request );
   $request     = substr( $raw_request, 0, $end_pos );
   return sprintf( '%s://%s%s%s',
     $prefix,

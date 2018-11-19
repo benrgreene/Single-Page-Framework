@@ -35,6 +35,9 @@ class Single extends React.Component {
     document.title = `${siteTitle} - ${this.props.postObject.title}`
     // callbacks
     this.backToArchive = this.backToArchive.bind(this)
+    // Let's set the query param for sharing purposes
+    var newurl = siteUrl + '?post=' + this.props.postObject.slug;
+    window.history.pushState({ path: newurl }, '', newurl)
   }
 
   backToArchive (event) {
