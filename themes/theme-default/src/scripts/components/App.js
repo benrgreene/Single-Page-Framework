@@ -9,6 +9,8 @@ import Menu from './Menu'
 import Page from './Page'
 import Single from './Single'
 
+import { fetchPostBySlug } from '../helpers-fetch.js'
+
 // ------------------------------------
 // ------ REDUX STATE MANAGEMENT ------
 // ------------------------------------
@@ -19,8 +21,10 @@ const mapStateToProps = state => ({
 
 const mapDispatcherToProps = dispatch => {
   return {
-    setviewType: (viewType) => dispatch({
-      viewType: viewType
+    viewPostType: (postObject) => dispatch({
+      type: 'POST_TO_VIEW',
+      postObject: postObject,
+      viewType: 'single'
     })
   }
 }
@@ -31,8 +35,24 @@ const mapDispatcherToProps = dispatch => {
 class App extends React.Component {
   constructor (props) {
     super(props)
+
     this.state = {
       viewType: this.props.viewType
+    }
+  }
+
+  /**
+   *  Need to check page defaults and set state accordingly
+   */
+  componentDidMount () {
+    if (pageDefaults.post) {
+      let self = this
+      fetchPostBySlug(pageDefaults.post).then((postObject) => {
+        self.props.viewPostType(postObject)
+      })
+    } 
+    else if (pageDefaults.page) {
+      
     }
   }
 
@@ -42,7 +62,7 @@ class App extends React.Component {
     }
   }
 
-  render() {
+  render () {
     return(
       <div className="app-body">
         <header className="site-header">

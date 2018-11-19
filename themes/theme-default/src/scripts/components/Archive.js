@@ -44,6 +44,9 @@ class Archive extends React.Component {
     // callbacks
     this.loadNextPage  = this.loadNextPage.bind(this)
     this.setPostToView = this.setPostToView.bind(this)
+  }
+
+  componentDidMount () {
     // prevent archive loading another page of posts when it is 
     // brought back into the view IF it has post to display already
     if (0 == this.state.loadedPosts.length) {

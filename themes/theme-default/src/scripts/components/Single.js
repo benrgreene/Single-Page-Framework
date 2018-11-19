@@ -41,7 +41,7 @@ class Single extends React.Component {
     this.props.setPageType('archive')
   }
 
-  render() {
+  render () {
     return(
       <div className="l-contain">
         <div className="back-button" onClick={this.backToArchive}>Back To Blog</div>
