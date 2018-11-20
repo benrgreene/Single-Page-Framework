@@ -3,6 +3,7 @@
 // want to set the meta data + load the styles
 add_action('head', function() { ?>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="<?php echo get_theme_url(); ?>/build/main.css" />
   <script type="text/javascript">
     const siteTitle = "<?php echo SITE_TITLE; ?>";
