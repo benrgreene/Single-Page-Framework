@@ -13,7 +13,8 @@ class Menu extends React.Component {
     // setup
     this.loadMenu()
     // callbacks
-    this.openSubMenu = this.openSubMenu.bind(this)
+    this.openSubMenu      = this.openSubMenu.bind(this)
+    this.toggleMobileMenu = this.toggleMobileMenu.bind(this)
   }
 
   /**
@@ -50,11 +51,24 @@ class Menu extends React.Component {
     el.parentNode.classList.toggle('sub-menu--open');
   }
 
+  toggleMobileMenu (event) {
+    document.body.classList.toggle('nav-open');
+    let isDisplayed = !this.state.isDisplayed;
+    this.setState({ isDisplayed: isDisplayed })
+  }
+
   render () {
     return (
       <nav id="js-navigation" className="site-navigation">
+        <button className="button menu-toggle"
+                onClick={this.toggleMobileMenu}>
+          {this.state.isDisplayed ? (
+            <i className="fas fa-times"></i>
+          ) : (
+            <i className="fas fa-bars"></i>
+          )}
+        </button>
         <ul className="menu">
-          <button className="button menu-toggle">Toggle</button>
           {this.state.menu.map((menuItem, index) => { return (
             <li key={index} >
               <a href={menuItem.link}>{menuItem.name}</a>

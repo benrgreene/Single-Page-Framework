@@ -1,9 +1,14 @@
 .menu {
+  display: none;
+
   @include media-from($break-menu) {
     display: flex;
   }
 
   a {
+    display: inline-block;
+    padding: 0 10px;
+    line-height: 44px;
     white-space: nowrap;
   }
 
@@ -13,9 +18,14 @@
 
   & > li {
     position: relative;
-    margin-left: 60px;
 
     @include media-from($break-menu) {
+      margin-left: 60px;
+
+      &:hover {
+        background-color: lighten($c-dark-grey, 5%);
+      }
+
       &:hover .sub-menu,
       & .sub-menu:hover {
         display: block;
@@ -38,10 +48,12 @@
       right: 0;
       left: auto !important;
       display: none;
-      padding-left: 0;
 
       li {
+        padding: 0 10px;
         line-height: 1.2em;
+        background-color: $c-uber-light-grey;
+        color: $c-black;
       }
     }
   }
@@ -66,4 +78,34 @@
 
 .menu-toggle {
   @include mobile-only();
+  -webkit-appearance: none;
+  border: none;
+  background-color: transparent;
+  color: $c-white;
+  font-size: 30px;
+  z-index: 20;
+}
+
+@include media-to($break-menu) {
+  .nav-open .menu {
+    display: block;
+  }
+
+  .site-navigation {
+    position: relative;
+  }
+
+  .nav-open .site-navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $c-dark-grey;
+  }
+
+  .nav-open .menu-toggle {
+    position: absolute;
+    right: $gutter;
+  }
 }
