@@ -1,6 +1,6 @@
 const React = require('react')
 
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 
 class Menu extends React.Component {
   constructor (props) {
@@ -41,19 +41,19 @@ class Menu extends React.Component {
    */
   openSubMenu (event) {
     let el = event.target
-    let subMenuOpen = el.dataset.menuOpen;
+    let subMenuOpen = el.dataset.menuOpen
     if('false' == subMenuOpen) {
-      el.innerHTML = '-';
+      el.innerHTML = '-'
     } else {
-      el.innerHTML = '+';
+      el.innerHTML = '+'
     }
-    el.dataset.menuOpen = ('true' == subMenuOpen) ? 'false' : 'true';
-    el.parentNode.classList.toggle('sub-menu--open');
+    el.dataset.menuOpen = ('true' == subMenuOpen) ? 'false' : 'true'
+    el.parentNode.classList.toggle('sub-menu--open')
   }
 
   toggleMobileMenu (event) {
-    document.body.classList.toggle('nav-open');
-    let isDisplayed = !this.state.isDisplayed;
+    document.body.classList.toggle('nav-open')
+    let isDisplayed = !this.state.isDisplayed
     this.setState({ isDisplayed: isDisplayed })
   }
 
@@ -80,9 +80,7 @@ class Menu extends React.Component {
               {menuItem.children.length > 0 &&
                 <ul className="sub-menu">
                   {menuItem.children.map((subMenuItem, subIndex) => { return (
-                    <li key={'sub' + subIndex}>
-                      <a href={subMenuItem.link}>{subMenuItem.name}</a>
-                    </li>
+                    <li key={'sub' + subIndex}><a href={subMenuItem.link}>{subMenuItem.name}</a></li>
                   )})}
                 </ul>
               }

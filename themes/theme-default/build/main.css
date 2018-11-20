@@ -11,12 +11,19 @@ ol {
   list-style-type: none;
   padding-left: 0; }
 
+button {
+  -webkit-appearance: none;
+  border: 0; }
+
 .app-body {
   display: flex;
   flex-direction: column;
   min-height: 100vh; }
   .app-body .site-content {
     flex-grow: 1; }
+
+.site-content {
+  font-size: 18px; }
 
 .l-contain {
   margin-left: auto;
@@ -62,35 +69,42 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center; }
+  .site-header .site-title {
+    font-size: 30px;
+    font-family: "Lato", sans-serif; }
   .site-header a {
     color: inherit; }
 
 .menu {
+  padding-top: 20px;
   display: none; }
   @media (min-width: 800px) {
     .menu {
+      padding-top: 0;
       display: flex; } }
   .menu a {
     display: inline-block;
     padding: 0 10px;
     line-height: 44px;
+    font-size: 18px;
     white-space: nowrap; }
-  .menu li {
-    line-height: 1.2em; }
   .menu > li {
-    position: relative; }
+    position: relative;
+    padding-left: 40px; }
     @media (min-width: 800px) {
       .menu > li {
-        margin-left: 60px; }
+        margin-left: 60px;
+        padding-left: 0; }
         .menu > li:hover {
           background-color: #404040; }
         .menu > li:hover .sub-menu,
         .menu > li .sub-menu:hover {
           display: block; } }
   .menu .sub-menu {
-    padding-left: 30px; }
-    .menu .sub-menu li {
-      line-height: 0em;
+    padding-left: 30px;
+    font-size: 0; }
+    .menu .sub-menu li a {
+      line-height: 0px;
       overflow: hidden;
       transition: line-height .4s; }
     @media (min-width: 800px) {
@@ -100,13 +114,13 @@ footer {
         right: 0;
         left: auto !important;
         display: none; }
-        .menu .sub-menu li {
+        .menu .sub-menu li a {
           padding: 0 10px;
-          line-height: 1.2em;
+          line-height: 44px;
           background-color: #EEE;
           color: #000; } }
-  .menu .sub-menu--open .sub-menu li {
-    line-height: 1.2em;
+  .menu .sub-menu--open .sub-menu li a {
+    line-height: 44px;
     transition: line-height .4s; }
   .menu .sub-menu__toggle {
     position: absolute;
@@ -119,15 +133,23 @@ footer {
         display: none; } }
 
 .menu-toggle {
-  -webkit-appearance: none;
-  border: none;
+  padding: 20px 0;
   background-color: transparent;
   color: #FFF;
   font-size: 30px;
-  z-index: 20; }
+  z-index: 20;
+  transform: rotate(0deg);
+  transition: transform .2s; }
   @media (min-width: 800px) {
     .menu-toggle {
       display: none; } }
+  .nav-open .menu-toggle {
+    transform: rotate(360deg); }
+
+.sub-menu__toggle {
+  font-size: 15px;
+  color: #FFF;
+  background-color: transparent; }
 
 @media (max-width: 800px) {
   .nav-open .menu {

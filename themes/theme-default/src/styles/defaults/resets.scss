@@ -10,6 +10,11 @@ ol {
   padding-left: 0;
 }
 
+button {
+  -webkit-appearance: none;
+  border: 0;
+}
+
 .app-body {
   display: flex;
   flex-direction: column;
@@ -18,4 +23,8 @@ ol {
   .site-content {
     flex-grow: 1;
   }
+}
+
+.site-content {
+  font-size: $fs-body;
 }
