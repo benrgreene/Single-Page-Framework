@@ -28,7 +28,7 @@ define( 'DB_USERNAME', 'root' );
 // Database user password
 define( 'DB_PASSWORD', 'root' );
 // Database version
-define( 'DB_VERSION', '4' );
+define( 'DB_VERSION', '6' );
 // Schema
 define( 'DB_SCHEMA', array(
   'users' => array(
@@ -61,5 +61,12 @@ define( 'DB_SCHEMA', array(
   'theme_options' => array(
     'name'  => 'varchar(60)',
     'value' => 'longtext',
+  ),
+  'uploads' => array(
+    'name'  => 'varchar(60)',
+  ),
+  'related_upload' => array(
+    'post_id'   => 'bigint(20)',
+    'upload_id' => 'bigint(20)',
   )
 ) );

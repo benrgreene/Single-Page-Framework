@@ -39,7 +39,7 @@ function should_ignore_file( $file ) {
   //    exclude themes because we only want to load the current theme
   //    exclude API because we only want to load it if the current request is an API request
   if( in_array( $file, array( 
-    'error.log', 'helpers.php', 'index.php', 'loader.php', 'templates', 'scripts', 'themes', 'api', 'admin', 'node_modules', 'assets', 'package.json', 'webpack.config.js', 'actions-loader.php', 'README.md'
+    'error.log', 'helpers.php', 'index.php', 'loader.php', 'templates', 'scripts', 'themes', 'api', 'admin', 'node_modules', 'assets', 'package.json', 'webpack.config.js', 'actions-loader.php', 'README.md', 'uploads'
   ) ) ) {
     $should_ignore = true; 
   }

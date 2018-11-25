@@ -1,6 +1,8 @@
 const React = require('react')
 
 import { getBaseURL } from '../helpers/info'
+import { postFetch, tieMediaToPost } from '../helpers/fetches'
+
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ReactQuill from 'react-quill'; 
@@ -39,6 +41,8 @@ const mapDispatcherToProps = dispatch => {
 class AddPostForm extends React.Component {
   constructor (props) {
     super(props)
+    // refs
+    this.fileRef
     // callbacks
     this.postPost      = this.postPost.bind(this)
     this.toggleIsNew   = this.toggleIsNew.bind(this)
@@ -50,7 +54,8 @@ class AddPostForm extends React.Component {
       type: '',
       title: '',
       content: '',
-      confirmDelete: false
+      confirmDelete: false,
+      newImage: true,
     }
   }
   
@@ -77,6 +82,8 @@ class AddPostForm extends React.Component {
   postPost () {
     // Let the meta form know to post the new post meta
     this.metaRef.getWrappedInstance().sendPostMeta()
+    // upload the post media
+    this.postUpload()
     // Save the post
     let baseUrl  = getBaseURL()
     let postUrl  = baseUrl + 'api/post/'
@@ -109,6 +116,25 @@ class AddPostForm extends React.Component {
     })
     .then((data) => {
       console.log(data)
+    })
+  }
+
+  postUpload () {
+    let self     = this
+    let formData = new FormData()
+    formData.append('file', this.fileRef.files[0])
+    formData.append('token', this.props.token)
+    fetch(getBaseURL() + 'api/post/uploadMedia', {
+      'method': 'POST',
+      'body': formData
+    })
+    .then((blob) => {
+      return blob.json()  
+    })
+    .then((data) => {
+      if (data.mediaID) {
+        tieMediaToPost(data.mediaID, self.props.postObject.ID, this.props.token)
+      }
     })
   }
 
@@ -193,6 +219,20 @@ class AddPostForm extends React.Component {
                       value={this.state.content || ''} />
           </div>
           <PostMetaForm ref={comp => this.metaRef = comp} />
+          <div className="post-images">
+            {this.state.newImage ? (
+              <div className="new-image">
+                <input type="file" 
+                       accept="image/png, image/jpeg"
+                       ref={(input) => this.fileRef = input}
+                       onChange={(event) => {console.log(this.fileRef.files[0])}} />
+              </div>
+            ) : (
+              <div>
+                existing image
+              </div>
+            )}
+          </div>
           <button onClick={this.postPost}>Submit Post</button>
           {this.state.confirmDelete ? (
             <button className="button button__delete" onClick={this.deletePost}>Are you sure?</button>
