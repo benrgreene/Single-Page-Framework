@@ -10,7 +10,7 @@ function api_tie_post_to_media( $data ) {
       'content' => 'Invalid Credentials',
     ), 400);
   }
-  write_log( $data );
+  
   $media_id = $data['mediaID'];
   $post_id  = $data['postID'];
 
