@@ -54,3 +54,8 @@ function get_theme_url() {
   $theme_name = THEME_NAME;
   return get_site_base_url() . "themes/{$theme_name}";
 }
+
+function remove_last_instance( $haystack, $needle ) {
+  $last_occurance = strrpos( $haystack, $needle );
+  return substr_replace( $haystack, '', $last_occurance );
+}

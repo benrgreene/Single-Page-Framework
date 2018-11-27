@@ -27,9 +27,7 @@ class DB_Query_Builder {
       foreach( $conditions as $column => $variable ) {
         $query .= sprintf( '%s.%s="%s" AND ', $table, $column, $variable );
       }
-      // We need to remove the last AND (since there's nothing after it)
-      $last_and = strrpos( $query, 'AND' );
-      $query    = substr_replace( $query, '', $last_and );
+      $query = remove_last_instance( $query, 'AND' );
     }
     // Add any order command present
     if( $options['order'] ) {
@@ -43,6 +41,32 @@ class DB_Query_Builder {
 
     return $query;
   } 
+
+  // Build a select query that joins tables
+  //    PARAMETERS
+  //      $table: base table to build the query from
+  //      $selects: the different columns to be returned (need to include tables!)
+  //      $joins: an array of arrays containing the table and columns to join on:
+  //        array(
+  //          join-table, join-table column, base-table column
+  //        )
+  public static function join_query( $table, $selects, $joins, $conditions=false ) {
+    $query = sprintf( 'SELECT %s FROM %s ',  implode( ', ', $selects ), $table );
+    foreach( $joins as $join ) {
+      if( 3 >= count( $join ) ) {
+        $query .= sprintf( 'INNER JOIN %s ON %s=%s ', $join[0], $join[1], $join[2] );
+      }
+    }
+    if( $conditions ) {
+      $query .= ' WHERE '; 
+      foreach( $conditions as $condition => $value ) {
+        $query .= sprintf( '%s = %s AND ', $condition, $value );
+      }  
+      $query = remove_last_instance( $query, 'AND' );
+    }
+    
+    return $query;
+  }
 
   // Build an insertion query
   //    PARAMETERS 
