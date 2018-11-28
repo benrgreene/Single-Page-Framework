@@ -25,6 +25,9 @@ button {
 .site-content {
   font-size: 18px; }
 
+.site-content {
+  max-width: 100%; }
+
 .l-contain {
   margin-left: auto;
   margin-right: auto;
@@ -32,6 +35,14 @@ button {
   padding-right: 20px;
   max-width: 1200px;
   width: 100%; }
+
+* {
+  font-family: "Raleway", sans-serif; }
+
+h1,
+h2,
+h3 {
+  font-family: "Lato", sans-serif; }
 
 .button {
   -webkit-appearance: none; }
@@ -172,12 +183,24 @@ footer {
   flex-direction: column; }
   @media (min-width: 800px) {
     .post-wrapper {
-      flex-direction: row; } }
+      flex-direction: row;
+      justify-content: space-between; } }
   .post-wrapper .post,
   .post-wrapper .sidebar {
     flex-grow: 0;
     flex-shrink: 0; }
   .post-wrapper .post {
     flex-basis: 65%; }
+    .post-wrapper .post .post__feature-image img {
+      width: 100%; }
   .post-wrapper .sidebar {
     flex-basis: 30%; }
+
+.back-button {
+  padding: 8px 0;
+  color: #0707b9; }
+  .back-button i {
+    margin-right: 5px;
+    transition: margin-right .3s; }
+  .back-button:hover i {
+    margin-right: 15px; }

@@ -4,6 +4,7 @@
 
   @include media-from($break-menu) {
     flex-direction: row;
+    justify-content: space-between;
   }
 
   .post,
@@ -14,9 +15,29 @@
 
   .post {
     flex-basis: 65%;
+
+    .post__feature-image {
+      img {
+        width: 100%;
+      }
+    }
   }
 
   .sidebar {
     flex-basis: 30%;
+  }
+}
+
+.back-button {
+  padding: 8px 0;
+  color: $c-blue;
+  
+  i {
+    margin-right: 5px;
+    transition: margin-right .3s;
+  }
+
+  &:hover i {
+    margin-right: 15px;
   }
 }
