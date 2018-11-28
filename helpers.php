@@ -30,6 +30,11 @@ function get_site_base_url() {
   $raw_request = $_SERVER['REQUEST_URI'];
   $end_pos     = strpos( $raw_request, '?' ) ? strpos( $raw_request, '?' ) : strlen( $raw_request );
   $request     = substr( $raw_request, 0, $end_pos );
+  // remove any API requests
+  $api_pos     = strpos( $request, '/api' );
+  if( -1 < $api_pos ) {
+    $request = substr( $request, 0, $api_pos );
+  }
   return sprintf( '%s://%s%s%s',
     $prefix,
     $_SERVER['SERVER_NAME'],
