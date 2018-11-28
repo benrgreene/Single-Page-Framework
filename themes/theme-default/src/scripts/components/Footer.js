@@ -15,6 +15,9 @@ class Footer extends React.Component {
       'footer_widget_three': false,
       'numberLoadedWidgets': 0
     }
+  }
+
+  componentDidMount () {
     // Fetch our widgets
     this.getWidget('footer_widget_one')
     this.getWidget('footer_widget_two')

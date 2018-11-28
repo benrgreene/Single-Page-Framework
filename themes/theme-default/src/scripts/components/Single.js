@@ -37,8 +37,7 @@ class Single extends React.Component {
     }
     document.title = `${siteTitle} - ${this.props.postObject.title}`
     // callbacks
-    this.backToArchive = this.backToArchive.bind(this)
-    // Let's set the query param for sharing purposes
+    this.backToArchive = this.backToArchive.bind(this)// Let's set the query param for sharing purposes
     var newurl = siteUrl + '?post=' + this.props.postObject.slug;
     window.history.pushState({ path: newurl }, '', newurl)
   }
@@ -48,6 +47,7 @@ class Single extends React.Component {
   }
 
   componentDidMount () {
+    // get the feature image
     let self = this
     fetchFeatureImage(this.state.postObject.ID).then((response) => {
       self.setState({
@@ -59,7 +59,10 @@ class Single extends React.Component {
   render () {
     return(
       <div className="l-contain">
-        <div className="back-button" onClick={this.backToArchive}>Back To Blog</div>
+        <div className="back-button" onClick={this.backToArchive}>
+          <i className="fa fa-angle-left" aria-hidden="true"></i>
+          Back To Blog
+        </div>
         <div className="post-wrapper">
           <article className="post post--single">
             { this.state.image && 
@@ -67,7 +70,7 @@ class Single extends React.Component {
                 <img src={this.state.image} />
               </figure>
             }
-            <h1 className="post__title">{this.state.postObject.title}</h1>
+            <h2 className="post__title">{this.state.postObject.title}</h2>
             <div className="post__info">
               <div className="post__author">Written By: {this.state.postObject.author}</div>
             </div>

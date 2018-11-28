@@ -12,7 +12,9 @@ class Sidebar extends React.Component {
     this.state = {
       'sidebarContent': ''
     }
-    // setup
+  }
+
+  componentDidMount () {
     this.fetchSidebar()
   }
 

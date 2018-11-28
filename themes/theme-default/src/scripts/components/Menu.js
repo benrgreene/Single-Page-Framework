@@ -10,11 +10,14 @@ class Menu extends React.Component {
       'menu': [],
       'isDisplayed': false
     }
-    // setup
-    this.loadMenu()
     // callbacks
     this.openSubMenu      = this.openSubMenu.bind(this)
     this.toggleMobileMenu = this.toggleMobileMenu.bind(this)
+  }
+
+  componentDidMount () {
+    // setup
+    this.loadMenu()
   }
 
   /**
