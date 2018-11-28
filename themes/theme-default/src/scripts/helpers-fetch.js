@@ -10,4 +10,10 @@ const fetchPostBySlug = async (slug) => {
   return data.content
 }
 
-export { fetchPostBySlug }
+const fetchFeatureImage = async (postID) => {
+  let response = await fetch(`${window.theme.baseURL}api/get/media/${postID}`)
+  let data     = await response.json()
+  return data.content
+}
+
+export { fetchPostBySlug, fetchFeatureImage }

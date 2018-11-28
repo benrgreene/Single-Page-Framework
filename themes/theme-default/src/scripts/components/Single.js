@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 
 import Sidebar from './Sidebar'
 
+import { fetchFeatureImage } from '../helpers-fetch.js'
+
 // ------------------------------------
 // ------ REDUX STATE MANAGEMENT ------
 // ------------------------------------
@@ -30,7 +32,8 @@ class Single extends React.Component {
     super(props)
     // state
     this.state = {
-      postObject: this.props.postObject
+      postObject: this.props.postObject,
+      image: false
     }
     document.title = `${siteTitle} - ${this.props.postObject.title}`
     // callbacks
@@ -44,12 +47,26 @@ class Single extends React.Component {
     this.props.setPageType('archive')
   }
 
+  componentDidMount () {
+    let self = this
+    fetchFeatureImage(this.state.postObject.ID).then((response) => {
+      self.setState({
+        'image': response[0].path + response[0].name
+      })
+    })
+  }
+
   render () {
     return(
       <div className="l-contain">
         <div className="back-button" onClick={this.backToArchive}>Back To Blog</div>
         <div className="post-wrapper">
           <article className="post post--single">
+            { this.state.image && 
+              <figure className="post__feature-image">
+                <img src={this.state.image} />
+              </figure>
+            }
             <h1 className="post__title">{this.state.postObject.title}</h1>
             <div className="post__info">
               <div className="post__author">Written By: {this.state.postObject.author}</div>
