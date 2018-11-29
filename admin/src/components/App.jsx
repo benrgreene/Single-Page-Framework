@@ -5,11 +5,12 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 // Child Components
-import Login from './Login'
 import AddPostForm from './AddPostForm'
-import PostSelector from './PostSelector'
+import Importer from './Importer'
+import Login from './Login'
 import MenuForm from './AddMenu'
 import OptionsForm from './OptionsForm'
+import PostSelector from './PostSelector'
 
 // ------------------------------------
 // ------ REDUX STATE MANAGEMENT ------
@@ -63,6 +64,7 @@ class App extends React.Component {
             <li onClick={(event) => {this.setState({'displayPane': 'posts'})}}>Post Form</li>
             <li onClick={(event) => {this.setState({'displayPane': 'menu'})}}>Menu Form</li>
             <li onClick={(event) => {this.setState({'displayPane': 'options'})}}>Theme Options</li>
+            <li onClick={(event) => {this.setState({'displayPane': 'importer'})}}>Importer</li>
           </ul>
           {this.state.displayPane === 'posts' &&
             <div className="wrapper">
@@ -78,6 +80,11 @@ class App extends React.Component {
           {this.state.displayPane === 'options' &&
             <div className="wrapper">
               <OptionsForm/>
+            </div>
+          }
+          {this.state.displayPane === 'importer' &&
+            <div className="wrapper">
+              <Importer/>
             </div>
           }
         </div>

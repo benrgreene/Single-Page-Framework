@@ -31,7 +31,8 @@
 .back-button {
   padding: 8px 0;
   color: $c-blue;
-  
+  cursor: pointer;
+
   i {
     margin-right: 5px;
     transition: margin-right .3s;

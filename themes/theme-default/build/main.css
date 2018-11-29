@@ -198,7 +198,8 @@ footer {
 
 .back-button {
   padding: 8px 0;
-  color: #0707b9; }
+  color: #0707b9;
+  cursor: pointer; }
   .back-button i {
     margin-right: 5px;
     transition: margin-right .3s; }
