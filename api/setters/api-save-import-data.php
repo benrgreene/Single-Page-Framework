@@ -52,10 +52,12 @@ function import_post( $post_object ) {
   (new Database_Interface)->insert( $post_query );
   // get the post object
   $post = db_get_latest_entry( 'posts', array(
-    'type' => $post_object['type']
+    'type' => $post_object['post_info']['type']
   ) );
   // Only want to try and upload the media if there is media to upload
-  if( false != $post_object['uploads']['file'] && '' != $post_object['uploads']['file'] ) {
+  if( isset($post_object['uploads']['file']) &&
+      false != $post_object['uploads']['file'] && 
+      '' != $post_object['uploads']['file'] ) {
     // add the post media
     $media_query = DB_Query_Builder::insert_query( 'uploads', array(
       'name' => $post_object['uploads']['file']
