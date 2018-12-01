@@ -50,19 +50,36 @@ class DB_Query_Builder {
   //        array(
   //          join-table, join-table column, base-table column
   //        )
-  public static function join_query( $table, $selects, $joins, $conditions=false ) {
+  public static function join_query( $table, $selects, $joins, $conditions=false, $options=array() ) {
+    // set the default options
+    $options = array_merge( array(
+      'limit'     => '',
+      'order'     => false,
+      'offset'    => false,
+    ), $options );
+
     $query = sprintf( 'SELECT %s FROM %s ',  implode( ', ', $selects ), $table );
     foreach( $joins as $join ) {
       if( 3 >= count( $join ) ) {
-        $query .= sprintf( 'INNER JOIN %s ON %s=%s ', $join[0], $join[1], $join[2] );
+        $query .= sprintf( 'LEFT JOIN %s ON %s=%s ', $join[0], $join[1], $join[2] );
       }
     }
     if( $conditions ) {
       $query .= ' WHERE '; 
       foreach( $conditions as $condition => $value ) {
-        $query .= sprintf( '%s = %s AND ', $condition, $value );
+        $query .= sprintf( '%s="%s" AND ', $condition, $value );
       }  
       $query = remove_last_instance( $query, 'AND' );
+    }
+
+    // Add any order command present
+    if( $options['order'] ) {
+      $direction = isset( $options['direction'] ) ? $options['direction'] : 'ASC';
+      $query .= sprintf( ' ORDER BY %s %s', $options['order'] , $direction );
+    }
+    // If there is a limit, add it to the query
+    if( $options['limit'] ) {
+      $query .= sprintf( ' LIMIT %s', $options['limit'] );
     }
     
     return $query;

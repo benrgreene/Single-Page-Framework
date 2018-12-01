@@ -17,15 +17,21 @@ function api_get_page_of_results( $data ) {
   }
   
   $page_on = max((($page_number - 1) * PAGE_SIZE), 0);
-  $query = DB_Query_Builder::select_query( 'posts', array(
-    'type' => $post_type
-  ), array(
-    'order'     => 'ID',
-    'direction' => 'DESC',
-    'limit'     => $page_on . ',' . PAGE_SIZE,
-  ) );
-  
+  $query = DB_Query_Builder::join_query( 'posts', 
+    array( 'posts.*', 'users.name', 'users.email' ), 
+    array(
+      array( 'users', 'posts.author', 'users.name' )
+    ), array(
+      'posts.type' => $post_type,
+    ), array(
+      'order'     => 'posts.ID',
+      'direction' => 'DESC',
+      'limit'     => $page_on . ',' . PAGE_SIZE,
+    )
+  );
+  write_log($query);
   $results = (new Database_Interface)->query( $query );
+  write_log( $results );
   
   // Want to get the first post's ID, and check if that is in
   // the returning results.
