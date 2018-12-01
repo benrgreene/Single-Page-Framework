@@ -11,13 +11,15 @@ import App from './components/App'
 let savedTokenInfo = JSON.parse(sessionStorage.getItem('adminToken'))
 let savedToken     = false
 let now            = Date.now() / 1000
+let user           = false
 if (savedTokenInfo && savedTokenInfo.expiration > now) {
-  savedToken = savedTokenInfo.token
+  savedToken = savedTokenInfo.token,
+  user       = savedTokenInfo.user
 }
 
 const store = createStore(reducer, {
   authToken: savedToken,
-  user: false,
+  user: user,
   postTypes: [],
   postsOfCurrentType: []
 });

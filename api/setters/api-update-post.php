@@ -21,10 +21,9 @@ function api_update_post( $data ) {
   $post_data = array(
     'title'   => isset( $data['title'] ) ? $data['title'] : '',
     'content' => isset( $data['content'] ) ? $data['content'] : '',
-    'author'  => isset( $data['author'] ) ? $data['author'] : '',
     'type'    => isset( $data['type'] ) ? $data['type'] : '',
   );
-  $post_data['slug'] = slugify( $post_data['title'] );
+  
   // Build the query (use the post ID as the conditional)
   $query = DB_Query_Builder::update_query( 'posts', $post_data, array(
     'ID'  => $data['postID'],
