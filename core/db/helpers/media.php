@@ -20,8 +20,10 @@ function get_post_media( $post_id ) {
   $results = (new Database_Interface)->query( $query, false );
   // make sure there are paths set for all the media
   $site_url = get_site_base_url();
-  foreach( $results as $key => $media ) {
-    $results[$key]['path'] =  sprintf( '%s/uploads/' , $site_url );
+  if( $results ) {
+    foreach( $results as $key => $media ) {
+      $results[$key]['path'] =  sprintf( '%s/uploads/' , $site_url );
+    }
   }
   return $results;
 }

@@ -90,9 +90,9 @@ class Archive extends React.Component {
   render () {
     return (
       <div className="l-contain">
-        <div className={'archive archive--' + this.props.archiveType}>
+        <div id="archive" className={'archive archive--' + this.props.archiveType}>
           {this.state.loadedPosts.map((post, index) => { return (
-            <article key={post.title} className="post" data-index={index} onClick={(event) => {this.setPostToView(index)}}>
+            <article key={post.title} className="post tile" data-index={index} onClick={(event) => {this.setPostToView(index)}}>
               <div className="post__title">{post.title}</div>
               <div className="post__content"
                    dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(post.content)}}></div>

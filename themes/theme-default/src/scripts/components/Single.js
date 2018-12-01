@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import Sidebar from './Sidebar'
 
 import { fetchFeatureImage } from '../helpers-fetch.js'
+import { md5 } from '../helpers.js'
 
 // ------------------------------------
 // ------ REDUX STATE MANAGEMENT ------
@@ -33,7 +34,8 @@ class Single extends React.Component {
     // state
     this.state = {
       postObject: this.props.postObject,
-      image: false
+      image: false,
+      gravitar: false
     }
     document.title = `${siteTitle} - ${this.props.postObject.title}`
     // callbacks
@@ -54,6 +56,12 @@ class Single extends React.Component {
         'image': response[0].path + response[0].name
       })
     })
+
+    if (this.state.postObject.author) {
+      this.setState({
+        gravitar: `http://www.gravatar.com/avatar/${md5(this.state.postObject.author)}.jpg`
+      })
+    }
   }
 
   render () {
@@ -65,14 +73,21 @@ class Single extends React.Component {
         </div>
         <div className="post-wrapper">
           <article className="post post--single">
-            { this.state.image && 
+            {this.state.image && 
               <figure className="post__feature-image">
-                <img src={this.state.image} />
+                <img src={this.state.image} alt="feature image"/>
               </figure>
             }
             <h2 className="post__title">{this.state.postObject.title}</h2>
             <div className="post__info">
-              <div className="post__author">Written By: {this.state.postObject.author}</div>
+              <div className="post__author">
+                {this.state.gravitar && 
+                  <figure className="post__author-image">
+                    <img src={this.state.gravitar} alt="author gravitar" />
+                  </figure>
+                }
+                Written By: {this.state.postObject.author}
+              </div>
             </div>
             <div className="post__content"
                  dangerouslySetInnerHTML={{ __html: this.state.postObject.content}}></div>
