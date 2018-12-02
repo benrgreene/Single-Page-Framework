@@ -20,7 +20,7 @@ function api_get_page_of_results( $data ) {
   $query = DB_Query_Builder::join_query( 'posts', 
     array( 'posts.*', 'users.name', 'users.email' ), 
     array(
-      array( 'users', 'posts.author', 'users.name' )
+      array( 'users', 'posts.author', 'users.email' )
     ), array(
       'posts.type' => $post_type,
     ), array(
