@@ -3,6 +3,8 @@ const React = require('react')
 import { connect } from 'react-redux';
 import DOMPurify from 'dompurify'
 
+import { md5 } from '../helpers.js'
+
 // ------------------------------------
 // ------ REDUX STATE MANAGEMENT ------
 // ------------------------------------
@@ -39,13 +41,21 @@ class Archive extends React.Component {
       // was on the archive screen before
       loadedPosts: this.props.loadedPosts || [],
       moreAvailable: true,
+      columns: 1
     }
+    this.archiveRef
+    // Breakpoint info for the masonry tiles
+    this.columnBreakpoints = [
+      {'width': 500, 'columns': 2},
+      {'width': 800, 'columns': 3}
+    ]
+    this.spaceAround = 20
+    // Let's set the query param for sharing purposes
+    window.history.pushState({ path: siteUrl }, '', siteUrl)
     document.title = `${siteTitle} - Post Archive`
     // callbacks
     this.loadNextPage  = this.loadNextPage.bind(this)
     this.setPostToView = this.setPostToView.bind(this)
-    // Let's set the query param for sharing purposes
-    window.history.pushState({ path: siteUrl }, '', siteUrl)
   }
 
   componentDidMount () {
@@ -54,6 +64,49 @@ class Archive extends React.Component {
     if (0 == this.state.loadedPosts.length) {
       this.fetchPage()  
     }
+
+    // on window resize, we need to reset the masonry tiles
+    window.addEventListener("resize", () => {
+      this.resizeTiles()
+      this.positionTiles()
+    })
+  }
+
+  // Resize all the tiles for the masonry
+  resizeTiles () {
+    let docWidth  = document.body.clientWidth
+    let numCols   = 1
+    let lastWidth = 0
+    this.columnBreakpoints.forEach((breakpoint) => {
+      if (breakpoint.width >= lastWidth && breakpoint.width < docWidth) {
+        numCols   = breakpoint.columns
+        lastWidth = breakpoint.width
+      }
+    })
+    this.setState({ 'columns': numCols })
+  }
+
+  // Set masonry tile positisons
+  positionTiles () {
+    let columnPos = []
+    for (let i = 0; i < this.state.columns; i++) {
+      columnPos.push(0)
+    }
+    // This is our base size for columns
+    let baseWidth = this.archiveRef.clientWidth / this.state.columns
+    let tiles = document.querySelectorAll('.tile')
+    // Now, we start positioning tiles. 
+    tiles.forEach((tile, index) => {
+      let tileHeight = Math.min(...columnPos)
+      let tileColumn = columnPos.indexOf(tileHeight)
+      // update the column positioning array
+      columnPos[tileColumn] += this.spaceAround + tile.clientHeight
+      // Set tile positioning
+      tile.style.top = (tileHeight + this.spaceAround) + 'px'
+      tile.style.left = (baseWidth * tileColumn) + 'px'
+    })
+    // Set the height of the masonry section
+    this.archiveRef.style.height = (Math.max(...columnPos) + this.spaceAround) + 'px'
   }
 
   // Make an API request to fetch the next page of the given post type
@@ -73,6 +126,9 @@ class Archive extends React.Component {
           'loadedPosts': posts,
           'moreAvailable': response.haveMore
         })
+        // reset the masonry
+        this.resizeTiles()
+        this.positionTiles()
       }
     })
   }
@@ -90,10 +146,22 @@ class Archive extends React.Component {
   render () {
     return (
       <div className="l-contain">
-        <div id="archive" className={'archive archive--' + this.props.archiveType}>
+        <div id="archive" 
+             className={'archive archive--' + this.props.archiveType + ' masonry masonry--' + this.state.columns}
+             ref={comp => this.archiveRef = comp} >
           {this.state.loadedPosts.map((post, index) => { return (
             <article key={post.title} className="post tile" data-index={index} onClick={(event) => {this.setPostToView(index)}}>
-              <div className="post__title">{post.title}</div>
+              <h3 className="post__title">{post.title}</h3>
+              <div className="post__info">
+                {post.email && 
+                  <figure className="post__feature-image">
+                    <img src={`http://www.gravatar.com/avatar/${md5(post.author)}.jpg`} alt="feature image"/>
+                  </figure>
+                }
+                <div className="post__author">
+                  {post.name}
+                </div>
+              </div>
               <div className="post__content"
                    dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(post.content)}}></div>
             </article>

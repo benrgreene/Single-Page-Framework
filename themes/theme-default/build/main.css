@@ -86,6 +86,28 @@ footer {
   .site-header a {
     color: inherit; }
 
+.masonry {
+  position: relative; }
+
+.tile {
+  position: absolute;
+  padding: 0 12px;
+  width: 100%;
+  overflow: hidden;
+  transition: left .5s, top .5s; }
+
+.masonry--2 .tile {
+  width: 50%; }
+
+.masonry--3 .tile {
+  width: 33%; }
+
+.masonry--4 .tile {
+  width: 25%; }
+
+.masonry--5 .tile {
+  width: 20%; }
+
 .menu {
   padding-top: 20px;
   display: none; }
