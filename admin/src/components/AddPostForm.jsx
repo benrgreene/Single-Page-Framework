@@ -56,6 +56,7 @@ class AddPostForm extends React.Component {
       content: '',
       confirmDelete: false,
       newImage: true,
+      contentType: 'WYSIWYG'
     }
   }
   
@@ -174,6 +175,7 @@ class AddPostForm extends React.Component {
   }
 
   render () {
+    console.log(this.state.contentType)
     return (
       <div className="main-content">
         <div className="form form--new-post">
@@ -213,11 +215,31 @@ class AddPostForm extends React.Component {
             </div>
           )}
           <div>
-            <label htmlFor="name">Content</label>
-            <ReactQuill name="content" 
-                      onChange={(value) => {this.setState({'content': value})}} 
-                      value={this.state.content || ''} />
+            <label htmlFor="name">Content Type</label>
+            <select name="post-content-type"
+                    onChange={(event) => {this.setState({'contentType': event.target.value})}}>
+              <option>WYSIWYG</option>
+              <option>Text Editor</option>
+            </select>
           </div>
+          {'WYSIWYG' == this.state.contentType ? (
+            <div>
+              <label htmlFor="content">Content</label>
+              <ReactQuill name="content" 
+                        onChange={(value) => {this.setState({'content': value})}} 
+                        value={this.state.content || ''} />
+            </div>
+          ) : (
+            <div>
+              <label htmlFor="content">Content</label>
+              <div>
+                <textarea name="content"
+                        className="full-size-text"
+                        onChange={(event) => {this.setState({'content': event.target.value})}} 
+                        value={this.state.content || ''} />
+              </div>                        
+            </div>
+          ) }
           <PostMetaForm ref={comp => this.metaRef = comp} />
           <div className="post-images">
             {this.state.newImage ? (

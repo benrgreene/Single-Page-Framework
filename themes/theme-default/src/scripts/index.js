@@ -12,7 +12,8 @@ const store = createStore(reducer, {
   postsPageOn: 1,
   loadedPosts: [],
   viewType: 'archive',
-  postObject: false
+  postObject: false,
+  moreAvailable: true,
 })
 
 ReactDom.render(

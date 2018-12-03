@@ -16,11 +16,6 @@
   .post {
     flex-basis: 65%;
 
-    .post__title {
-      font-size: 45px;
-      text-align: center;
-    }
-
     .post__author-image {
         position: relative;
         display: flex;
@@ -51,16 +46,11 @@
           border-radius: 100%;
         }
     }
-
-    .post__feature-image {
-      img {
-        width: 100%;
-      }
-    }
   }
 
   .sidebar {
     flex-basis: 30%;
+    margin-top: 100px;
   }
 }
 
@@ -76,5 +66,11 @@
 
   &:hover i {
     margin-right: 15px;
+  }
+}
+
+.feature-image--single {
+  img {
+    width: 100%;
   }
 }

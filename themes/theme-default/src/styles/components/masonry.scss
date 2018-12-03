@@ -27,16 +27,21 @@ $mason-space: 15px;
     transition: left .5s, top .5s;
 }
 
+.page__title--archive {
+    margin: 15px auto;
+}
+
 .archive .post {
     padding: 8px 15px;
-    box-shadow: 2px 2px 20px 1px $c-medium-grey;
+    box-shadow: 2px 1px 20px 0px #999;
     cursor: pointer;
 
     &:hover {
-        box-shadow: inset 2px 2px 20px 1px $c-medium-grey;
+        box-shadow: inset 2px 2px 5px 1px $c-medium-grey;
     }
 
     .post__title {
+        font-size: 28px;
         text-align: center;
     }
 

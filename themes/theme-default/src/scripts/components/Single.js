@@ -35,7 +35,7 @@ class Single extends React.Component {
     this.state = {
       postObject: this.props.postObject,
       image: false,
-      gravitar: false
+      gravitar: `http://www.gravatar.com/avatar/${md5(this.props.postObject.author)}.jpg?d=identicon`
     }
     document.title = `${siteTitle} - ${this.props.postObject.title}`
     // callbacks
@@ -53,32 +53,27 @@ class Single extends React.Component {
     let self = this
     fetchFeatureImage(this.state.postObject.ID).then((response) => {
       if (response) {
-        console.log(response)
         self.setState({
           'image': response[0].path + response[0].name
         })
       }
-    })
-
-    this.setState({
-      gravitar: `http://www.gravatar.com/avatar/${md5(this.state.postObject.author)}.jpg?d=identicon`
     })
   }
 
   render () {
     return(
       <div className="l-contain">
+        {this.state.image && 
+          <figure className="feature-image--single">
+            <img src={('string' == typeof this.state.image) ? this.state.image : undefined} alt="feature image"/>
+          </figure>
+        }
         <div className="back-button" onClick={this.backToArchive}>
           <i className="fa fa-angle-left" aria-hidden="true"></i>
           Back To Blog
         </div>
         <div className="post-wrapper">
           <article className="post post--single">
-            {this.state.image && 
-              <figure className="post__feature-image">
-                <img src={('string' == typeof this.state.image) ? this.state.image : undefined} alt="feature image"/>
-              </figure>
-            }
             <h1 className="post__title">{this.state.postObject.title}</h1>
             <div className="post__author">
               <figure className="post__author-image">

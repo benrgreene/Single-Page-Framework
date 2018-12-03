@@ -16,7 +16,8 @@ export function reducer (state, action) {
     case 'POSTS':
       return Object.assign({}, state, {
         loadedPosts: action.loadedPosts,
-        postsPageOn: action.postsPageOn
+        postsPageOn: action.postsPageOn,
+        moreAvailable: action.moreAvailable
       })
     case 'POST_TO_VIEW':
       return Object.assign({}, state, {

@@ -11,16 +11,18 @@ import { md5, trimWords } from '../helpers.js'
 const mapStateToProps = state => ({
   archiveType: state.archiveType,
   postsPageOn: state.postsPageOn,
-  loadedPosts: state.loadedPosts
+  loadedPosts: state.loadedPosts,
+  moreAvailable: state.moreAvailable
 })
 
 const mapDispatcherToProps = dispatch => {
   return {
     // Currently selected post
-    setPosts: (posts, pageOn) => dispatch({
+    setPosts: (posts, pageOn, moreAvailable) => dispatch({
       type: 'POSTS',
       loadedPosts: posts,
-      postsPageOn: pageOn
+      postsPageOn: pageOn,
+      moreAvailable: moreAvailable
     }),
     setPostForSingle: (postObject) => dispatch({
       type: 'POST_TO_VIEW',
@@ -45,7 +47,7 @@ class Archive extends React.Component {
       // Allows us to track posts that have been loaded if the user 
       // was on the archive screen before
       loadedPosts: this.props.loadedPosts || [],
-      moreAvailable: true,
+      moreAvailable: this.props.moreAvailable,
       columns: this.resizeTiles()
     }
     this.archiveRef
@@ -128,7 +130,7 @@ class Archive extends React.Component {
         let posts = self.props.loadedPosts
         posts.push(... response.content)
         // Dispatch to redux AND set in state for auto re-rendering
-        self.props.setPosts(posts, this.props.postsPageOn + 1)
+        self.props.setPosts(posts, this.props.postsPageOn + 1, response.haveMore)
         self.setState({ 
           'loadedPosts': posts,
           'moreAvailable': response.haveMore
@@ -153,6 +155,7 @@ class Archive extends React.Component {
   render () {
     return (
       <div className="l-contain">
+        <h1 className="page__title page__title--archive">{this.props.archiveType || ''} Archive</h1>
         <div id="archive" 
              className={'archive archive--' + this.props.archiveType + ' masonry masonry--' + this.state.columns}
              ref={comp => this.archiveRef = comp} >

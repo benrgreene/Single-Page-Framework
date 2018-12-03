@@ -46,7 +46,9 @@ h3 {
 
 .post__title,
 .page__title {
-  font-size: 30px; }
+  font-size: 45px;
+  text-align: center;
+  text-transform: capitalize; }
 
 button {
   -webkit-appearance: none;
@@ -119,13 +121,17 @@ footer {
   overflow: hidden;
   transition: left .5s, top .5s; }
 
+.page__title--archive {
+  margin: 15px auto; }
+
 .archive .post {
   padding: 8px 15px;
-  box-shadow: 2px 2px 20px 1px #777;
+  box-shadow: 2px 1px 20px 0px #999;
   cursor: pointer; }
   .archive .post:hover {
-    box-shadow: inset 2px 2px 20px 1px #777; }
+    box-shadow: inset 2px 2px 5px 1px #777; }
   .archive .post .post__title {
+    font-size: 30px;
     text-align: center; }
   .archive .post .post__info {
     position: relative;
@@ -266,9 +272,6 @@ footer {
     flex-shrink: 0; }
   .post-wrapper .post {
     flex-basis: 65%; }
-    .post-wrapper .post .post__title {
-      font-size: 45px;
-      text-align: center; }
     .post-wrapper .post .post__author-image {
       position: relative;
       display: flex;
@@ -289,8 +292,6 @@ footer {
         bottom: -10px; }
       .post-wrapper .post .post__author-image img {
         border-radius: 100%; }
-    .post-wrapper .post .post__feature-image img {
-      width: 100%; }
   .post-wrapper .sidebar {
     flex-basis: 30%; }
 
@@ -303,3 +304,6 @@ footer {
     transition: margin-right .3s; }
   .back-button:hover i {
     margin-right: 15px; }
+
+.feature-image--single img {
+  width: 100%; }
