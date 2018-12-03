@@ -65,7 +65,7 @@ class App extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (this.props.viewType != nextProps.viewType) {
+    if (this.props.viewType != nextProps.viewType && this.state) {
       this.setState({ viewType: nextProps.viewType })
     }
   }

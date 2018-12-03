@@ -52,16 +52,17 @@ class Single extends React.Component {
     // get the feature image
     let self = this
     fetchFeatureImage(this.state.postObject.ID).then((response) => {
-      self.setState({
-        'image': response[0].path + response[0].name
-      })
+      if (response) {
+        console.log(response)
+        self.setState({
+          'image': response[0].path + response[0].name
+        })
+      }
     })
 
-    if (this.state.postObject.author) {
-      this.setState({
-        gravitar: `http://www.gravatar.com/avatar/${md5(this.state.postObject.author)}.jpg`
-      })
-    }
+    this.setState({
+      gravitar: `http://www.gravatar.com/avatar/${md5(this.state.postObject.author)}.jpg?d=identicon`
+    })
   }
 
   render () {
@@ -75,19 +76,17 @@ class Single extends React.Component {
           <article className="post post--single">
             {this.state.image && 
               <figure className="post__feature-image">
-                <img src={this.state.image} alt="feature image"/>
+                <img src={('string' == typeof this.state.image) ? this.state.image : undefined} alt="feature image"/>
               </figure>
             }
-            <h2 className="post__title">{this.state.postObject.title}</h2>
-            <div className="post__info">
-              <div className="post__author">
-                {this.state.gravitar && 
-                  <figure className="post__author-image">
-                    <img src={this.state.gravitar} alt="author gravitar" />
-                  </figure>
-                }
-                Written By: {this.state.postObject.author}
-              </div>
+            <h1 className="post__title">{this.state.postObject.title}</h1>
+            <div className="post__author">
+              <figure className="post__author-image">
+                <img src={this.state.gravitar} alt="author gravitar" />
+                <figcaption className="post__author--name">
+                  Written By: {this.state.postObject.author}
+                </figcaption>
+              </figure>
             </div>
             <div className="post__content"
                  dangerouslySetInnerHTML={{ __html: this.state.postObject.content}}></div>

@@ -16,6 +16,42 @@
   .post {
     flex-basis: 65%;
 
+    .post__title {
+      font-size: 45px;
+      text-align: center;
+    }
+
+    .post__author-image {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 30px 0;
+
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            height: 2px;
+            left: 15%;
+            right: 15%;
+            background-color: $c-dark-grey;
+        }
+
+        &::before {
+            top: -10px;
+        }
+
+        &::after {
+            bottom: -10px;
+        }
+
+        img {
+          border-radius: 100%;
+        }
+    }
+
     .post__feature-image {
       img {
         width: 100%;

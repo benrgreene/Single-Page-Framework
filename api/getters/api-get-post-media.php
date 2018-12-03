@@ -17,8 +17,7 @@ function api_get_post_media( $data ) {
       'content' => $post_media
     ) );
   }
-
   API_Responses::send_response( array(
-    'content' => 'No media found'
-  ), 400 );
+    'content' => false
+  ) );
 }

@@ -1,3 +1,13 @@
-.button {
+button {
   -webkit-appearance: none;
+  border: 1px solid $c-dark-grey;
+  border-radius: 5px;
+  padding: 7px 15px;
+  background-color: $c-dark-grey;
+  color: $c-white;
+  transition: color .3s, background-color .3s;
+
+  &:hover {
+    cursor: pointer;
+  }
 }

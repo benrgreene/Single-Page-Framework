@@ -3,7 +3,7 @@ const React = require('react')
 import { connect } from 'react-redux';
 import DOMPurify from 'dompurify'
 
-import { md5 } from '../helpers.js'
+import { md5, trimWords } from '../helpers.js'
 
 // ------------------------------------
 // ------ REDUX STATE MANAGEMENT ------
@@ -91,6 +91,9 @@ class Archive extends React.Component {
 
   // Set masonry tile positisons
   positionTiles (columns) {
+    if (!this.archiveRef) {
+      return
+    }
     let columnPos = []
     for (let i = 0; i < columns; i++) {
       columnPos.push(0)
@@ -167,14 +170,14 @@ class Archive extends React.Component {
                 </div>
               </div>
               <div className="post__content"
-                   dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(post.content)}}></div>
+                   dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(post.excerpt || trimWords(post.content, 60))}}></div>
             </article>
           )})}
         </div>
         {this.state.moreAvailable ? (
-          <button onClick={this.loadNextPage}>Load More</button>
+          <button className="load-more" onClick={this.loadNextPage}>Load More</button>
         ) : (
-          <button disabled="disabled">No More Posts</button>
+          <button className="load-more" disabled="disabled">No More Posts</button>
         )}
       </div>
     )

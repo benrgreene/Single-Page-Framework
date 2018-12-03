@@ -27,7 +27,7 @@ define( 'DB_PASSWORD', 'root' );
  * ------------------------------------------------
  */
 // Database version
-define( 'DB_VERSION', '6' );
+define( 'DB_VERSION', 7 );
 // Schema
 define( 'DB_SCHEMA', array(
   'users' => array(
@@ -41,6 +41,7 @@ define( 'DB_SCHEMA', array(
     'type'      => 'varchar(60)',
     'title'     => 'varchar(60)',
     'author'    => 'varchar(60)',
+    'excerpt'   => 'longtext',
     'content'   => 'longtext',
     'published' => 'varchar(20)',
     'date'      => 'datetime',
