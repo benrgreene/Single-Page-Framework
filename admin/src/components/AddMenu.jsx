@@ -24,6 +24,7 @@ class MenuForm extends React.Component {
     this.addSubItem = this.addSubItem.bind(this)
     this.updateName = this.updateName.bind(this)
     this.updateLink = this.updateLink.bind(this)
+    this.deleteItem = this.deleteItem.bind(this)
     // state
     this.state = { 
       menu: []
@@ -76,6 +77,19 @@ class MenuForm extends React.Component {
     this.setState({'menu': menu})
   }
 
+  deleteItem (event) {
+    let menu   = this.state.menu
+    let target = event.target
+    let index  = target.dataset.index
+    let parent = target.dataset.parent || false
+    if (parent) {
+      menu[parent].children.splice(index, 1)
+    } else {
+      menu.splice(index, 1)
+    }
+    this.setState({'menu': menu})
+  }
+
   // ------------------------------------
   // ---------- API FUNCTIONS -----------
   // ------------------------------------
@@ -124,7 +138,7 @@ class MenuForm extends React.Component {
     return (
       <div>
         {this.state.menu.map((menuItem, index) => { return (
-          <div key={index} data-index={index} className="form">
+          <div key={index} data-index={index} className="form menu-item">
             <div> 
               <label>Name</label>
               <input className="name" 
@@ -152,10 +166,19 @@ class MenuForm extends React.Component {
                             value={subItem.link} 
                             onChange={this.updateLink} />
                   </div>
+                  <div>
+                    <button className="button button__delete"
+                            onClick={this.deleteItem} 
+                            data-parent={index}
+                            data-index={subIndex}>Delete Menu Sub Item</button>
+                  </div>
                 </div>
               )})}
               <button onClick={this.addSubItem} data-parent={index}>+ Menu Sub Item</button>
             </div>
+            <button className="button button__delete"
+                      onClick={this.deleteItem} 
+                      data-index={index}>Delete Menu Item</button>
           </div>
         )})}
         <button onClick={this.addNewItem}>+ Menu Item</button>

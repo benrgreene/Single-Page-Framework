@@ -80,6 +80,12 @@ label,
   flex-shrink: 0;
 }
 
+.menu-item {
+  margin-bottom: 20px;
+  border-top: 1px solid #CCC;
+  padding: 10px 0;
+}
+
 .selectors {
   margin-bottom: 20px;
   display: flex;
@@ -100,6 +106,7 @@ label,
 .children {
   position: relative;
   margin: 15px 0;
+  margin-left: 10px;
   border: 1px solid #CCC;
   padding: 15px 7px;
 }
