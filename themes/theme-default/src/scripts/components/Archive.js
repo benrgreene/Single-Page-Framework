@@ -36,19 +36,19 @@ const mapDispatcherToProps = dispatch => {
 class Archive extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {
-      // Allows us to track posts that have been loaded if the user 
-      // was on the archive screen before
-      loadedPosts: this.props.loadedPosts || [],
-      moreAvailable: true,
-      columns: 1
-    }
-    this.archiveRef
     // Breakpoint info for the masonry tiles
     this.columnBreakpoints = [
       {'width': 500, 'columns': 2},
       {'width': 800, 'columns': 3}
     ]
+    this.state = {
+      // Allows us to track posts that have been loaded if the user 
+      // was on the archive screen before
+      loadedPosts: this.props.loadedPosts || [],
+      moreAvailable: true,
+      columns: this.resizeTiles()
+    }
+    this.archiveRef
     this.spaceAround = 20
     // Let's set the query param for sharing purposes
     window.history.pushState({ path: siteUrl }, '', siteUrl)
@@ -67,9 +67,12 @@ class Archive extends React.Component {
 
     // on window resize, we need to reset the masonry tiles
     window.addEventListener("resize", () => {
-      this.resizeTiles()
-      this.positionTiles()
+      let columns = this.resizeTiles()
+      this.positionTiles(columns)
     })
+    
+    let columns = this.resizeTiles()
+    this.positionTiles(columns)
   }
 
   // Resize all the tiles for the masonry
@@ -83,17 +86,17 @@ class Archive extends React.Component {
         lastWidth = breakpoint.width
       }
     })
-    this.setState({ 'columns': numCols })
+    return numCols
   }
 
   // Set masonry tile positisons
-  positionTiles () {
+  positionTiles (columns) {
     let columnPos = []
-    for (let i = 0; i < this.state.columns; i++) {
+    for (let i = 0; i < columns; i++) {
       columnPos.push(0)
     }
     // This is our base size for columns
-    let baseWidth = this.archiveRef.clientWidth / this.state.columns
+    let baseWidth = this.archiveRef.clientWidth / columns
     let tiles = document.querySelectorAll('.tile')
     // Now, we start positioning tiles. 
     tiles.forEach((tile, index) => {
@@ -107,6 +110,7 @@ class Archive extends React.Component {
     })
     // Set the height of the masonry section
     this.archiveRef.style.height = (Math.max(...columnPos) + this.spaceAround) + 'px'
+    this.setState({'columns': columns})
   }
 
   // Make an API request to fetch the next page of the given post type
@@ -127,8 +131,8 @@ class Archive extends React.Component {
           'moreAvailable': response.haveMore
         })
         // reset the masonry
-        this.resizeTiles()
-        this.positionTiles()
+        let columns = this.resizeTiles()
+        this.positionTiles(columns)
       }
     })
   }

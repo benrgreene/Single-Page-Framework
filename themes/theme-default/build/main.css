@@ -89,24 +89,50 @@ footer {
 .masonry {
   position: relative; }
 
+.masonry--2 .tile {
+  width: calc(50% - 15px); }
+
+.masonry--3 .tile {
+  width: calc(33% - 15px); }
+
+.masonry--4 .tile {
+  width: calc(25% - 15px); }
+
+.masonry--5 .tile {
+  width: calc(20% - 15px); }
+
 .tile {
   position: absolute;
-  padding: 0 12px;
   width: 100%;
   overflow: hidden;
   transition: left .5s, top .5s; }
 
-.masonry--2 .tile {
-  width: 50%; }
-
-.masonry--3 .tile {
-  width: 33%; }
-
-.masonry--4 .tile {
-  width: 25%; }
-
-.masonry--5 .tile {
-  width: 20%; }
+.archive .post {
+  padding: 6px 12px;
+  box-shadow: 2px 2px 20px 1px #777;
+  cursor: pointer; }
+  .archive .post .post__title {
+    position: relative;
+    text-align: center; }
+    .archive .post .post__title::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 40%;
+      right: 40%;
+      background-color: #333; }
+  .archive .post .post__info {
+    display: flex;
+    align-items: center; }
+  .archive .post .post__title,
+  .archive .post .post__info {
+    margin-bottom: 10px; }
+  .archive .post .post__feature-image img {
+    display: block;
+    margin-right: 15px;
+    border-radius: 100%;
+    height: 50px;
+    width: 50px; }
 
 .menu {
   padding-top: 20px;
