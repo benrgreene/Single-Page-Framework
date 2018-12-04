@@ -1,6 +1,7 @@
 const React = require('react')
 
 import { connect } from 'react-redux';
+import { setWindowTitle } from '../helpers.js'
 
 // ------------------------------------
 // ------ REDUX STATE MANAGEMENT ------
@@ -18,8 +19,7 @@ class Page extends React.Component {
     this.state = {
       postObject: this.props.postObject
     }
-    var newurl = siteUrl + '?page=' + this.props.postObject.slug;
-    window.history.pushState({ path: newurl }, '', newurl)
+    setWindowTitle(this.props.postObject)
   }
 
   render () {

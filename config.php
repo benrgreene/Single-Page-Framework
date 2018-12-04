@@ -6,7 +6,6 @@
  * ------------------------------------------------
  */
 // Base site info
-define( 'SITE_TITLE', 'My Personal Site');
 define( 'THEME_NAME', 'theme-default' );
 // This is the number of posts per page
 define( 'PAGE_SIZE', 4 );

@@ -9,7 +9,7 @@ const trimWords = (sentence, numWords=50) => {
 
 const setWindowTitle = (postObject) => {
   document.title = `${siteTitle} - ${postObject.title}`
-  let newurl     = siteUrl + '?post=' + postObject.slug;
+  let newurl     = siteUrl + '?' + postObject.type + '=' + postObject.slug;
   window.history.pushState({ path: newurl }, '', newurl)
 }
 

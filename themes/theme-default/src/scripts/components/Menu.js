@@ -82,10 +82,9 @@ class Menu extends React.Component {
     event.preventDefault();
     let link = event.target.getAttribute('href')
     if (!link.includes('http')) {
-      let linkParts = link.split('=')
-      let postSlug  = linkParts[1]
-      let self      = this
-      fetchPostBySlug(postSlug).then((data) => {
+      let slug = link.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
+      let self = this
+      fetchPostBySlug(link).then((data) => {
         self.props.setPostForSingle(data, data.type)
       })
     } else {

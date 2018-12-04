@@ -83,7 +83,7 @@ class App extends React.Component {
         <header className="site-header">
           <div className="site-header__content l-contain">
             <div className="site-title">
-              <a href={siteUrl} onClick={this.goToArchive}>Title</a>
+              <a href={siteUrl} onClick={this.goToArchive}>{siteTitle}</a>
             </div>
             <Menu/>
           </div>

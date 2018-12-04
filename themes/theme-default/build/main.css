@@ -207,6 +207,7 @@ footer {
         left: auto !important;
         display: none; }
         .menu .sub-menu li a {
+          display: block;
           padding: 0 10px;
           line-height: 44px;
           background-color: #EEE;

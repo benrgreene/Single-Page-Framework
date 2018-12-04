@@ -1,5 +1,7 @@
 <?php
 
+define( 'SITE_TITLE', 'My Personal Site');
+
 // want to set the meta data + load the styles
 add_action('head', function() { ?>
   <meta charset="utf-8" />
