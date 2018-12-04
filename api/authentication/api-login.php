@@ -3,7 +3,10 @@
 // These are all the authentication related API endpoints
 
 // Add the login endpoint/callback
-API_Register::get_instance()->add_endpoint( 'login', 'api_login' );
+API_Register::get_instance()->add_endpoint( 
+  'login', 
+  'api_login' 
+);
 // This will check that the sent user/password are in the database. If they are, send back an auth token for their use. 
 // Tokens should be given an expiration date and added to the tokens table.
 function api_login( $data ) {

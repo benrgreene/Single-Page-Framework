@@ -5,6 +5,7 @@ API_Register::get_instance()->add_endpoint(
   'post/importFile', 
   'api_import_content_file' 
 );
+
 function api_import_content_file( $data ) {
   if( !isset( $_POST['token'] ) || !is_valid_token( $_POST['token'] ) ) {
     API_Responses::send_response( array(

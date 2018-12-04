@@ -1,6 +1,10 @@
 <?php
 
-API_Register::get_instance()->add_endpoint( 'post/themeOptions', 'api_save_theme_options' );
+API_Register::get_instance()->add_endpoint( 
+  'post/themeOptions', 
+  'api_save_theme_options' 
+);
+
 function api_save_theme_options( $data ) {
   if( !isset( $data['token'] ) || !is_valid_token( $data['token'] ) ) {
     API_Responses::send_response( array(

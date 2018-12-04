@@ -1,6 +1,10 @@
 <?php
 
-API_Register::get_instance()->add_endpoint( 'get/posts/{post_type}', 'api_get_posts' );
+API_Register::get_instance()->add_endpoint( 
+  'get/posts/{post_type}', 
+  'api_get_posts' 
+);
+
 function api_get_posts( $data ) {
   // use the parameter as the post type.
   $post_type = str_replace( '/', '', $data['parameters'][0] );

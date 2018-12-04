@@ -4,6 +4,7 @@ API_Register::get_instance()->add_endpoint(
   'post/tieMediaToPost', 
   'api_tie_post_to_media'
 );
+
 function api_tie_post_to_media( $data ) {
   if( !isset( $data['token'] ) || !is_valid_token( $data['token'] ) ) {
     API_Responses::send_response( array(

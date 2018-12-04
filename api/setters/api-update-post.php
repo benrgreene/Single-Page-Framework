@@ -2,7 +2,11 @@
 
 // Endpoint for updating a post
 // Requires token and a post ID
-API_Register::get_instance()->add_endpoint( 'post/editPost', 'api_update_post' );
+API_Register::get_instance()->add_endpoint( 
+  'post/editPost', 
+  'api_update_post' 
+);
+
 function api_update_post( $data ) {
   // Ensure that the poster has a valid token
   if( !isset( $data['token'] ) || !is_valid_token( $data['token'] ) ) {

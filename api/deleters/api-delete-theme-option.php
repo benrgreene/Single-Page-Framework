@@ -1,6 +1,10 @@
 <?php
 
-API_Register::get_instance()->add_endpoint( 'delete/themeOption', 'api_delete_theme_option' );
+API_Register::get_instance()->add_endpoint( 
+  'delete/themeOption', 
+  'api_delete_theme_option' 
+);
+
 function api_delete_theme_option( $data ) {
   // Ensure that the poster has a valid token
   if( !isset( $data['token'] ) || !is_valid_token( $data['token'] ) ) {

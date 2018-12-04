@@ -1,7 +1,11 @@
 <?php 
 
 // Get the meta related to a post
-API_Register::get_instance()->add_endpoint( 'get/meta/{post_id}', 'api_get_post_meta' );
+API_Register::get_instance()->add_endpoint( 
+  'get/meta/{post_id}', 
+  'api_get_post_meta' 
+);
+
 function api_get_post_meta( $data ) {
   // passed ID
   $post_id = intval( $data['parameters'][0] );

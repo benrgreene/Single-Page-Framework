@@ -4,6 +4,7 @@ API_Register::get_instance()->add_endpoint(
   'post/uploadMedia', 
   'api_save_upload' 
 );
+
 function api_save_upload( $data ) {
   if( !isset( $_POST['token'] ) || !is_valid_token( $_POST['token'] ) ) {
     API_Responses::send_response( array(

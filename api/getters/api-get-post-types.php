@@ -1,7 +1,11 @@
 <?php
 
 // Returns an array of the current post types in the DB
-API_Register::get_instance()->add_endpoint( 'get/postTypes', 'api_get_post_types' );
+API_Register::get_instance()->add_endpoint( 
+  'get/postTypes', 
+  'api_get_post_types' 
+);
+
 function api_get_post_types( $data ) {
   // Select the distinct post types
   $query = DB_Query_Builder::select_query( 'posts', array(), array(

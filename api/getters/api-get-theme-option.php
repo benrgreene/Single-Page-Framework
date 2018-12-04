@@ -1,7 +1,10 @@
 <?php
 
 // Get single theme option by name
-API_Register::get_instance()->add_endpoint( 'get/themeOption/{name}', 'api_get_theme_option' );
+API_Register::get_instance()->add_endpoint( 
+  'get/themeOption/{name}', 
+  'api_get_theme_option' 
+);
 
 function api_get_theme_option( $data ) {
   $query = DB_Query_Builder::select_query( 'theme_options', array(

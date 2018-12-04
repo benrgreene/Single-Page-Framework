@@ -1,7 +1,10 @@
 <?php
 
 // Get all theme options (no pagination or anything)
-API_Register::get_instance()->add_endpoint( 'get/themeOptions', 'api_get_theme_options' );
+API_Register::get_instance()->add_endpoint( 
+  'get/themeOptions', 
+  'api_get_theme_options' 
+);
 
 function api_get_theme_options() {
   $query = DB_Query_Builder::select_query( 'theme_options', array() ); 

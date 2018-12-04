@@ -1,6 +1,10 @@
 <?php
 
-API_Register::get_instance()->add_endpoint( 'post/postMeta', 'api_save_post_meta' );
+API_Register::get_instance()->add_endpoint( 
+  'post/postMeta', 
+  'api_save_post_meta' 
+);
+
 function api_save_post_meta( $data ) {
   // Check there is proper authorization for the POST
   if( !isset( $data['token'] ) || !is_valid_token( $data['token'] ) ) {

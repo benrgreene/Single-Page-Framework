@@ -1,6 +1,10 @@
 <?php
 
-API_Register::get_instance()->add_endpoint( 'delete/post', 'api_delete_post' );
+API_Register::get_instance()->add_endpoint( 
+  'delete/post', 
+  'api_delete_post' 
+);
+  
 function api_delete_post( $data ) {
   // Ensure that the poster has a valid token
   if( !isset( $data['token'] ) || !is_valid_token( $data['token'] ) ) {
