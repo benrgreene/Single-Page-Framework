@@ -72,22 +72,22 @@ class Single extends React.Component {
           <i className="fa fa-angle-left" aria-hidden="true"></i>
           Back To Blog
         </div>
-        <div className="post-wrapper">
-          <article className="post post--single">
-            <h1 className="post__title">{this.state.postObject.title}</h1>
-            <div className="post__author">
-              <figure className="post__author-image">
-                <img src={this.state.gravitar} alt="author gravitar" />
-                <figcaption className="post__author--name">
-                  Written By: {this.state.postObject.author}
-                </figcaption>
-              </figure>
-            </div>
+        <article className="post post--single">
+          <h1 className="post__title">{this.state.postObject.title}</h1>
+          <div className="post__author">
+            <figure className="post__author-image">
+              <img src={this.state.gravitar} alt="author gravitar" />
+              <figcaption className="post__author--name">
+                Written By: {this.state.postObject.author}
+              </figcaption>
+            </figure>
+          </div>
+          <div className="post-wrapper">
             <div className="post__content"
-                 dangerouslySetInnerHTML={{ __html: this.state.postObject.content}}></div>
-          </article>
-          <Sidebar/>
-        </div>
+               dangerouslySetInnerHTML={{ __html: this.state.postObject.content}}></div>
+            <Sidebar/>
+          </div>
+        </article>
       </div>
     )
   }

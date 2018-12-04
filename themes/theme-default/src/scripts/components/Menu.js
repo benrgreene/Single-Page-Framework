@@ -13,6 +13,7 @@ class Menu extends React.Component {
     // callbacks
     this.openSubMenu      = this.openSubMenu.bind(this)
     this.toggleMobileMenu = this.toggleMobileMenu.bind(this)
+    this.followLink       = this.followLink.bind(this)
   }
 
   componentDidMount () {
@@ -60,6 +61,18 @@ class Menu extends React.Component {
     this.setState({ isDisplayed: isDisplayed })
   }
 
+  followLink (event) {
+    event.preventDefault();
+    let link = event.target.getAttribute('href')
+    if (!link.includes('http')) {
+      let linkParts = link.split('=')
+      let postType  = linkParts[0]
+      let postSlug  = linkParts[1]
+    } else {
+      window.location = link
+    }
+  }
+
   render () {
     return (
       <nav id="js-navigation" className="site-navigation">
@@ -74,7 +87,8 @@ class Menu extends React.Component {
         <ul className="menu">
           {this.state.menu.map((menuItem, index) => { return (
             <li key={index} >
-              <a href={menuItem.link}>{menuItem.name}</a>
+              <a href={menuItem.link}
+                 onClick={this.followLink}>{menuItem.name}</a>
               {menuItem.children.length > 0 &&
                 <button data-menu-open="false" 
                     className="sub-menu__toggle button"
@@ -83,7 +97,7 @@ class Menu extends React.Component {
               {menuItem.children.length > 0 &&
                 <ul className="sub-menu">
                   {menuItem.children.map((subMenuItem, subIndex) => { return (
-                    <li key={'sub' + subIndex}><a href={subMenuItem.link}>{subMenuItem.name}</a></li>
+                    <li key={'sub' + subIndex}><a href={subMenuItem.link} onClick={this.followLink}>{subMenuItem.name}</a></li>
                   )})}
                 </ul>
               }
