@@ -7,4 +7,10 @@ const trimWords = (sentence, numWords=50) => {
   return sentence
 }
 
-export { md5, trimWords }
+const setWindowTitle = (postObject) => {
+  document.title = `${siteTitle} - ${postObject.title}`
+  let newurl     = siteUrl + '?post=' + postObject.slug;
+  window.history.pushState({ path: newurl }, '', newurl)
+}
+
+export { md5, trimWords, setWindowTitle }

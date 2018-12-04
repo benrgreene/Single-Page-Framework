@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Sidebar from './Sidebar'
 
 import { fetchFeatureImage } from '../helpers-fetch.js'
-import { md5 } from '../helpers.js'
+import { md5, setWindowTitle } from '../helpers.js'
 
 // ------------------------------------
 // ------ REDUX STATE MANAGEMENT ------
@@ -37,19 +37,17 @@ class Single extends React.Component {
       image: false,
       gravitar: `http://www.gravatar.com/avatar/${md5(this.props.postObject.author)}.jpg?d=identicon`
     }
-    document.title = `${siteTitle} - ${this.props.postObject.title}`
     // callbacks
     this.backToArchive = this.backToArchive.bind(this)// Let's set the query param for sharing purposes
-    var newurl = siteUrl + '?post=' + this.props.postObject.slug;
-    window.history.pushState({ path: newurl }, '', newurl)
+    // set window info
+    setWindowTitle(this.props.postObject)
   }
 
   backToArchive (event) {
     this.props.setPageType('archive')
   }
 
-  componentDidMount () {
-    // get the feature image
+  setFeature () {
     let self = this
     fetchFeatureImage(this.state.postObject.ID).then((response) => {
       if (response) {
@@ -58,6 +56,22 @@ class Single extends React.Component {
         })
       }
     })
+  }
+
+  // Now that the component is mounted, fetch the feature image
+  componentDidMount () {
+    this.setFeature()
+  }
+
+  // Make sure the window state, postObject, and feature 
+  // image are up to date with the new post object
+  componentWillReceiveProps (nextProps) {
+    if (!this.state) { return }
+    if (this.props.postObject != nextProps.postObject) {
+      setWindowTitle(nextProps.postObject)
+      this.setState({'postObject': nextProps.postObject})
+      this.setFeature()
+    }
   }
 
   render () {
