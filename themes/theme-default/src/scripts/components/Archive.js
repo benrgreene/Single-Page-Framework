@@ -27,7 +27,7 @@ const mapDispatcherToProps = dispatch => {
     setPostForSingle: (postObject) => dispatch({
       type: 'POST_TO_VIEW',
       postObject: postObject,
-      viewType: 'single'
+      viewType: postObject.type
     })
   }
 }
@@ -163,11 +163,9 @@ class Archive extends React.Component {
             <article key={post.title} className="post tile" data-index={index} onClick={(event) => {this.setPostToView(index)}}>
               <h3 className="post__title">{post.title}</h3>
               <div className="post__info">
-                {post.email && 
-                  <figure className="post__feature-image">
-                    <img src={`http://www.gravatar.com/avatar/${md5(post.author)}.jpg`} alt="feature image"/>
-                  </figure>
-                }
+                <figure className="post__feature-image">
+                  <img src={`http://www.gravatar.com/avatar/${md5(post.author || 'sadday')}.jpg?d=identicon`} alt="feature image"/>
+                </figure>
                 <div className="post__author">
                   {post.name}
                 </div>

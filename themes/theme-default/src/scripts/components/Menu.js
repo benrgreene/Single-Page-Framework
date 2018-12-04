@@ -83,12 +83,10 @@ class Menu extends React.Component {
     let link = event.target.getAttribute('href')
     if (!link.includes('http')) {
       let linkParts = link.split('=')
-      let postType  = 'post' == linkParts[0] ? 'single' : linkParts[0]
       let postSlug  = linkParts[1]
       let self      = this
       fetchPostBySlug(postSlug).then((data) => {
-        console.log(postType)
-        self.props.setPostForSingle(data, postType)
+        self.props.setPostForSingle(data, data.type)
       })
     } else {
       window.location = link

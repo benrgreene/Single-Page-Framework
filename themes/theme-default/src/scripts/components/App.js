@@ -54,12 +54,12 @@ class App extends React.Component {
     let self = this
     if (pageDefaults.post) {
       fetchPostBySlug(pageDefaults.post).then((postObject) => {
-        self.props.viewPostType(postObject, 'single')
+        self.props.viewPostType(postObject, postObject.type)
       })
     } 
     else if (pageDefaults.page) {
       fetchPostBySlug(pageDefaults.page).then((postObject) => {
-        self.props.viewPostType(postObject, 'page')
+        self.props.viewPostType(postObject, postObject.type)
       })
     }
   }
@@ -92,7 +92,7 @@ class App extends React.Component {
           {'archive' == this.state.viewType && 
             <Archive/>
           }
-          {'single' == this.state.viewType && 
+          {'post' == this.state.viewType && 
             <Single/>
           }
           {'page' == this.state.viewType && 
