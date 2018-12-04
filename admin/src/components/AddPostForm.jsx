@@ -175,7 +175,6 @@ class AddPostForm extends React.Component {
   }
 
   render () {
-    console.log(this.state.contentType)
     return (
       <div className="main-content">
         <div className="form form--new-post">
@@ -205,7 +204,7 @@ class AddPostForm extends React.Component {
               <span className="label">Select Post Type</span>
               <select name="post-type"
                       value={this.state.type} 
-                      onChange={(event) => {this.setState({'type': event.target.value})}} >
+                      onChange={(event) => {this.setState({'type': event.target.value})}}>
                 {this.props.postTypes.map((postType) => { return (
                   <option key={postType} data-type={postType}>
                     {postType}

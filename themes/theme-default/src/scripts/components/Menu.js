@@ -1,7 +1,24 @@
 const React = require('react')
 
 import { connect } from 'react-redux'
+import { fetchPostBySlug } from '../helpers-fetch.js'
 
+// ------------------------------------
+// ------ REDUX STATE MANAGEMENT ------
+// ------------------------------------
+const mapDispatcherToProps = dispatch => {
+  return {
+    setPostForSingle: (postObject, postType) => dispatch({
+      type: 'POST_TO_VIEW',
+      postObject: postObject,
+      viewType: postType
+    })
+  }
+}
+
+// ------------------------------------
+// --------- COMPONENT CLASS ----------
+// ------------------------------------
 class Menu extends React.Component {
   constructor (props) {
     super(props)
@@ -66,8 +83,13 @@ class Menu extends React.Component {
     let link = event.target.getAttribute('href')
     if (!link.includes('http')) {
       let linkParts = link.split('=')
-      let postType  = linkParts[0]
+      let postType  = 'post' == linkParts[0] ? 'single' : linkParts[0]
       let postSlug  = linkParts[1]
+      let self      = this
+      fetchPostBySlug(postSlug).then((data) => {
+        console.log(postType)
+        self.props.setPostForSingle(data, postType)
+      })
     } else {
       window.location = link
     }
@@ -109,4 +131,4 @@ class Menu extends React.Component {
   }
 }
 
-export default connect(null, null)(Menu)
+export default connect(null, mapDispatcherToProps)(Menu)
