@@ -6,6 +6,9 @@ node_modules/*
 npm-debug.log
 uploads/*
 installed.php
+# all plugin stuffs EXCEPT the readme
+plugins/*
+!plugins/README.md
 # ignore all themes except but the default theme
 themes/*
 !themes/theme-default/
