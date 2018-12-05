@@ -4,12 +4,6 @@
   box-sizing: border-box;
 }
 
-ul,
-ol {
-  list-style-type: none;
-  padding-left: 0;
-}
-
 button {
   -webkit-appearance: none;
   border: 0;
@@ -27,4 +21,12 @@ button {
 
 .site-content {
   font-size: $fs-body;
+}
+
+.gist .blob-code-inner {
+  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+
+  & * {
+    font-family: inherit;
+  }
 }

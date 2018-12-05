@@ -15,6 +15,10 @@
 
   .post__content {
     flex-basis: 65%;
+
+    & > * {
+      margin-bottom: 15px;
+    }
   }
 
   .sidebar {
