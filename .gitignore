@@ -6,3 +6,6 @@ node_modules/*
 npm-debug.log
 uploads/*
 installed.php
+# ignore all themes except but the default theme
+themes/*
+!themes/theme-default/

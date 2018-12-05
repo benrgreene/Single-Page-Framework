@@ -13,7 +13,7 @@ function api_get_post_types( $data ) {
   ) );
   $results = (new Database_Interface)->query( $query );
   // set the default post types
-  $post_types = array( 'post' );
+  $post_types = filter( 'default-post-types', array( 'post' ) );
   // get all unique post types and add to the returning post types
   if( false !== $results ) {
     // Each row should be just the string representing the type of the entry

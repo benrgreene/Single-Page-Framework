@@ -34,7 +34,7 @@ class Actions {
   }
 
   // perform action callbacks
-  public function display_actions( $action ) {
+  public function display_actions( $action, $to_return='' ) {
     // If there aren't any callbacks with an action, peace out
     if( ! isset( $this->actions[$action] ) ) {
       return;
@@ -42,8 +42,9 @@ class Actions {
     $callbacks = $this->actions[$action];
     usort( $callbacks, array( $this, 'sort_callbacks' ) );
     foreach( $callbacks as $callback ) {
-      $callback['callback']();
+      $to_return = $callback['callback']($to_return);
     }
+    return $to_return;
   }
 
   // callback for sorting callbacks
@@ -55,7 +56,12 @@ class Actions {
 // shortcut helper for getting action parts
 function get_action_parts( $action ) {
   $helper = Actions::get_instance();
-  $helper->display_actions( $action );
+  return $helper->display_actions( $action );
+}
+// need a better name for adding filters
+function filter( $action, $default=false ) {
+  $helper = Actions::get_instance();
+  return $helper->display_actions( $action, $default );
 }
 
 // shortcut helper for adding a action part
