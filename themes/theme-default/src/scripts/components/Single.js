@@ -35,11 +35,13 @@ class Single extends React.Component {
     this.state = {
       postObject: this.props.postObject,
       image: false,
+      loadedGist: false,
       gravitar: `http://www.gravatar.com/avatar/${md5(this.props.postObject.author)}.jpg?d=identicon`
     }
     // callbacks
-    this.backToArchive = this.backToArchive.bind(this)// Let's set the query param for sharing purposes
-    // set window info
+    this.backToArchive     = this.backToArchive.bind(this)
+    this.processShortcodes = this.processShortcodes.bind(this)
+    // Let's set the query param for sharing purposes
     setWindowTitle(this.props.postObject)
   }
 
@@ -58,9 +60,38 @@ class Single extends React.Component {
     })
   }
 
+  // Proccess all shortcodes
+  processShortcodes (content) {
+    content = window.theme.processShortcode(content, 'gist', this.processGists)
+    return content
+  }
+
+  // need to load a gist into the page
+  processGists (settings) {
+    var script  = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src  = settings.src + '.json?file=' + settings.file + '&callback=gistCallback';
+    document.head.appendChild(script);
+    return `<div id="${settings.file.replace('.js', '')}"></div>`
+  }
+
   // Now that the component is mounted, fetch the feature image
   componentDidMount () {
     this.setFeature()
+    let self = this
+    // add our callback for what a gist is loaded
+    window['gistCallback'] = (gist) => {
+      let div = document.querySelector(`#${gist.files[0].replace('.js', '')}`)
+      div.innerHTML = gist.div
+      if (!self.state.loadedGist) {
+        self.setState({'loadedGist': true})
+        let newStyle  = document.createElement('link')
+        newStyle.href = gist.stylesheet
+        newStyle.type = "text/css";
+        newStyle.rel  = "stylesheet";
+        document.head.appendChild(newStyle)
+      }
+    }
   }
 
   // Make sure the window state, postObject, and feature 
@@ -98,7 +129,7 @@ class Single extends React.Component {
           </div>
           <div className="post-wrapper">
             <div className="post__content"
-               dangerouslySetInnerHTML={{ __html: this.state.postObject.content}}></div>
+               dangerouslySetInnerHTML={{ __html: this.processShortcodes(this.state.postObject.content)}}></div>
             <Sidebar/>
           </div>
         </article>

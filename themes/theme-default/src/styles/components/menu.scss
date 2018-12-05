@@ -42,6 +42,12 @@
       line-height: 0px;
       overflow: hidden;
       transition: line-height .4s;
+      font-weight: 400;
+      transition: .2s;
+
+      &:hover {
+        font-weight: 900;
+      }
     }
 
     @include media-from($break-menu) {

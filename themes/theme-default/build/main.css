@@ -198,7 +198,11 @@ footer {
     .menu .sub-menu li a {
       line-height: 0px;
       overflow: hidden;
-      transition: line-height .4s; }
+      transition: line-height .4s;
+      font-weight: 400;
+      transition: .2s; }
+      .menu .sub-menu li a:hover {
+        font-weight: 900; }
     @media (min-width: 800px) {
       .menu .sub-menu {
         position: absolute;

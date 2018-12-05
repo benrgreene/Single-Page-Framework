@@ -6,9 +6,10 @@
  */
 
 import 'babel-polyfill';
-import { baseURL, getPosts } from './helpers.js'
+import { baseURL, getPosts, processShortcode } from './helpers.js'
 
 module.exports = {
   baseURL: baseURL,
-  getPosts: getPosts
+  getPosts: getPosts,
+  processShortcode: processShortcode
 }
