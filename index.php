@@ -22,6 +22,8 @@ load_theme( $base_path );
 if( isset( $_GET['request'] ) ) {
   // Load the API files/endpoints
   load_directory( './api', true);
+  // Load third party APIs
+  get_action_parts( 'load-apis' );
   // proccess the API request
   proccess_api_request( $_GET['request'] );
 } else {
