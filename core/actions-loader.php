@@ -65,6 +65,10 @@ function filter( $action, $default=false ) {
 }
 
 // shortcut helper for adding a action part
+function add_filter( $action, $callback, $priority=10 ) {
+  $helper = Actions::get_instance();
+  $helper->add_action( $action, $callback, $priority );
+}
 function add_action( $action, $callback, $priority=10 ) {
   $helper = Actions::get_instance();
   $helper->add_action( $action, $callback, $priority );
