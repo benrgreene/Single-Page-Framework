@@ -53,6 +53,7 @@ class AddPostForm extends React.Component {
       isNew: false,
       type: '',
       title: '',
+      excerpt: '',
       content: '',
       confirmDelete: false,
       newImage: true,
@@ -74,6 +75,7 @@ class AddPostForm extends React.Component {
         'type': nextProps.postObject.type,
         'title': nextProps.postObject.title,
         'content': nextProps.postObject.content,
+        'excerpt': nextProps.postObject.excerpt,
         'confirmDelete': false
       })
     }
@@ -94,6 +96,7 @@ class AddPostForm extends React.Component {
       author: this.props.email,
       title: this.state.title,
       content: this.state.content,
+      excerpt: this.state.excerpt,
       type: this.state.type ? this.state.type : 'post'
     }
     // Need to check if this is a new post, or if we are updating
@@ -220,6 +223,15 @@ class AddPostForm extends React.Component {
               <option>WYSIWYG</option>
               <option>Text Editor</option>
             </select>
+          </div>
+          <div>
+            <label htmlFor="excerpt">Excerpt</label>
+            <div>
+                <textarea name="excerpt"
+                        className="excerpt-size-text"
+                        onChange={(event) => {this.setState({'excerpt': event.target.value})}} 
+                        value={this.state.excerpt || ''} />
+              </div> 
           </div>
           {'WYSIWYG' == this.state.contentType ? (
             <div>

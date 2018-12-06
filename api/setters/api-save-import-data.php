@@ -20,6 +20,7 @@ function api_import_content_file( $data ) {
       $raw_file_contents = file_get_contents( $file['tmp_name'] );
       $file_contents     = json_decode( $raw_file_contents, true );
       if( false != $file_contents ) {
+        $file_contents = array_reverse( $file_contents );
         foreach( $file_contents as $post ) {
           import_post( $post );
         }
@@ -45,12 +46,12 @@ function import_post( $post_object ) {
   $post_query = DB_Query_Builder::insert_query( 'posts', array(
     'type'    => $post_object['post_info']['type'],
     'title'   => $post_object['post_info']['title'],
-    'content' => $post_object['post_info']['content'],
+    'content' => str_replace("'", "’", $post_object['post_info']['content']),
     'date'    => $post_object['post_info']['date'],
     'author'  => $post_object['post_info']['author'],
     'slug'    => slugify($post_object['post_info']['title'])
   ) );
-  (new Database_Interface)->insert( $post_query );
+  $result = (new Database_Interface)->insert( $post_query );
   // get the post object
   $post = db_get_latest_entry( 'posts', array(
     'type' => $post_object['post_info']['type']

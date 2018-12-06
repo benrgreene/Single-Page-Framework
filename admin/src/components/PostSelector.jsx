@@ -73,6 +73,7 @@ class PostSelector extends React.Component {
       'ID': event.target.dataset.id,
       'type': event.target.dataset.type,
       'content': event.target.dataset.content,
+      'excerpt': event.target.dataset.excerpt,
       'title': event.target.dataset.title,
     }
     this.props.sendPost(postData)
@@ -92,10 +93,13 @@ class PostSelector extends React.Component {
           <div key="0" data-id="0" onClick={this.setPost}>+ Create New Post</div>
           {this.props.posts.map((post) => {
             return (
-              <div key={post.ID} data-id={post.ID} 
-                data-content={post.content} data-type={post.type} 
-                data-title={post.title}
-                onClick={this.setPost}>
+              <div key={post.ID} 
+                  data-id={post.ID}
+                  data-excerpt={post.excerpt}
+                  data-content={post.content}
+                  data-type={post.type}
+                  data-title={post.title}
+                  onClick={this.setPost}>
                 {post.title}
               </div>
             )

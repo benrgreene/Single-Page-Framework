@@ -25,6 +25,7 @@ function api_update_post( $data ) {
   $post_data = array(
     'title'   => isset( $data['title'] ) ? $data['title'] : '',
     'content' => isset( $data['content'] ) ? $data['content'] : '',
+    'excerpt' => isset( $data['excerpt'] ) ? $data['excerpt'] : '',
     'type'    => isset( $data['type'] ) ? $data['type'] : '',
   );
   
