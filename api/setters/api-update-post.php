@@ -29,6 +29,9 @@ function api_update_post( $data ) {
     'type'    => isset( $data['type'] ) ? $data['type'] : '',
   );
   
+  $post_data['content'] = str_replace("'", "’", $post_data['content']);
+  $post_data['excerpt'] = str_replace("'", "’", $post_data['excerpt']);
+
   // Build the query (use the post ID as the conditional)
   $query = DB_Query_Builder::update_query( 'posts', $post_data, array(
     'ID'  => $data['postID'],

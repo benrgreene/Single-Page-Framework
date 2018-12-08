@@ -21,7 +21,10 @@ function api_save_post( $data ) {
     'excerpt'  => isset( $data['excerpt'] ) ? $data['excerpt'] : '',
     'type'     => isset( $data['type'] ) ? $data['type'] : '',
   );
-  $post_data['slug'] = slugify( $post_data['title'] );
+
+  $post_data['slug']    = slugify( $post_data['title'] );
+  $post_data['content'] = str_replace("'", "’", $post_data['content']);
+  $post_data['excerpt'] = str_replace("'", "’", $post_data['excerpt']);
   
   // This should be a default in the DB
   if( !isset( $data['date'] ) ) {

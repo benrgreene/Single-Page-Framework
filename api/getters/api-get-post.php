@@ -7,9 +7,15 @@ API_Register::get_instance()->add_endpoint(
 );
 function api_get_post_by_slug( $data ) {
   $slug = $data['parameters'][0];
-  $query = DB_Query_Builder::select_query( 'posts', array(
-    'slug' => $slug
-  ) );
+  $query = DB_Query_Builder::join_query( 'posts', 
+    array( 'posts.*', 'users.name', 'users.email' ), 
+    array(
+      array( 'users', 'posts.author', 'users.email' )
+    ), array(
+      'posts.slug' => $slug,
+    ),
+    array()
+  );
   $results = (new Database_Interface)->query( $query );
   if( false !== $results ) {
     API_Responses::send_response( array(
