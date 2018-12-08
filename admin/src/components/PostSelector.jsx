@@ -46,6 +46,14 @@ class PostSelector extends React.Component {
     this.getPostsOfType()
   }
 
+  componentWillUpdate (nextProps, nextState) {
+    if (this.props.postObject.ID != nextProps.postObject.ID) {
+      this.setState({
+        'postObject': nextProps.postObject
+      })
+    }
+  }
+
   // Set the post type to display
   setPostType () {
     this.selectedPostType = this.postTypeRef.value
