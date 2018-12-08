@@ -40,6 +40,25 @@ label,
   vertical-align: top;
 }
 
+.all-posts div {
+  margin-right: 40px;
+  padding: 5px;
+  font-weight: 400;
+  transition: background-color .3s;
+}
+.all-posts div:hover {
+  cursor: pointer;
+  background-color: #CCC;
+}
+div.selected-post {
+  background-color: #EEE;
+  font-weight: 700;
+}
+.selected-post::before {
+  content: '> ';
+  font-weight: 700;
+}
+
 .form div {
   margin-bottom: 10px;
 }

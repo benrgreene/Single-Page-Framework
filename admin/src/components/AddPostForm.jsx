@@ -51,10 +51,10 @@ class AddPostForm extends React.Component {
     // set initial states
     this.state = { 
       isNew: false,
-      type: '',
-      title: '',
-      excerpt: '',
-      content: '',
+      type: this.props.postObject.type || '',
+      title: this.props.postObject.title || '',
+      excerpt: this.props.postObject.excerpt || '',
+      content: this.props.postObject.content || '',
       confirmDelete: false,
       newImage: true,
       contentType: 'WYSIWYG'

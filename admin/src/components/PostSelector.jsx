@@ -25,7 +25,8 @@ const mapDispatcherToProps = dispatch => {
 
 const mapStateToProps = state => ({
   postTypes: state.postTypes,
-  posts: state.postsOfCurrentType
+  posts: state.postsOfCurrentType,
+  postObject: state.currentPost ? state.currentPost : {},
 })
 
 // ------------------------------------
@@ -99,6 +100,7 @@ class PostSelector extends React.Component {
                   data-content={post.content}
                   data-type={post.type}
                   data-title={post.title}
+                  className={this.props.postObject.ID == post.ID ? 'selected-post' : ''}
                   onClick={this.setPost}>
                 {post.title}
               </div>
