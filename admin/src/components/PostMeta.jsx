@@ -89,9 +89,10 @@ class PostMetaForm extends React.Component {
   }
 
   // Send the post meta
-  sendPostMeta () {
+  sendPostMeta (ID=false) {
     let baseUrl  = getBaseURL()
     let metaUrl  = `${baseUrl}api/post/postMeta`
+    let postID   = ID ? ID : this.props.postObject.ID
     fetch(metaUrl, {
       'method': 'POST',
       'headers': {
@@ -99,7 +100,7 @@ class PostMetaForm extends React.Component {
       },
       'body': JSON.stringify({
         'token': this.props.token,
-        'ID': this.props.postObject.ID,
+        'ID': postID,
         'meta': this.state.meta
       }),
     })

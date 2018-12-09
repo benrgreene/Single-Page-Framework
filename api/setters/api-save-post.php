@@ -32,13 +32,16 @@ function api_save_post( $data ) {
   }
 
   // Attempt to insert the post in the DB
-  $query    = DB_Query_Builder::insert_query( 'posts', $post_data );  
-  $response = (new Database_Interface)->insert( $query );
-
+  $query     = DB_Query_Builder::insert_query( 'posts', $post_data );  
+  $response  = (new Database_Interface)->insert( $query );
+  $last_post = db_get_latest_entry( 'posts', array( 
+    'type'   => $post_data['type']
+  ));
   // Let the client know if the post was successful
   if( $response ) {
     API_Responses::send_response( array(
       'content' => 'Post added',
+      'ID'      => isset( $last_post['ID'] ) ? $last_post['ID'] : 0
     ) );
   } else {
     API_Responses::send_response( array(

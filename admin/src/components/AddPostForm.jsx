@@ -83,10 +83,7 @@ class AddPostForm extends React.Component {
 
   // Post to the admin API the new post object
   postPost () {
-    // Let the meta form know to post the new post meta
-    this.metaRef.getWrappedInstance().sendPostMeta()
-    // upload the post media
-    this.postUpload()
+    let self = this
     // Save the post
     let baseUrl  = getBaseURL()
     let postUrl  = baseUrl + 'api/post/'
@@ -119,7 +116,14 @@ class AddPostForm extends React.Component {
       return response.json()
     })
     .then((data) => {
-      console.log(data)
+      // ensure we have the new postID for saving post meta/upload
+      if (!self.props.postObject.ID || self.props.postObject.ID == 0) {
+        self.props.postObject.ID = data.ID
+      }
+      // Let the meta form know to post the new post meta
+      self.metaRef.getWrappedInstance().sendPostMeta(self.props.postObject.ID)
+      // upload the post media
+      self.postUpload()
     })
   }
 
