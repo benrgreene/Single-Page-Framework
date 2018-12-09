@@ -38,7 +38,6 @@ function api_save_post_meta( $data ) {
     $query = DB_Query_Builder::insert_query( 'post_meta', $to_save );
     $results = (new Database_Interface)->insert( $query );
   }
-  write_log($results);
 
   API_Responses::send_response( array(
     'content' => 'Post Meta Updated',
