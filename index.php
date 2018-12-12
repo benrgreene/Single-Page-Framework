@@ -9,6 +9,8 @@ include 'helpers.php';
 // all non-critical files to load
 include 'loader.php';
 
+// load our plugins (for registering actions)
+load_directory( 'plugins', false );
 // load the currennt directory
 load_directory( '.', false );
 

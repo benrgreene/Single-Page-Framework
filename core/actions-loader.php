@@ -37,7 +37,7 @@ class Actions {
   public function display_actions( $action, $to_return='' ) {
     // If there aren't any callbacks with an action, peace out
     if( ! isset( $this->actions[$action] ) ) {
-      return;
+      return $to_return;
     }
     $callbacks = $this->actions[$action];
     usort( $callbacks, array( $this, 'sort_callbacks' ) );

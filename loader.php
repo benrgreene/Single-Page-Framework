@@ -38,9 +38,9 @@ function should_ignore_file( $file ) {
   // any other files/directories to ignore
   //    exclude themes because we only want to load the current theme
   //    exclude API because we only want to load it if the current request is an API request
-  if( in_array( $file, array( 
-    'error.log', 'helpers.php', 'index.php', 'loader.php', 'templates', 'scripts', 'themes', 'api', 'admin', 'node_modules', 'assets', 'package.json', 'webpack.config.js', 'actions-loader.php', 'README.md', 'uploads', 'installed.php', 'example-config.php', 'sync-push', 'sync-push-excludes'
-  ) ) ) {
+  $excludes = filter( 'filter-excludes', array( 
+    'error.log', 'helpers.php', 'index.php', 'loader.php', 'templates', 'scripts', 'themes', 'api', 'admin', 'node_modules', 'assets', 'package.json', 'webpack.config.js', 'actions-loader.php', 'uploads', 'plugins', 'installed.php', 'example-config.php' ) );
+  if( in_array( $file, $excludes ) ) {
     $should_ignore = true; 
   }
 
