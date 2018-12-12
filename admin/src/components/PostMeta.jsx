@@ -75,7 +75,7 @@ class PostMetaForm extends React.Component {
 
   // Get the meta data
   getNewPostMeta (ID) {
-    let baseUrl  = getBaseURL()
+    let baseUrl  = baseURL
     let metaUrl  = `${baseUrl}api/get/meta/${ID}`
     fetch(metaUrl)
     .then((blob) => {
@@ -90,7 +90,7 @@ class PostMetaForm extends React.Component {
 
   // Send the post meta
   sendPostMeta (ID=false) {
-    let baseUrl  = getBaseURL()
+    let baseUrl  = baseURL
     let metaUrl  = `${baseUrl}api/post/postMeta`
     let postID   = ID ? ID : this.props.postObject.ID
     fetch(metaUrl, {

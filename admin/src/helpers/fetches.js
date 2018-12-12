@@ -18,7 +18,7 @@ const postFetch = (url, postBody) => {
 }
 
 const tieMediaToPost = (mediaID, postID, token) => {
-  let url = getBaseURL() + 'api/post/tieMediaToPost'
+  let url = baseURL + 'api/post/tieMediaToPost'
   fetch(url, {
     'method': 'POST',
     'headers': {

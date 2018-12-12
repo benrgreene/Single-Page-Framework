@@ -26,7 +26,7 @@ class Footer extends React.Component {
 
   getWidget (name) {
     let self = this
-    fetch(`${window.theme.baseURL}api/get/themeOption/${name}`)
+    fetch(`${baseURL}api/get/themeOption/${name}`)
     .then((blob) => {
       return blob.json()
     })

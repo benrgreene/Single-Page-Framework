@@ -48,7 +48,7 @@ class OptionsForm extends React.Component {
   // Fetches for getting site state
   getOptions () {
     let self    = this
-    let baseUrl = getBaseURL()
+    let baseUrl = baseURL
     fetch(baseUrl + "api/get/themeOptions", {
       'headers': {
         'Content-Type': 'application/json'
@@ -65,7 +65,7 @@ class OptionsForm extends React.Component {
   // Save new option data
   saveOptions () {
     let self    = this
-    let baseUrl = getBaseURL()
+    let baseUrl = baseURL
     let body    = {
       token: this.props.token,
       option: this.state.selectedOption
@@ -151,7 +151,7 @@ class OptionsForm extends React.Component {
   // Actually delete the option
   deleteOption (event) {
     const self    = this
-    const baseUrl = getBaseURL()
+    const baseUrl = baseURL
     const postUrl = baseUrl + 'api/delete/themeOption'
     const body    = {
       token: this.props.token,

@@ -30,7 +30,7 @@ class Importer extends React.Component {
     let formData = new FormData()
     formData.append('file', this.fileRef.files[0])
     formData.append('token', this.props.token)
-    fetch(getBaseURL() + 'api/post/importFile', {
+    fetch(baseURL + 'api/post/importFile', {
       'method': 'POST',
       'body': formData
     })

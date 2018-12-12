@@ -45,7 +45,7 @@ class Menu extends React.Component {
    */
   loadMenu () {
     let self = this
-    fetch(`${window.theme.baseURL}api/get/menu`)
+    fetch(`${baseURL}api/get/menu`)
     .then((blob) => {
       return blob.json()
     })

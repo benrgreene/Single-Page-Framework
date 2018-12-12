@@ -121,7 +121,7 @@ class Archive extends React.Component {
   // Make an API request to fetch the next page of the given post type
   fetchPage () {
     let self = this
-    fetch(`${window.theme.baseURL}api/get/page/${this.props.archiveType}/${this.props.postsPageOn}`)
+    fetch(`${baseURL}api/get/page/${this.props.archiveType}/${this.props.postsPageOn}`)
     .then((blob) => {
       return blob.json()
     })

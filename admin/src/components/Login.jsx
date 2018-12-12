@@ -32,7 +32,7 @@ class Login extends React.Component {
   // make the POST to the auth endpoint to attempt the login. 
   // If successfull, we'll update the state with the auth token we get back
   attemptLogin() {
-    let baseUrl  = getBaseURL()
+    let baseUrl  = baseURL
     let email    = this.userRef.value
     let password = this.passRef.value
     let myself   = this
@@ -50,15 +50,17 @@ class Login extends React.Component {
       return blob.json()
     })
     .then((data) => {
-      let token = data.content;
-      let saveTokenData = JSON.stringify({
-        token: token,
-        expiration: data.expiration,
-        user: email
-      })
-      this.props.sendLogin(token, email)
-      // Save to the session storage for potential reload
-      sessionStorage.setItem('adminToken', saveTokenData);
+      if (data.content && data.expiration) {
+        let token = data.content;
+        let saveTokenData = JSON.stringify({
+          token: token,
+          expiration: data.expiration,
+          user: email
+        })
+        this.props.sendLogin(token, email)
+        // Save to the session storage for potential reload
+        sessionStorage.setItem('adminToken', saveTokenData);
+      }
     })    
   }
   

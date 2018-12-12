@@ -61,7 +61,7 @@ class PostSelector extends React.Component {
   }
 
   getPostsOfType () {
-    let baseUrl = getBaseURL()
+    let baseUrl = baseURL
     let self    = this
     fetch(baseUrl + 'api/get/posts/' + this.selectedPostType, {
       'headers': {

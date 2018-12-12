@@ -95,7 +95,7 @@ class MenuForm extends React.Component {
   // ------------------------------------
   getMenu() {
     let self    = this
-    let baseUrl = getBaseURL()
+    let baseUrl = baseURL
     fetch(baseUrl + "api/get/menu", {
       'headers': {
         'Content-Type': 'application/json'
@@ -114,7 +114,7 @@ class MenuForm extends React.Component {
 
   saveMenu() {
     let self    = this
-    let baseUrl = getBaseURL()
+    let baseUrl = baseURL
     let body    = {
       'token': this.props.token,
       'menu': this.state.menu

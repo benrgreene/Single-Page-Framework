@@ -85,7 +85,7 @@ class AddPostForm extends React.Component {
   postPost () {
     let self = this
     // Save the post
-    let baseUrl  = getBaseURL()
+    let baseUrl  = baseURL
     let postUrl  = baseUrl + 'api/post/'
     // info to pass
     const body   = {
@@ -132,7 +132,7 @@ class AddPostForm extends React.Component {
     let formData = new FormData()
     formData.append('file', this.fileRef.files[0])
     formData.append('token', this.props.token)
-    fetch(getBaseURL() + 'api/post/uploadMedia', {
+    fetch(baseURL + 'api/post/uploadMedia', {
       'method': 'POST',
       'body': formData
     })
@@ -155,7 +155,7 @@ class AddPostForm extends React.Component {
 
   deletePost () {
     const self    = this
-    const baseUrl = getBaseURL()
+    const baseUrl = baseURL
     const postUrl = baseUrl + 'api/delete/post'
     const body    = {
       token: this.props.token,

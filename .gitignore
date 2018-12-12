@@ -5,6 +5,8 @@ config.php
 node_modules
 node_modules/*
 npm-debug.log
+sync-push
+sync-push-excludes
 uploads/*
 installed.php
 # all plugin stuffs EXCEPT the readme

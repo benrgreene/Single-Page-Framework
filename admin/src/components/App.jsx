@@ -42,7 +42,7 @@ class App extends React.Component {
 
   componentDidMount() {
     let self    = this
-    let baseUrl = getBaseURL()
+    let baseUrl = baseURL
     fetch(baseUrl + "api/get/postTypes", {
       'headers': {
         'Content-Type': 'application/json'

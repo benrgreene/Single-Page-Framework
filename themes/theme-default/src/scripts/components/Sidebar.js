@@ -20,7 +20,7 @@ class Sidebar extends React.Component {
 
   fetchSidebar () {
     let self = this
-    fetch(`${window.theme.baseURL}api/get/themeOption/theme_sidebar`)
+    fetch(`${baseURL}api/get/themeOption/theme_sidebar`)
     .then((blob) => {
       return blob.json()
     })
