@@ -24,9 +24,13 @@ class DB_Query_Builder {
     // if there are conditions, add them to the query
     if( 0 < count( $conditions ) ) {
       $query .= ' WHERE ';
+      $con    = (new Database_Interface)->connect();
       foreach( $conditions as $column => $variable ) {
-        $query .= sprintf( '%s.%s="%s" AND ', $table, $column, $variable );
+        $c_column   = Database_Interface::clean_variable( $con, $column );
+        $c_variable = Database_Interface::clean_variable( $con, $variable );
+        $query .= sprintf( '%s.%s="%s" AND ', $table, $c_column, $c_variable );
       }
+      $con->close();
       $query = remove_last_instance( $query, 'AND' );
     }
     // Add any order command present
@@ -58,6 +62,7 @@ class DB_Query_Builder {
       'offset'    => false,
     ), $options );
 
+    $con   = (new Database_Interface)->connect();
     $query = sprintf( 'SELECT %s FROM %s ',  implode( ', ', $selects ), $table );
     foreach( $joins as $join ) {
       if( 3 >= count( $join ) ) {
@@ -67,8 +72,11 @@ class DB_Query_Builder {
     if( $conditions ) {
       $query .= ' WHERE '; 
       foreach( $conditions as $condition => $value ) {
-        $query .= sprintf( '%s="%s" AND ', $condition, $value );
+        $c_condition = Database_Interface::clean_variable( $con, $condition );
+        $c_value     = Database_Interface::clean_variable( $con, $value );
+        $query .= sprintf( '%s="%s" AND ', $c_condition, $c_value );
       }  
+      $con->close();
       $query = remove_last_instance( $query, 'AND' );
     }
 
@@ -93,10 +101,14 @@ class DB_Query_Builder {
     $query   = sprintf( 'INSERT INTO %s ', $table );
     $columns = '(';
     $values  = '(';
+    $con     = (new Database_Interface)->connect();
     foreach( $insertions as $column => $value ) {
-      $columns .= sprintf('%s, ', $column);
-      $values  .= sprintf("'%s', ", $value);
+      $c_column = Database_Interface::clean_variable( $con, $column );
+      $c_value  = Database_Interface::clean_variable( $con, $value );
+      $columns  .= sprintf('%s, ', $c_column);
+      $values   .= sprintf("'%s', ", $c_value);
     }
+    $con->close();
     // remove trailing ',' for columns, values
     $last_comma = strrpos( $columns, ',' );
     $columns    = substr_replace( $columns, '', $last_comma );
@@ -113,9 +125,12 @@ class DB_Query_Builder {
   //      $insertions: array of values to insert, where keys are column names, and values are variables to be added
   //      $conditions: array of table where keys are column names, and values are variables they should equal
   public static function update_query( $table, $insertions, $conditions=false ) {
+    $con     = (new Database_Interface)->connect();
     $query   = sprintf( 'UPDATE %s SET ', $table );
     foreach( $insertions as $column => $value ) {
-      $query .= sprintf( '%s=\'%s\', ', $column, $value );
+      $c_column = Database_Interface::clean_variable( $con, $column );
+      $c_value  = Database_Interface::clean_variable( $con, $value );
+      $query    .= sprintf( '%s=\'%s\', ', $c_column, $c_value );
     }
     // remove trailing ',' for columns, values
     $last_comma = strrpos( $query, ',' );
@@ -125,8 +140,11 @@ class DB_Query_Builder {
     if( is_array( $conditions ) ) {
       $query .= ' WHERE ';
       foreach( $conditions as $column => $value ) {
-        $query .= sprintf( '%s=\'%s\' AND ', $column, $value );
+        $c_column = Database_Interface::clean_variable( $con, $column );
+        $c_value  = Database_Interface::clean_variable( $con, $value );
+        $query .= sprintf( '%s=\'%s\' AND ', $c_column, $c_value );
       }
+      $con->close();
       // remove trailing ',' for columns, values
       $last_and = strrpos( $query, 'AND' );
       $query    = substr_replace( $query, '', $last_and );
@@ -140,16 +158,21 @@ class DB_Query_Builder {
   //      $table: name of the table
   //      $conditions: array of table where keys are column names, and values are variables they should equal/
   public static function delete_query( $table, $conditions ) {
+    $con   = (new Database_Interface)->connect();
     $query = sprintf( 'DELETE FROM %s WHERE ', $table );
     foreach( $conditions as $column => $variable ) {
-      $condition = '=';
-      $value     = $variable;
+      $c_column    = Database_Interface::clean_variable( $con, $column );
+      $c_value     = '';
+      $c_condition = '=';
       if( 'array' == gettype( $variable )) {
-        $value     = $variable['value'];
-        $condition = $variable['condition'];
+        $c_value     = Database_Interface::clean_variable( $con, $variable['value'] );
+        $c_condition = Database_Interface::clean_variable( $con, $variable['condition'] );
+      } else {
+        $c_value = Database_Interface::clean_variable( $con, $variable );
       }
-      $query .= sprintf( '%s.%s %s "%s" AND ', $table, $column, $condition, $value );
+      $query .= sprintf( '%s.%s %s "%s" AND ', $table, $c_column, $c_condition, $c_value );
     }
+    $con->close();
     // We need to remove the last AND (since there's nothing after it)
     $last_and = strrpos( $query, 'AND' );
     $query    = substr_replace( $query, '', $last_and );

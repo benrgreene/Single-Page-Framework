@@ -1,16 +1,16 @@
 <?php
 
 class Database_Interface {
-  
-  // clean a query out to be safe for the DB
-  public function clean_query( $query ) {
-    return $query;
+
+  // clean a variable for use in a query
+  public static function clean_variable( $con, $variable ) {
+    $cleaned = mysqli_real_escape_string( $con, $variable );
+    return $cleaned;
   }
 
   // perform a query on the database and return results
   public function query( $query, $collapse=true ) {
     $con     = $this->connect();
-    $query   = $this->clean_query( $query );
     $results = $con->query( $query );
 
     // check if there was a query error, if so we return false
@@ -39,7 +39,6 @@ class Database_Interface {
   // perform instertion on the DB
   public function insert( $query ) {
     $con     = $this->connect();
-    $query   = $this->clean_query( $query );
     $results = $con->query( $query );
     $this->close( $con );
     return $results;
@@ -52,7 +51,7 @@ class Database_Interface {
   }
 
   // connect to the DB
-  private function connect() {
+  public function connect() {
     $con = new mysqli( DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME );
     if( $con->connect_error ) {
       $this->throw_connection_error();
