@@ -36,3 +36,23 @@ function slugify( $text ) {
   $text = str_replace( ' ', '-', $text);
   return $text;
 }
+
+// Add a single option to the options table
+function add_option( $name, $value ) {
+  return add_generic_option( 'options', $name, $value );
+}
+
+// Adds a single options to the theme options
+function add_theme_option( $name, $value ) {
+  return add_generic_option( 'theme_options', $name, $value );
+}
+
+// adds a single option one of the options table (defined by the $table var)
+function add_generic_option( $table, $name, $value ) {
+  $query = DB_Query_Builder::insert_query( $table, array(
+    'name'  => $name,
+    'value' => $value
+  ) );
+  $results = (new Database_Interface)->insert( $query );
+  return $results;
+}
