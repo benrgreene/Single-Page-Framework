@@ -48,6 +48,15 @@ function load_theme( $base_path ) {
   include get_theme_path() . 'index.php';
 }
 
+// get the plugin URL
+function get_plugin_url() {
+  $base_path = get_site_base_url();
+  if( ends_with( $base_path, 'admin/' ) ) {
+    $base_path = str_replace( 'admin/', '', $base_path );
+  }
+  return "{$base_path}plugins/";
+}
+
 // return the current theme base path
 function get_theme_path() {
   $theme_name = THEME_NAME;
