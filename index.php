@@ -10,7 +10,7 @@ include 'helpers.php';
 include 'loader.php';
 
 // load our plugins (for registering actions)
-load_directory( 'plugins', false );
+load_plugins();
 // load the currennt directory
 load_directory( '.', false );
 

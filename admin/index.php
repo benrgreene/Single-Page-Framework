@@ -4,7 +4,7 @@ include '../helpers.php';
 include '../loader.php';
 
 // load the currennt directory (don't want to load the files in the base directory)
-load_directory( '../plugins', false );
+load_plugins( '../plugins' );
 load_directory( '..', false );
 // load our theme admin settings
 $theme_path = get_theme_path();

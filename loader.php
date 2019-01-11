@@ -46,3 +46,11 @@ function should_ignore_file( $file ) {
 
   return $should_ignore;
 }
+
+// load the plugins
+function load_plugins( $directory='./plugins' ) {
+  $plugins = scandir( $directory );
+  foreach( $plugins as $plugin ) {
+    include "{$directory}/{$plugin}/setup.php";
+  }
+}
