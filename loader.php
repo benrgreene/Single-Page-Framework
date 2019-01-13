@@ -51,6 +51,10 @@ function should_ignore_file( $file ) {
 function load_plugins( $directory='./plugins' ) {
   $plugins = scandir( $directory );
   foreach( $plugins as $plugin ) {
+    // skip pointers for self and parent files (or any hidden files/folders)
+    if( 0 === strpos( $plugin, '.' ) ) {
+      continue;
+    }
     include "{$directory}/{$plugin}/setup.php";
   }
 }
