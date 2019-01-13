@@ -11,5 +11,6 @@
     <div id="app"></div>
     <script src="index.build.js"></script>
     <link rel="stylesheet" href="//cdn.quilljs.com/1.2.6/quill.snow.css">
+    <?php get_action_parts( 'admin-after-body' ); ?>
   </body>
 </html>
