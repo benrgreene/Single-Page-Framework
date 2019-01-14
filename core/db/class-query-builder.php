@@ -84,11 +84,11 @@ class DB_Query_Builder {
         // If there only one value for the conditional, add it. 
         // else, then loop through each value it should equal and add
         // conditionals for each
-        if( 'string' == gettype( $variable ) ) {
-          $query .= self::build_condition($con, $table, $column, $variable, $options);
-        } else if( is_array( $variable ) ) {
-          foreach( $variable as $single_variable ) {
-            $query .= self::build_condition($con, $table, $column, $single_variable, $options);
+        if( 'string' == gettype( $value ) ) {
+          $query .= self::build_condition($con, $table, $condition, $value, $options);
+        } else if( is_array( $value ) ) {
+          foreach( $value as $single_variable ) {
+            $query .= self::build_condition($con, $table, $condition, $single_variable, $options);
           }
         }
       }  
@@ -199,6 +199,6 @@ class DB_Query_Builder {
   public static function build_condition($con, $table, $column, $variable, $options) {
     $c_column   = Database_Interface::clean_variable( $con, $column );
     $c_variable = Database_Interface::clean_variable( $con, $variable );
-    return sprintf( '%s.%s="%s" %s ', $table, $c_column, $c_variable, $options['condition'] );
+    return sprintf( '%s="%s" %s ', $c_column, $c_variable, $options['condition'] );
   }
 }

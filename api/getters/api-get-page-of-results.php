@@ -29,6 +29,7 @@ function api_get_page_of_results( $data ) {
       'limit'     => $page_on . ',' . PAGE_SIZE,
     )
   );
+  
   $results = (new Database_Interface)->query( $query, false ); 
   // Want to get the first post's ID, and check if that is in
   // the returning results.
