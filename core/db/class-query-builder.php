@@ -18,6 +18,7 @@ class DB_Query_Builder {
       'limit'     => '',
       'order'     => false,
       'offset'    => false,
+      'condition' => 'AND'
     ), $options );
     // now build our query
     $query = sprintf( 'SELECT %s FROM %s ', $options['selection'], $table );
@@ -25,13 +26,20 @@ class DB_Query_Builder {
     if( 0 < count( $conditions ) ) {
       $query .= ' WHERE ';
       $con    = (new Database_Interface)->connect();
-      foreach( $conditions as $column => $variable ) {
-        $c_column   = Database_Interface::clean_variable( $con, $column );
-        $c_variable = Database_Interface::clean_variable( $con, $variable );
-        $query .= sprintf( '%s.%s="%s" AND ', $table, $c_column, $c_variable );
+      foreach( $conditions as $condition => $value ) {
+        // If there only one value for the conditional, add it. 
+        // else, then loop through each value it should equal and add
+        // conditionals for each
+        if( 'string' == gettype( $value ) ) {
+          $query .= self::build_condition($con, $table, $condition, $value, $options);
+        } else if( is_array( $value ) ) {
+          foreach( $value as $single_variable ) {
+            $query .= self::build_condition($con, $table, $condition, $single_variable, $options);
+          }
+        }
       }
       $con->close();
-      $query = remove_last_instance( $query, 'AND' );
+      $query = remove_last_instance( $query, $options['condition'] );
     }
     // Add any order command present
     if( $options['order'] ) {
@@ -60,6 +68,7 @@ class DB_Query_Builder {
       'limit'     => '',
       'order'     => false,
       'offset'    => false,
+      'condition' => 'AND'
     ), $options );
 
     $con   = (new Database_Interface)->connect();
@@ -72,12 +81,19 @@ class DB_Query_Builder {
     if( $conditions ) {
       $query .= ' WHERE '; 
       foreach( $conditions as $condition => $value ) {
-        $c_condition = Database_Interface::clean_variable( $con, $condition );
-        $c_value     = Database_Interface::clean_variable( $con, $value );
-        $query .= sprintf( '%s="%s" AND ', $c_condition, $c_value );
+        // If there only one value for the conditional, add it. 
+        // else, then loop through each value it should equal and add
+        // conditionals for each
+        if( 'string' == gettype( $variable ) ) {
+          $query .= self::build_condition($con, $table, $column, $variable, $options);
+        } else if( is_array( $variable ) ) {
+          foreach( $variable as $single_variable ) {
+            $query .= self::build_condition($con, $table, $column, $single_variable, $options);
+          }
+        }
       }  
       $con->close();
-      $query = remove_last_instance( $query, 'AND' );
+      $query = remove_last_instance( $query, $options['condition'] );
     }
 
     // Add any order command present
@@ -178,4 +194,11 @@ class DB_Query_Builder {
     $query    = substr_replace( $query, '', $last_and );
     return $query;
   } 
+
+  // Build a conditional
+  public static function build_condition($con, $table, $column, $variable, $options) {
+    $c_column   = Database_Interface::clean_variable( $con, $column );
+    $c_variable = Database_Interface::clean_variable( $con, $variable );
+    return sprintf( '%s.%s="%s" %s ', $table, $c_column, $c_variable, $options['condition'] );
+  }
 }
