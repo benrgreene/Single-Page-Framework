@@ -9,6 +9,11 @@ button {
   border: 0;
 }
 
+ul,
+ol {
+  padding-left: 35px;
+}
+
 .app-body {
   display: flex;
   flex-direction: column;

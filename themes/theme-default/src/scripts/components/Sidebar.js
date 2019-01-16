@@ -1,4 +1,4 @@
-const React = require('react')
+const React   = require('react')
 
 import { connect } from 'react-redux';
 
@@ -10,7 +10,7 @@ class Sidebar extends React.Component {
     super(props)
     // initial state
     this.state = {
-      'sidebarContent': ''
+      'sidebarContent': '' 
     }
   }
 
@@ -31,9 +31,9 @@ class Sidebar extends React.Component {
 
   render () {
     return (
-      <aside 
-        className="sidebar" 
-        dangerouslySetInnerHTML={{ __html: this.state.sidebarContent}}>
+      <aside className="sidebar">
+        <div className="sidebar__content" 
+             dangerouslySetInnerHTML={{ __html: this.state.sidebarContent}}></div>
       </aside>
     )
   }

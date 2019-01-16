@@ -1,5 +1,6 @@
 const React    = require('react')
 const ReactDom = require('react-dom')
+const Dialogr  = require('dialogr');
 
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
@@ -15,6 +16,8 @@ const store = createStore(reducer, {
   postObject: false,
   moreAvailable: true,
 })
+
+Dialogr.setup()
 
 ReactDom.render(
   <Provider store={store}>

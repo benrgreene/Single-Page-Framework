@@ -1,11 +1,14 @@
 <?php
 
-define( 'SITE_TITLE', 'My Personal Site');
+//define( 'SITE_TITLE', 'Ben Greene');
 
 // want to set the meta data + load the styles
 add_action('head', function() { ?>
+  <!-- Standard Meta Tags -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="title" content="<?php echo SITE_TITLE; ?>">
+  <!-- All our regular head stuffs-->
   <link rel="stylesheet" href="<?php echo get_theme_url(); ?>/build/main.css" />
   <script type="text/javascript">
     const siteTitle = "<?php echo SITE_TITLE; ?>";

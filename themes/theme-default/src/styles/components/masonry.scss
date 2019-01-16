@@ -33,7 +33,9 @@ $mason-space: 15px;
 
 .archive .post {
     padding: 8px 15px;
+    padding-bottom: 30px;
     box-shadow: 2px 1px 20px 0px #999;
+    background-color: $c-white;
     cursor: pointer;
 
     &:hover {

@@ -86,9 +86,10 @@ class Menu extends React.Component {
       let self = this
       fetchPostBySlug(link).then((data) => {
         self.props.setPostForSingle(data, data.type)
+        this.toggleMobileMenu(event)
       })
     } else {
-      window.location = link
+      window.open(link, '__blank')
     }
   }
 

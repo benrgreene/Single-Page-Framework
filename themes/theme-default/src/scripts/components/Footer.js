@@ -3,6 +3,24 @@ const React = require('react')
 import { connect } from 'react-redux';
 import DOMPurify from 'dompurify'
 
+import { fetchPostBySlug } from '../helpers-fetch.js'
+
+// ------------------------------------
+// ------ REDUX STATE MANAGEMENT ------
+// ------------------------------------
+const mapDispatcherToProps = dispatch => {
+  return {
+    setPostForSingle: (postObject, postType) => dispatch({
+      type: 'POST_TO_VIEW',
+      postObject: postObject,
+      viewType: postType
+    })
+  }
+}
+
+// ------------------------------------
+// --------- COMPONENT CLASS ----------
+// ------------------------------------
 class Footer extends React.Component {
   constructor (props) {
     super(props)
@@ -37,7 +55,28 @@ class Footer extends React.Component {
         }
         newState[name] = response.content
         self.setState(newState)
+        self.setupWidgetLinks()
       }
+    })
+  }
+
+  setupWidgetLinks () {
+    let links = document.querySelectorAll('.widget a')
+    links.forEach((link, index) => {
+      let href = link.getAttribute('href')
+      link.addEventListener('click', (event) => {
+        event.preventDefault()
+        let href = event.target.getAttribute('href')
+        if (!href.includes('http')) {
+          let slug = href.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
+          let self = this
+          fetchPostBySlug(href).then((data) => {
+            self.props.setPostForSingle(data, data.type)
+          })
+        } else {
+          window.open(href, '__blank')
+        }
+      })
     })
   }
 
@@ -67,4 +106,4 @@ class Footer extends React.Component {
   }
 }
 
-export default connect(null, null)(Footer)
+export default connect(null, mapDispatcherToProps)(Footer)

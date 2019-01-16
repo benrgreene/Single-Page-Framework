@@ -3,7 +3,7 @@ const React = require('react')
 import { connect } from 'react-redux';
 import DOMPurify from 'dompurify'
 
-import { md5, trimWords } from '../helpers.js'
+import { md5, trimWords, setMetaContent } from '../helpers.js'
 
 // ------------------------------------
 // ------ REDUX STATE MANAGEMENT ------
@@ -164,7 +164,7 @@ class Archive extends React.Component {
               <h3 className="post__title">{post.title}</h3>
               <div className="post__info">
                 <figure className="post__feature-image">
-                  <img src={`http://www.gravatar.com/avatar/${md5(post.author || 'sadday')}.jpg?d=identicon`} alt="feature image"/>
+                  <img src={`https://www.gravatar.com/avatar/${md5(post.author || 'sadday')}.jpg?d=identicon`} alt="feature image"/>
                 </figure>
                 <div className="post__author">
                   {post.name}

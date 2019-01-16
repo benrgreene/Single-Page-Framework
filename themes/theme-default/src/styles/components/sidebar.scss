@@ -1,0 +1,26 @@
+.sidebar {
+
+  img:not([src]) {
+    display: none;
+  }
+
+  img {
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .sidebar__meme {
+    margin-bottom: 50px;
+  }
+
+  .sidebar__meme-caption {
+    text-align: center;
+  }
+}
+
+dialog * {
+  display: none;
+}
+dialog[open] * {
+  display: inherit;
+}

@@ -7,6 +7,7 @@ const trimWords = (sentence, numWords=50) => {
   return sentence
 }
 
+// Set the windows title displayed in the tabs/sharing
 const setWindowTitle = (postObject) => {
   document.title = `${siteTitle} - ${postObject.title}`
   let newurl     = siteUrl + '?' + postObject.type + '=' + postObject.slug;

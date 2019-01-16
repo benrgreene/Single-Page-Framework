@@ -1,6 +1,7 @@
 .menu {
   padding-top: 20px;
   display: none;
+  list-style-type: none;
 
   @include media-from($break-menu) {
     padding-top: 0;
@@ -30,6 +31,7 @@
       &:hover .sub-menu,
       & .sub-menu:hover {
         display: block;
+        z-index: 1;
       }
     }
   }
@@ -55,13 +57,15 @@
       top: 100%;
       right: 0;
       left: auto !important;
+      padding-left: 0;
       display: none;
+      background-color: $c-uber-light-grey;
+      box-shadow: 6px 3px 12px 0px #888;
 
       li a {
         display: block;
         padding: 0 10px;
         line-height: 44px;
-        background-color: $c-uber-light-grey;
         color: $c-black;
       }
     }
@@ -74,10 +78,11 @@
 
   .sub-menu__toggle {
     position: absolute; 
-    top: 0;
+    top: -5px;
     left: 10px;
     border: 0;
     padding: 10px 15px;
+    font-size: 30px;
 
     @include media-from($break-menu) {
       display: none;

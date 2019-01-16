@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Sidebar from './Sidebar'
 
 import { fetchFeatureImage } from '../helpers-fetch.js'
-import { md5, setWindowTitle } from '../helpers.js'
+import { md5, setWindowTitle, setMetaContent } from '../helpers.js'
 
 // ------------------------------------
 // ------ REDUX STATE MANAGEMENT ------
@@ -36,7 +36,8 @@ class Single extends React.Component {
       postObject: this.props.postObject,
       image: false,
       loadedGist: false,
-      gravitar: `http://www.gravatar.com/avatar/${md5(this.props.postObject.author)}.jpg?d=identicon`
+      commentsURL: `${baseURL}?post=${this.props.postObject.slug}`,
+      gravitar: `https://www.gravatar.com/avatar/${md5(this.props.postObject.author)}.jpg?d=identicon`
     }
     // callbacks
     this.backToArchive     = this.backToArchive.bind(this)
@@ -53,8 +54,9 @@ class Single extends React.Component {
     let self = this
     fetchFeatureImage(this.state.postObject.ID).then((response) => {
       if (response) {
+        let image = response[0].path + response[0].name
         self.setState({
-          'image': response[0].path + response[0].name
+          'image': image 
         })
       }
     })
@@ -72,16 +74,17 @@ class Single extends React.Component {
     script.type = 'text/javascript';
     script.src  = settings.src + '.json?file=' + settings.file + '&callback=gistCallback';
     document.head.appendChild(script);
-    return `<div id="${settings.file.replace('.js', '')}"></div>`
+    return `<div id="${settings.file.replace('.', '')}"></div>`
   }
 
   // Now that the component is mounted, fetch the feature image
   componentDidMount () {
+    window.scrollTo(0, 0)
     this.setFeature()
     let self = this
     // add our callback for what a gist is loaded
     window['gistCallback'] = (gist) => {
-      let div = document.querySelector(`#${gist.files[0].replace('.js', '')}`)
+      let div = document.querySelector(`#${gist.files[0].replace('.', '')}`)
       div.innerHTML = gist.div
       if (!self.state.loadedGist) {
         self.setState({'loadedGist': true})
@@ -98,11 +101,20 @@ class Single extends React.Component {
   // image are up to date with the new post object
   componentWillReceiveProps (nextProps) {
     if (!this.state) { return }
+    window.scrollTo(0, 0)
     if (this.props.postObject != nextProps.postObject) {
       setWindowTitle(nextProps.postObject)
-      this.setState({'postObject': nextProps.postObject})
+      this.setState({
+        'postObject': nextProps.postObject,
+        'commentsURL': `${baseURL}?post=${nextProps.postObject.slug}`,
+      })
       this.setFeature()
     }
+  }
+
+  // Force Facebook to update the comments URL to load the correct page of comments
+  componentDidUpdate() {
+    FB.XFBML.parse();
   }
 
   render () {
@@ -123,7 +135,7 @@ class Single extends React.Component {
             <figure className="post__author-image">
               <img src={this.state.gravitar} alt="author gravitar" />
               <figcaption className="post__author--name">
-                Written By: {this.state.postObject.author}
+                Written By: {this.state.postObject.name}
               </figcaption>
             </figure>
           </div>
@@ -131,6 +143,9 @@ class Single extends React.Component {
             <div className="post__content"
                dangerouslySetInnerHTML={{ __html: this.processShortcodes(this.state.postObject.content)}}></div>
             <Sidebar/>
+          </div>
+          <div className="comments">
+            <div className="fb-comments" data-href={this.state.commentsURL} data-numposts="5"></div>
           </div>
         </article>
       </div>
