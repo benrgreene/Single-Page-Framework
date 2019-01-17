@@ -13,6 +13,8 @@ include 'loader.php';
 load_plugins();
 // load the currennt directory
 load_directory( '.', false );
+// send action for framework setup
+get_action_parts( 'framework-loaded' );
 
 // run the setup process
 setup_site( get_base_path() );
