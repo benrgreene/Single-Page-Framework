@@ -63,6 +63,12 @@ div.selected-post {
   margin-bottom: 10px;
 }
 
+.form--theme-select {
+  margin-top: 20px;
+  border-top: 1px solid #CCC;
+  padding-top: 20px;
+}
+
 .form--options {
   margin-top: 20px;
 }

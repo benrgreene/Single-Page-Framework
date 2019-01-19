@@ -57,15 +57,20 @@ function get_plugin_url() {
   return "{$base_path}plugins/";
 }
 
+function get_theme_name() {
+  $theme = db_get_first_entry( 'options', array( 'name' => 'selected_theme' ) );
+  return is_array( $theme ) ? $theme['value'] : 'theme-default';
+}
+
 // return the current theme base path
 function get_theme_path() {
-  $theme_name = THEME_NAME;
+  $theme_name = get_theme_name();
   $base_path  = get_base_path();
   return "{$base_path}/themes/{$theme_name}/";
 }
 
 function get_theme_url() {
-  $theme_name = THEME_NAME;
+  $theme_name = get_theme_name();
   return get_site_base_url() . "themes/{$theme_name}";
 }
 

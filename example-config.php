@@ -5,10 +5,10 @@
  * Base site info (should be updated per site)
  * ------------------------------------------------
  */
+// Admin "Theme"
+define( 'ADMIN_THEME', 'admin-default');
 // Base site info
 define( 'SITE_TITLE', 'Site Name');
-// This is the name of the theme directory that should be active
-define( 'THEME_NAME', 'theme-default' );
 // This is the number of posts per page
 define( 'PAGE_SIZE', 10 );
 // Secret key for the API. YOU SHOULD CHANGE THIS!!!!!

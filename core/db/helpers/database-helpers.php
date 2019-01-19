@@ -56,3 +56,14 @@ function add_generic_option( $table, $name, $value ) {
   $results = (new Database_Interface)->insert( $query );
   return $results;
 }
+
+// adds a single option one of the options table (defined by the $table var)
+function update_generic_option( $table, $name, $value ) {
+  $query = DB_Query_Builder::update_query( $table, array(
+    'value' => $value
+  ), array(
+    'name'  => $name,
+  ) );
+  $results = (new Database_Interface)->insert( $query );
+  return $results;
+}

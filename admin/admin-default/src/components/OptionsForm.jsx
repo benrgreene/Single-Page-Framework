@@ -3,6 +3,7 @@ const React = require('react')
 import { getBaseURL } from '../helpers/info'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import ThemeSelect from './ThemeSelect'
 
 import ReactQuill from 'react-quill'; 
 
@@ -251,6 +252,7 @@ class OptionsForm extends React.Component {
             <button className="button button__delete" onClick={this.confirmDelete}>Delete Option</button>
           )}
         </div>
+        <ThemeSelect/>
       </div>
     )
   }
