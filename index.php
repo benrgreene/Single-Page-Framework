@@ -30,6 +30,8 @@ if( isset( $_GET['request'] ) ) {
   get_action_parts( 'load-apis' );
   // proccess the API request
   proccess_api_request( $_GET['request'] );
+  // API endpoint should die before this. If here, include the 404 page
+  include 'templates/404.php';
 } else {
   // Base template includes
   include 'templates/base.php';

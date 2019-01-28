@@ -7,9 +7,7 @@ function proccess_api_request( $request ) {
   
   // check if this is an API request, or something else entirely
   if( 0 === count( $api_request ) || $api_request[0] != 'api' ) {
-    API_Responses::send_response( array(
-      'content' => 'bad request'
-    ), 400 );
+    return false;
   }
   
   // build the callback from the pieces of the request
