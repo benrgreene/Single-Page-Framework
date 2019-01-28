@@ -1,8 +1,19 @@
-// Return the data from a FETCH for all posts of a given type
-export async function getPosts (type='post') {
-  let response = await fetch(`${baseURL}api/get/posts/${type}`)
-  let data     = await response.json()
-  return data
+// This tracks the shortcodes to be used.
+export const registeredShortcodes =[]
+
+// register a shortcode (name, callback) to be auto processed
+export function registerShortcode (name, callback) {
+  registeredShortcodes.push({
+    'name': name, 
+    'callback': callback
+  })
+}
+
+export function processShortcodes (content) {
+  registeredShortcodes.forEach((shortcode) => {
+    content = processShortcode(content, shortcode['name'], shortcode['callback'])
+  })
+  return content
 }
 
 // takes in a string and processes a specific shortcode in that string

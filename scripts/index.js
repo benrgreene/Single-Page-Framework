@@ -6,9 +6,18 @@
  */
 
 import 'babel-polyfill';
-import { getPosts, processShortcode } from './helpers.js'
+import { getPosts } from './fetches.js'
+import { 
+  registeredShortcodes, 
+  registerShortcode, 
+  processShortcodes, 
+  processShortcode 
+} from './helpers.js'
 
-module.exports = {
+module.exports = {  
   getPosts: getPosts,
+  registeredShortcodes: registeredShortcodes,
+  registerShortcode: registerShortcode,
+  processShortcodes: processShortcodes,
   processShortcode: processShortcode
 }
