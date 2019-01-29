@@ -54,10 +54,15 @@ class App extends React.Component {
     .then((data) => {
       self.props.savePostTypes(data.content)
     })
+
+    if (this.props.auth) {
+      let event = new Event('AdminLogin')
+      document.dispatchEvent(event)
+    }
   }
 
   render() {
-    if(this.props.auth) {
+    if (this.props.auth) {
       return (
         <div className="site-wrapper">
           <ul className="selectors">

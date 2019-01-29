@@ -99,8 +99,8 @@ div.selected-post {
 }
 
 .wrapper {
+  margin-bottom: 50px;
   padding: 10px;
-  min-height: 100vh;
   display: flex;
 }
 

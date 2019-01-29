@@ -238,10 +238,10 @@ class OptionsForm extends React.Component {
           ) : (
             <div>
               <label htmlFor="value">Option Value</label>
-              <input type="text" 
-                     name="value" 
-                     onChange={this.setOptionValue} 
-                     value={this.state.selectedOption.value} />
+              <textarea
+                name="value" 
+                onChange={this.setOptionValue} 
+                value={this.state.selectedOption.value} />
             </div>
           )}
           

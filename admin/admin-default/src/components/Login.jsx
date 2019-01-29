@@ -60,6 +60,9 @@ class Login extends React.Component {
         this.props.sendLogin(token, email)
         // Save to the session storage for potential reload
         sessionStorage.setItem('adminToken', saveTokenData);
+        // Fire our JS event so other scripts can hook into users logging in
+        let event = new Event('AdminLogin')
+        document.dispatchEvent(event)
       }
     })    
   }
