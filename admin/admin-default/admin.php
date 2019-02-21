@@ -3,8 +3,16 @@
   <head>
     <title>Site Admin</title>
     <link rel="stylesheet" href="<?php echo get_site_base_url() . ADMIN_THEME; ?>/styles/admin.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Poppins|Roboto" rel="stylesheet">
     <script type="text/javascript">
       const baseURL = "<?php echo str_replace('admin/', '', get_site_base_url()); ?>";
+      document.addEventListener('keydown', (event) => {
+        if ('Escape' == event.key) {
+          const dialog = document.querySelector('#js-dialog')
+          dialog.open  = false
+        }
+      })
     </script>
   </head>
   <body>

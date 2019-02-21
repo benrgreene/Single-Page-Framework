@@ -65,11 +65,16 @@ class App extends React.Component {
     if (this.props.auth) {
       return (
         <div className="site-wrapper">
+          <dialog id="js-dialog">
+            <h2>Notice:</h2>
+            <div id="js-dialog-content"></div>
+          </dialog>
           <ul className="selectors">
             <li onClick={(event) => {this.setState({'displayPane': 'posts'})}}>Post Form</li>
             <li onClick={(event) => {this.setState({'displayPane': 'menu'})}}>Menu Form</li>
             <li onClick={(event) => {this.setState({'displayPane': 'options'})}}>Theme Options</li>
             <li onClick={(event) => {this.setState({'displayPane': 'importer'})}}>Importer</li>
+            <li><a href={baseURL} target="_blank"><i className="fas fa-external-link-alt"></i></a></li>
           </ul>
           {this.state.displayPane === 'posts' &&
             <div className="wrapper">

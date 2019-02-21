@@ -1,6 +1,6 @@
 const React = require('react')
 
-import { getBaseURL } from '../helpers/info'
+import { getBaseURL, displayNotice } from '../helpers/info'
 import { postFetch, tieMediaToPost } from '../helpers/fetches'
 
 import { bindActionCreators } from 'redux';
@@ -124,6 +124,8 @@ class AddPostForm extends React.Component {
       self.metaRef.getWrappedInstance().sendPostMeta(self.props.postObject.ID)
       // upload the post media
       self.postUpload()
+      // display message to admin
+      displayNotice(`Post "${self.props.postObject.title}" saved.`)
     })
   }
 

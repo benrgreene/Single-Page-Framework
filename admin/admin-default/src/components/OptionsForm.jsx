@@ -199,58 +199,59 @@ class OptionsForm extends React.Component {
   // --------------------
   render () {
     return (
-      <div>
-        <select 
-          ref={(input) => this.optionSelectRef = input}
-          onChange={this.setSelectedOption}
-          value={this.state.selectedOption.name} >
-          <option name="new" data-index="0">+ Option</option>
-          {this.state.options.map((option, index) => { return(
-            <option key={option.name} 
-                    data-index={index} 
-                    name={option.name}>{option.name}</option>
-          )})}
-        </select>
-        <div className="form form--options">
-          <div>
-            <label htmlFor="name">Option Name</label>
-            <input name="name" 
-                   type="text"
-                   onChange={this.setOptionName}
-                   value={this.state.selectedOption.name} />
-          </div>
-          <div>
-            <label>Option Input Type</label>
-            <select ref={(input) => this.valueTypeRef = input}
-                    onChange={this.setOptionValueType}
-                    value={this.state.optionType} >
-              <option value="wysiwyg" key="wysiwyg">WYSIWYG Editor</option>
-              <option value="text" key="text">Text Input</option>
-            </select>
-          </div>
-          {'wysiwyg' == this.state.optionType ? (
+      <div className="options-wrapper">
+        <div>
+          <select 
+            ref={(input) => this.optionSelectRef = input}
+            onChange={this.setSelectedOption}
+            value={this.state.selectedOption.name} >
+            <option name="new" data-index="0">+ Option</option>
+            {this.state.options.map((option, index) => { return(
+              <option key={option.name} 
+                      data-index={index} 
+                      name={option.name}>{option.name}</option>
+            )})}
+          </select>
+          <div className="form form--options">
             <div>
-              <label htmlFor="value">Option Value</label>
-              <ReactQuill name="value" 
-                          onChange={this.setWYSIWYGOptionValue} 
-                          value={this.state.selectedOption.value} />
-            </div>  
-          ) : (
-            <div>
-              <label htmlFor="value">Option Value</label>
-              <textarea
-                name="value" 
-                onChange={this.setOptionValue} 
-                value={this.state.selectedOption.value} />
+              <label htmlFor="name">Option Name</label>
+              <input name="name" 
+                     type="text"
+                     onChange={this.setOptionName}
+                     value={this.state.selectedOption.name} />
             </div>
-          )}
-          
-          <button onClick={this.saveOptions}>Save Option</button>
-          {this.state.confirmDelete ? (
-            <button className="button button__delete" onClick={this.deleteOption}>Are you sure?</button>
-          ) : (
-            <button className="button button__delete" onClick={this.confirmDelete}>Delete Option</button>
-          )}
+            <div>
+              <label>Option Input Type</label>
+              <select ref={(input) => this.valueTypeRef = input}
+                      onChange={this.setOptionValueType}
+                      value={this.state.optionType} >
+                <option value="wysiwyg" key="wysiwyg">WYSIWYG Editor</option>
+                <option value="text" key="text">Text Input</option>
+              </select>
+            </div>
+            {'wysiwyg' == this.state.optionType ? (
+              <div>
+                <label htmlFor="value">Option Value</label>
+                <ReactQuill name="value" 
+                            onChange={this.setWYSIWYGOptionValue} 
+                            value={this.state.selectedOption.value} />
+              </div>  
+            ) : (
+              <div>
+                <label htmlFor="value">Option Value</label>
+                <textarea
+                  name="value" 
+                  onChange={this.setOptionValue} 
+                  value={this.state.selectedOption.value} />
+              </div>
+            )}
+            <button onClick={this.saveOptions}>Save Option</button>
+            {this.state.confirmDelete ? (
+              <button className="button button__delete" onClick={this.deleteOption}>Are you sure?</button>
+            ) : (
+              <button className="button button__delete" onClick={this.confirmDelete}>Delete Option</button>
+            )}
+          </div>
         </div>
         <ThemeSelect/>
       </div>
