@@ -1,6 +1,6 @@
 const React = require('react')
 
-import { getBaseURL } from '../helpers/info'
+import { getBaseURL, displayNotice } from '../helpers/info'
 import { postFetch, tieMediaToPost } from '../helpers/fetches'
 
 import { bindActionCreators } from 'redux';
@@ -35,10 +35,11 @@ class Importer extends React.Component {
       'body': formData
     })
     .then((blob) => {
-      return blob.json()  
-    })
-    .then((data) => {
-      console.log(data)
+      if (blob.status) {
+        displayNotice('Database imported')
+      } else {
+        displayNotice('Could not import data')
+      }
     })
   }
 

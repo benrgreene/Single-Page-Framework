@@ -1,6 +1,6 @@
 const React = require('react')
 
-import { getBaseURL } from '../helpers/info'
+import { getBaseURL, displayNotice } from '../helpers/info'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -69,10 +69,11 @@ class ThemeSelect extends React.Component {
       'body': JSON.stringify(body)
     })
     .then((blob) => {
-      return blob.json()
-    })
-    .then((data) => {
-      console.log(data)
+      if (200 == blob.status) {
+        displayNotice(`Theme updated to ${this.state.selectedTheme}`)
+      } else {
+        displayNotice('Theme could not be updated', 'error')
+      }
     })
   }
 

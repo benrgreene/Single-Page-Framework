@@ -1,6 +1,6 @@
 const React = require('react')
 
-import { getBaseURL } from '../helpers/info'
+import { getBaseURL, displayNotice } from '../helpers/info'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -127,10 +127,11 @@ class MenuForm extends React.Component {
       'body': JSON.stringify(body),
     })
     .then((blob) => {
-      return blob.json()
-    })
-    .then((data) => {
-      console.log(blob)
+      if (blob.status) {
+        displayNotice('Menu saved')
+      } else {
+        displayNotice("Menu couldn't be saved")
+      }
     })
   }
 

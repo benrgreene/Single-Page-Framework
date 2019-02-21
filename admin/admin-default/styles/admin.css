@@ -37,18 +37,26 @@ dialog {
   transform: translate(-50%, -50%);
   border: 0;
   padding: 30px 50px;
-  box-shadow: 3px 4px 14px 3px #777;
   z-index: 50;
+}
+dialog::backdrop {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(20, 20, 20, 0.8);
 }
 dialog h2 {
   font-size: 20px;
   margin-bottom: 15px;
 }
 dialog.success {
-  background-color: #D4F6D9;
+  border: 10px solid #016c34;
 }
 dialog.error {
-  background-color: #FEACAF;
+  border: 10px solid #9d0018;
 }
 
 .button__delete {
@@ -171,7 +179,13 @@ div.selected-post {
 .selectors li {
   padding: 10px;
   list-style-type: none;
+  background-color: #333;
   cursor: pointer;
+  transition: background-color .2s;
+}
+
+.selectors li:hover {
+  background-color: #555;
 }
 
 .selectors li:last-of-type {

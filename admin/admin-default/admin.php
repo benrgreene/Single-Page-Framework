@@ -10,7 +10,7 @@
       document.addEventListener('keydown', (event) => {
         if ('Escape' == event.key) {
           const dialog = document.querySelector('#js-dialog')
-          dialog.open  = false
+          dialog.close()
         }
       })
     </script>

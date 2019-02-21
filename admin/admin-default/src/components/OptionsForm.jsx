@@ -1,6 +1,6 @@
 const React = require('react')
 
-import { getBaseURL } from '../helpers/info'
+import { getBaseURL, displayNotice } from '../helpers/info'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ThemeSelect from './ThemeSelect'
@@ -79,18 +79,29 @@ class OptionsForm extends React.Component {
       'body': JSON.stringify(body)
     })
     .then((blob) => {
-      return blob.json()
+      if (200 == blob.status) {
+        return blob.json()
+      } else {
+        return false
+      }
     })
     .then((data) => {
-      // If the post saved was a new post, we'll add it to
-      // the list of posts displayed in the selectable list
-      if (self.state.selectedOption.ID == 0) {
-        let allOptions = self.state.options
-        let newOption  = self.state.selectedOption
-        newOption.ID   = data.ID
-        allOptions.push(newOption)
-        self.setState({ 'options': allOptions })
-        self.setState({ 'selectedOption': newOption })
+      if (data) {
+        // If the post saved was a new post, we'll add it to
+        // the list of posts displayed in the selectable list
+        if (self.state.selectedOption.ID == 0) {
+          let allOptions = self.state.options
+          let newOption  = self.state.selectedOption
+          newOption.ID   = data.ID
+          allOptions.push(newOption)
+          self.setState({ 'options': allOptions })
+          self.setState({ 'selectedOption': newOption.name })
+          displayNotice(`Option "${newOption}" successfully saved`)
+        } else {
+          displayNotice(`Option "${self.state.selectedOption.name}" updated`)
+        }
+      } else {
+        displayNotice(`Option "${self.state.selectedOption.name}" couldn't be saved`, 'error')
       }
     })
   }
@@ -176,8 +187,9 @@ class OptionsForm extends React.Component {
     .then((data) => {
       // Remove from the displayed array of options
       if (data) {
-        let oldSelection   = this.state.selectedOption.name
-        let newOptions     = this.state.options
+        let oldSelection = this.state.selectedOption.name
+        let newOptions   = this.state.options
+        let messages     = []
         newOptions = newOptions.filter((option) => {
           return option.name != oldSelection
         })
@@ -190,6 +202,9 @@ class OptionsForm extends React.Component {
           },
           'confirmDelete': false
         })
+        displayNotice(`Option "${oldSelection}" deleted`)
+      } else {
+        displayNotice(`Option "${oldSelection}" could not be deleted`, 'error')
       }
     })
   }
