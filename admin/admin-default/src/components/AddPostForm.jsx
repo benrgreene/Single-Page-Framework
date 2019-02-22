@@ -45,12 +45,10 @@ class AddPostForm extends React.Component {
     this.fileRef
     // callbacks
     this.postPost      = this.postPost.bind(this)
-    this.toggleIsNew   = this.toggleIsNew.bind(this)
     this.deletePost    = this.deletePost.bind(this)
     this.confirmDelete = this.confirmDelete.bind(this)
     // set initial states
     this.state = { 
-      isNew: false,
       type: this.props.postObject.type || '',
       title: this.props.postObject.title || '',
       excerpt: this.props.postObject.excerpt || '',
@@ -61,12 +59,6 @@ class AddPostForm extends React.Component {
     }
   }
   
-  toggleIsNew () {
-    this.setState({
-      isNew: !this.state.isNew
-    })
-  }
-
   // There's been an update in the redux state, 
   // update component state
   componentWillUpdate (nextProps, nextState) {
@@ -195,33 +187,17 @@ class AddPostForm extends React.Component {
                    value={this.state.title || ''} />
           </div>
           <div>
-            <label htmlFor="should-be-new">Create New Post Type?</label>
-            <input  name="should-be-new" 
-                    type="checkbox" 
-                    onChange={this.toggleIsNew}/>
+            <span className="label">Select Post Type</span>
+            <select name="post-type"
+                    value={this.state.type} 
+                    onChange={(event) => {this.setState({'type': event.target.value})}}>
+              {this.props.postTypes.map((postType) => { return (
+                <option key={postType} data-type={postType}>
+                  {postType}
+                </option>
+              )})}
+            </select>
           </div>
-          {this.state.isNew ? (
-            <div>
-              <label htmlFor="new-name">New Post Type</label>
-              <input  name="new-name" 
-                      type="text" 
-                      onChange={(event) => {this.setState({'type': event.target.value})}} 
-                      value={this.state.type} />
-            </div>
-          ) : (
-            <div>
-              <span className="label">Select Post Type</span>
-              <select name="post-type"
-                      value={this.state.type} 
-                      onChange={(event) => {this.setState({'type': event.target.value})}}>
-                {this.props.postTypes.map((postType) => { return (
-                  <option key={postType} data-type={postType}>
-                    {postType}
-                  </option>
-                )})}
-              </select>
-            </div>
-          )}
           <div>
             <label htmlFor="name">Content Type</label>
             <select name="post-content-type"

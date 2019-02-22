@@ -35,12 +35,16 @@ const mapStateToProps = state => ({
 class App extends React.Component {
   constructor (props) {
     super(props)
-    this.state = { 
-      displayPane: 'posts'
+    this.state = {
+      displayPane: 'posts',
+      extraPanes: []
     }
   }
 
   componentDidMount() {
+    this.setState({
+      extraPanes: getCallbacks('adminPane')
+    })
     let self    = this
     let baseUrl = baseURL
     fetch(baseUrl + "api/get/postTypes", {
@@ -61,6 +65,13 @@ class App extends React.Component {
     }
   }
 
+  componentDidUpdate () {
+    if (!isNaN(parseFloat(this.state.displayPane))) {
+      let id = `extra-panel-${this.state.displayPane}`
+      this.state.extraPanes[this.state.displayPane].callback(id)
+    }
+  }
+
   render() {
     if (this.props.auth) {
       return (
@@ -74,6 +85,9 @@ class App extends React.Component {
             <li onClick={(event) => {this.setState({'displayPane': 'menu'})}}>Menu Form</li>
             <li onClick={(event) => {this.setState({'displayPane': 'options'})}}>Theme Options</li>
             <li onClick={(event) => {this.setState({'displayPane': 'importer'})}}>Importer</li>
+            {this.state.extraPanes.map((pane, index) => { return (
+              <li key={index} onClick={(event) => {this.setState({'displayPane': index})}}>{pane.options.panelTitle}</li>
+            )})}
             <li><a href={baseURL} target="_blank"><i className="fas fa-external-link-alt"></i></a></li>
           </ul>
           {this.state.displayPane === 'posts' &&
@@ -96,6 +110,9 @@ class App extends React.Component {
             <div className="wrapper">
               <Importer/>
             </div>
+          }
+          {!isNaN(parseFloat(this.state.displayPane)) &&
+            <div id={`extra-panel-${this.state.displayPane}`}></div>
           }
         </div>
       )
