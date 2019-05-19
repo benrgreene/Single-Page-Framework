@@ -20,7 +20,7 @@ class Database_Interface {
     
     // want to return the results purely as an array
     $to_return = array();
-    while( $row = $results->fetch_array() ) {
+    while( $row = $results->fetch_array(MYSQLI_ASSOC) ) {
       $to_return[] = $row;
     }
     $this->close( $con );
