@@ -24,6 +24,17 @@ function ends_with( $haystack, $needle ) {
 
 // Base URL for the site
 function get_site_base_url() {
+  $path = db_get_latest_entry( 'options', array(
+    'name' => 'site_url'
+  ));
+  if( !$path ) {
+    $path = set_site_base_url();
+  }
+  return $path['value'];
+}
+
+function set_site_base_url() {
+  $dir_end     = substr(__DIR__, strrpos(__DIR__, '/'));
   $port        = $_SERVER['SERVER_PORT'];
   $prefix      = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http';
   // Want to cut out any parameters (anything after the ?)
@@ -35,12 +46,15 @@ function get_site_base_url() {
   if( -1 < $api_pos ) {
     $request = substr( $request, 0, $api_pos );
   }
-  return sprintf( '%s://%s%s%s',
+  $path = sprintf( '%s://%s%s%s',
     $prefix,
     $_SERVER['SERVER_NAME'],
     (443 !== $port && 80 !== $port) ? ':' . $port : '',
     $request
   );
+  // save to database
+  add_option( 'site_url', $path );
+  return $path;
 }
 
 // load the theme for setting up custom actions/scripts/css

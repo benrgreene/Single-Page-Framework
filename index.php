@@ -23,7 +23,7 @@ $base_path = get_base_path();
 load_theme( $base_path );
 
 // Check if this is an API request, or a user hitting the page
-if( isset( $_GET['request'] ) ) {
+if( isset( $_GET['request'] ) && 0 === strpos($_GET['request'], 'api/') ) {
   // Load the API files/endpoints
   load_directory( './api', true);
   // Load third party APIs
@@ -32,6 +32,8 @@ if( isset( $_GET['request'] ) ) {
   proccess_api_request( $_GET['request'] );
   // API endpoint should die before this. If here, include the 404 page
   include 'templates/404.php';
+} else if ( isset( $_GET['request'] ) && 0 === strpos($_GET['request'], 'admin/') ) {
+  include 'admin/index.php';
 } else {
   // Base template includes
   include 'templates/base.php';

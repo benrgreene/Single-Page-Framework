@@ -9,9 +9,11 @@ RewriteBase base_url
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !\.(css|js|png|jpg|jpeg)$
 RewriteRule (.*) base_urlindex.php?request=$1 [L]
 </IfModule>
-Options All -Indexes";
+Options All -Indexes
+";
 
   public function __construct( $base_dir ) {
     $this->base_url      = $_SERVER['REQUEST_URI'];

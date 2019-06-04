@@ -55,8 +55,21 @@ class AddPostForm extends React.Component {
       content: this.props.postObject.content || '',
       confirmDelete: false,
       newImage: true,
-      contentType: 'WYSIWYG'
+      contentType: 'WYSIWYG',
+      extraPanels: []
     }
+  }
+
+  componentDidMount () {
+    this.setState({
+      extraPanels: getCallbacks('editPostPanels')
+    })
+  }
+
+  componentDidUpdate () {
+    this.state.extraPanels.forEach((panel, index) => {
+      panel.callback(`post-extra-panel-${index}`, this.props.postObject.ID)
+    })
   }
   
   // There's been an update in the redux state, 
@@ -116,6 +129,10 @@ class AddPostForm extends React.Component {
       self.metaRef.getWrappedInstance().sendPostMeta(self.props.postObject.ID)
       // upload the post media
       self.postUpload()
+      // save extra panel content
+      self.state.extraPanels.forEach((panel, index) => {
+        panel.options.saveCallback(self.props.postObject.ID)
+      })
       // display message to admin
       displayNotice(`Post "${self.props.postObject.title}" saved.`)
     })
@@ -234,6 +251,11 @@ class AddPostForm extends React.Component {
             </div>
           ) }
           <PostMetaForm ref={comp => this.metaRef = comp} />
+          <div className="extra-post-panels">
+            {this.state.extraPanels.map((panel, index) => { return (
+              <div key={"ep-" + index} id={"post-extra-panel-" + index}></div>
+            )})}
+          </div>
           <div className="post-images">
             {this.state.newImage ? (
               <div className="new-image">
