@@ -62,7 +62,7 @@ class AddPostForm extends React.Component {
 
   componentDidMount () {
     this.setState({
-      extraPanels: getCallbacks('editPostPanels')
+      extraPanels: getCallbacks('editPostPanels') || []
     })
   }
 
@@ -252,7 +252,7 @@ class AddPostForm extends React.Component {
           ) }
           <PostMetaForm ref={comp => this.metaRef = comp} />
           <div className="extra-post-panels">
-            {this.state.extraPanels.map((panel, index) => { return (
+            {this.state.extraPanels && this.state.extraPanels.map((panel, index) => { return (
               <div key={"ep-" + index} id={"post-extra-panel-" + index}></div>
             )})}
           </div>
